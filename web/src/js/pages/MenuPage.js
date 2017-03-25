@@ -32,7 +32,12 @@ export default class MenuPage extends React.Component{
                                   <h3 class="panel-title">Panel title</h3>
                                 </div>
                                 <div class="panel-body">
-                                  Panel content
+                                  <div>
+                                    <img class="img-responsive" src="http://placehold.it/320x180"/>
+                                  </div>
+
+                                  <div>Panel content</div>
+                                  
                                 </div>
                               </div>
                             </div>
@@ -43,7 +48,11 @@ export default class MenuPage extends React.Component{
                                   <h3 class="panel-title">Panel title</h3>
                                 </div>
                                 <div class="panel-body">
-                                  Panel content
+                                  <div>
+                                    <img class="img-responsive" src="http://placehold.it/320x180"/>
+                                  </div>
+
+                                  <div>Panel content</div>
                                 </div>
                               </div>
                             </div>
@@ -54,7 +63,11 @@ export default class MenuPage extends React.Component{
                                   <h3 class="panel-title">Panel title</h3>
                                 </div>
                                 <div class="panel-body">
-                                  Panel content
+                                  <div>
+                                    <img class="img-responsive" src="http://placehold.it/320x180"/>
+                                  </div>
+
+                                  <div>Panel content</div>
                                 </div>
                               </div>
                             </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux"
 import { Link } from 'react-router'
-
+import Slider from '../components/Slider'
 
 export default class MainPage extends React.Component{
 
@@ -19,10 +19,7 @@ export default class MainPage extends React.Component{
                         <div class="main-image"></div>
                     </div>
                     <div class="row categories">
-                        <div class="col-sm-3">Item 1</div>
-                        <div class="col-sm-3">Item 2</div>
-                        <div class="col-sm-3">Item 3</div>
-                        <div class="col-sm-3">Item 4</div>
+                        <Slider/>
                     </div>
                     <div class="row sales">
                         <div class="col-sm-4">Item 1</div>

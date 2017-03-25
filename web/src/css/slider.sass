@@ -1,0 +1,46 @@
+$slide-margin: 50px
+$slide-width: 320px
+$slide-image-height: 180px
+$slide-content-height: 60px
+$slide-count: 3
+
+.slider4
+	position: relative
+	background-color: black
+	overflow: hidden
+	
+	.slider-padded
+		position: relative
+		overflow: hidden
+		width: $slide-width * $slide-count + $slide-margin * ($slide-count - 1)
+		background-color: green
+		margin: auto
+
+	.slide
+		display: inline-block
+		background-color: white
+		margin-right: $slide-margin
+		width: $slide-width
+		height: $slide-image-height + $slide-content-height
+
+	.prev-btn
+		background-color: red
+		display: inline-block
+		position: absolute
+		top: 45%
+		left: 25px
+
+	.next-btn
+		background-color: red
+		display: inline-block
+		position: absolute
+		top: 45%
+		right: 25px
+		
+
+	.slider-wrapper
+		position: relative
+		overflow: hidden
+		height: $slide-image-height + $slide-content-height
+		width: 9 * ($slide-width + $slide-margin)
+
