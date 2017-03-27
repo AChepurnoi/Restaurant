@@ -1,8 +1,18 @@
-$slide-margin: 50px
+@import "../assets/stylesheets/bootstrap/_variables"
+$slide-count-md: 3
+$slide-margin-md: 50px
+
+$slide-margin-sm: 50px
+$slide-count-sm: 2
+
+$slide-margin-xs: 50px
+$slide-count-xs: 1
+
+$slide-count-lg: 3
+$slide-margin-lg: 50px
+
 $slide-width: 320px
-$slide-image-height: 180px
-$slide-content-height: 60px
-$slide-count: 3
+$slide-image-height: 240px
 
 .slider4
 	position: relative
@@ -12,16 +22,53 @@ $slide-count: 3
 	.slider-padded
 		position: relative
 		overflow: hidden
-		width: $slide-width * $slide-count + $slide-margin * ($slide-count - 1)
+		@media (max-width: $screen-md-max)
+			width: $slide-width * $slide-count-md + $slide-margin-md * ($slide-count-md - 1)
+
+		@media (max-width: $screen-sm-max)
+			width: $slide-width * $slide-count-sm + $slide-margin-sm * ($slide-count-sm - 1)
+
+		@media (max-width: $screen-xs-max)
+			width: $slide-width * $slide-count-xs + $slide-margin-xs * ($slide-count-xs - 1)
+
+		@media (min-width: $screen-lg)
+			width: $slide-width * $slide-count-lg + $slide-margin-lg * ($slide-count-lg - 1)
+
 		background-color: green
 		margin: auto
 
 	.slide
+		position: relative
 		display: inline-block
 		background-color: white
-		margin-right: $slide-margin
+		@media (max-width: $screen-md-max)
+			margin-right: $slide-margin-md
+
+		@media (max-width: $screen-sm-max)
+			margin-right: $slide-margin-sm
+
+		@media (max-width: $screen-xs-max)
+			margin-right: $slide-margin-xs
+
+		@media (min-width: $screen-lg)
+			margin-right: $slide-margin-lg
+
 		width: $slide-width
-		height: $slide-image-height + $slide-content-height
+		height: $slide-image-height
+
+		.slide-image
+			position: absolute
+			height: $slide-image-height
+			width: $slide-width
+			overflow: hidden
+
+		.slide-content
+			position: absolute
+			bottom: 25px
+			left: 50%
+			transform: translate(-50%, 0);
+
+
 
 	.prev-btn
 		background-color: red
@@ -41,6 +88,18 @@ $slide-count: 3
 	.slider-wrapper
 		position: relative
 		overflow: hidden
-		height: $slide-image-height + $slide-content-height
-		width: 9 * ($slide-width + $slide-margin)
+		height: $slide-image-height
+		transition: transform 1s
+		
+		@media (max-width: $screen-md-max)
+			width: 9 * ($slide-width + $slide-margin-md)
+
+		@media (max-width: $screen-sm-max)
+			width: 9 * ($slide-width + $slide-margin-sm)
+
+		@media (max-width: $screen-xs-max)
+			width: 9 * ($slide-width + $slide-margin-xs)
+
+		@media (min-width: $screen-lg)
+			width: 9 * ($slide-width + $slide-margin-lg)
 

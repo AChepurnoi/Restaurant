@@ -1,9 +1,12 @@
 import React from 'react'
 import { connect } from "react-redux"
-
+import CategoryListComponent from "../components/menu/CategoryListComponent"
 
 
 export default class MenuPage extends React.Component{
+
+
+  
 
 	render(){
 		return <div class="content">
@@ -11,17 +14,7 @@ export default class MenuPage extends React.Component{
                 <div class="container-fluid">
                    <div class="row">
                         <div class="col-md-3">
-                            <ul class="list-group">
-                              <li class="list-group-item">Item 1</li>
-                              <li class="list-group-item">Item 2</li>
-                              <li class="list-group-item">Item 3</li>
-                              <li class="list-group-item">Item 4</li>
-                              <li class="list-group-item">Item 5</li>
-                              <li class="list-group-item">Item 6</li>
-                              <li class="list-group-item">Item 7</li>
-                              <li class="list-group-item">Item 8</li>
-                              <li class="list-group-item">Item 9</li>
-                            </ul>
+                            <CategoryListComponent/>
                         </div>
 
                         <div class="col-md-9">
