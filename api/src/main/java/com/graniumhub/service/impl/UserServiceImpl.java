@@ -39,5 +39,9 @@ public class UserServiceImpl implements UserService {
         return user.orElseThrow(() -> new UsernameNotFoundException("No user"));
     }
 
-
+    @Override
+    public Optional<UserResponse> loadByUsername(String username) {
+        Optional<User> user = repository.findByLogin(username);
+        return user.map(wrapper::toResponse);
+    }
 }
