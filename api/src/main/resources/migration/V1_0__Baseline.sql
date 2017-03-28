@@ -30,4 +30,4 @@ CREATE TABLE IF NOT EXISTS oauth_client_details (
 );
 
 INSERT INTO public.oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove)
-VALUES ('client_id', 'api-2', 'client_secret', 'read,write', 'password,refresh_token', null, 'CLIENT', null, null, null, null);
+VALUES ('react_app', 'api', 'kpi_luchiy_vuz', 'read,write', 'password,refresh_token', null, 'CLIENT', null, null, null, null);

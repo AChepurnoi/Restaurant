@@ -23,10 +23,10 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import javax.sql.DataSource;
 
 /**
- * Created by Sasha.Chepurnoi on 25.11.16.
+ * Created by Sasha on 3/28/17.
  */
 @Configuration
-public class OAuth2Configuration {
+public class OAuth2ServerConfig {
 
     @Configuration
     @EnableResourceServer

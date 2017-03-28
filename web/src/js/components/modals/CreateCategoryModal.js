@@ -10,23 +10,11 @@ export default class CreateCategoryModal extends React.Component{
     }
 
     componentDidMount() {
-    	let image = document.getElementById('imageholder');
-    	this.cropper = new Cropper(image, {
-    		 aspectRatio: 16 / 9
-    	});
+    
     }
 
     crop(){
-    	let self = this;
-    	this.cropper.getCroppedCanvas().toBlob(function (blob) {
-                self.blob = blob;
-                let url = URL.createObjectURL(self.blob);
-
-                let img = $('<img id="dynamic">');
-				img.attr('src', url);
-				img.appendTo('#modal-form');
-
-            });
+    	
     }
     
 	render(){
@@ -42,8 +30,7 @@ export default class CreateCategoryModal extends React.Component{
 							<div class="input-group">
 							  <input type="text" class="form-control" placeholder="Category name" aria-describedby="basic-addon1"/>
 							</div>
-							<img id="imageholder" src="http://placehold.it/320x180"/>
-							<div class="btn" onClick={this.crop.bind(this)}>Crop</div>
+							
 				        </form>
 
 				      </div>

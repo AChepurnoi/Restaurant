@@ -3,9 +3,8 @@ import { connect } from "react-redux"
 import { Link } from 'react-router'
 import Slider from '../components/Slider/Slider'
 import CreateCategoryModal from '../components/modals/CreateCategoryModal'
+
 export default class MainPage extends React.Component{
-
-
 
     showModal(){
         $("#mymodal").modal('toggle');
