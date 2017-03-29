@@ -1,17 +1,20 @@
 package com.graniumhub.service.impl;
 
+import com.graniumhub.data.domain.Category;
 import com.graniumhub.data.domain.Dish;
 import com.graniumhub.data.dto.dish.DishInput;
 import com.graniumhub.data.dto.dish.DishResponse;
+import com.graniumhub.data.exception.NotFound;
+import com.graniumhub.data.repository.CategoryRepository;
 import com.graniumhub.data.repository.DishRepository;
 import com.graniumhub.service.DishService;
-import com.graniumhub.service.dto.AbstractDTOWrapper;
+import com.graniumhub.service.wrapper.AbstractDTOWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by Sasha on 3/28/17.
@@ -19,11 +22,13 @@ import java.util.Optional;
 @Component
 public class DishServiceImpl implements DishService {
 
+    private final CategoryRepository categoryRepository;
     private final DishRepository dishRepository;
     private final AbstractDTOWrapper<DishInput, Dish, DishResponse> wrapper;
 
     @Autowired
-    public DishServiceImpl(DishRepository dishRepository, AbstractDTOWrapper<DishInput, Dish, DishResponse> wrapper) {
+    public DishServiceImpl(CategoryRepository categoryRepository, DishRepository dishRepository, AbstractDTOWrapper<DishInput, Dish, DishResponse> wrapper) {
+        this.categoryRepository = categoryRepository;
         this.dishRepository = dishRepository;
         this.wrapper = wrapper;
     }
@@ -36,8 +41,23 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public void delete(int i) {
+    public boolean delete(int i) {
         dishRepository.delete(i);
+        return true;
+    }
+
+    @Override
+    public List<DishResponse> findByCategoryId(int id) {
+        Category cat = categoryRepository.findOne(id)
+                .orElseThrow(NotFound::new);
+        List<Dish> dishes = dishRepository.findByCategory(cat);
+
+        return dishes
+                .stream()
+                .map(wrapper::toResponse)
+                .collect(Collectors.toList());
+
+
     }
 
     @Override

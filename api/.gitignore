@@ -2,6 +2,8 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
+#Sensitive variables
+src/main/resources/config/application.properties
 ### STS ###
 .apt_generated
 .classpath

@@ -5,7 +5,7 @@ import com.graniumhub.data.dto.user.UserInput;
 import com.graniumhub.data.dto.user.UserResponse;
 import com.graniumhub.data.repository.UserRepository;
 import com.graniumhub.service.UserService;
-import com.graniumhub.service.dto.AbstractDTOWrapper;
+import com.graniumhub.service.wrapper.AbstractDTOWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

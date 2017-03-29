@@ -1,4 +1,4 @@
-package com.graniumhub.service.dto;
+package com.graniumhub.service.wrapper;
 
 /**
  * Created by Sasha on 3/28/17.

@@ -14,7 +14,7 @@ public interface CategoryService {
 
     List<CategoryResponse> findAll();
 
-    void deleteById(int id);
+    boolean deleteById(int id);
 
     Optional<CategoryResponse> findById(int id);
 }

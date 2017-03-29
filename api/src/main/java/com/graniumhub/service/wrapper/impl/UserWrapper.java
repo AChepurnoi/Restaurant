@@ -1,9 +1,9 @@
-package com.graniumhub.service.dto.impl;
+package com.graniumhub.service.wrapper.impl;
 
 import com.graniumhub.data.domain.User;
 import com.graniumhub.data.dto.user.UserInput;
 import com.graniumhub.data.dto.user.UserResponse;
-import com.graniumhub.service.dto.AbstractDTOWrapper;
+import com.graniumhub.service.wrapper.AbstractDTOWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;

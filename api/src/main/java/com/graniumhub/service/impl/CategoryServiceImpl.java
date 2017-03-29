@@ -5,11 +5,9 @@ import com.graniumhub.data.dto.category.CategoryInput;
 import com.graniumhub.data.dto.category.CategoryResponse;
 import com.graniumhub.data.repository.CategoryRepository;
 import com.graniumhub.service.CategoryService;
-import com.graniumhub.service.dto.AbstractDTOWrapper;
+import com.graniumhub.service.wrapper.AbstractDTOWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,8 +45,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteById(int id) {
+    public boolean deleteById(int id) {
         repository.delete(id);
+        return true;
     }
 
     @Override

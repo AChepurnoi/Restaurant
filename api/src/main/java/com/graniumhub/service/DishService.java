@@ -3,6 +3,7 @@ package com.graniumhub.service;
 import com.graniumhub.data.dto.dish.DishInput;
 import com.graniumhub.data.dto.dish.DishResponse;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -11,7 +12,9 @@ import java.util.Optional;
 public interface DishService {
     DishResponse create(DishInput input);
 
-    void delete(int i);
+    boolean delete(int i);
 
     Optional<DishResponse> findById(int i);
+
+    List<DishResponse> findByCategoryId(int id);
 }

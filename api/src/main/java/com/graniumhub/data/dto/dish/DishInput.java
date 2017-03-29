@@ -3,6 +3,7 @@ package com.graniumhub.data.dto.dish;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by Sasha on 3/28/17.
@@ -14,7 +15,7 @@ public class DishInput {
 
     private String title;
     private String description;
-    private String image;
+    private MultipartFile image;
     private int categoryId;
 
 }

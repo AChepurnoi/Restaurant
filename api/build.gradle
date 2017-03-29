@@ -19,6 +19,7 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 
@@ -31,7 +32,17 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-devtools')
     compile("com.h2database:h2")
     compileOnly('org.projectlombok:lombok')
+    compile 'com.amazonaws:aws-java-sdk-s3'
+    compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
     testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.RELEASE"
+        mavenBom 'com.amazonaws:aws-java-sdk-bom:1.10.47'
+
+    }
 }
 
 

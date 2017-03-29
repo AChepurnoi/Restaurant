@@ -3,6 +3,7 @@ package com.graniumhub.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.graniumhub.config.OAuth2ServerConfig;
 import com.graniumhub.config.SecurityConfig;
+import com.graniumhub.data.domain.User;
 import com.graniumhub.data.dto.user.UserInput;
 import com.graniumhub.data.dto.user.UserResponse;
 import com.graniumhub.service.UserService;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.autoconfigure.web.servlet.*;
 import org.springframework.boot.test.mock.mockito.*;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import javax.sql.DataSource;
 
@@ -30,21 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by Sasha on 3/28/17.
  */
-@RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
-@Import(value = {OAuth2ServerConfig.class, SecurityConfig.class})
-public class UserControllerTest {
-
-    @Autowired
-    private MockMvc mvc;
-
-    private ObjectMapper mapper = new Jackson2ObjectMapperBuilder().build();
-
-    @MockBean
-    private DataSource dataSource;
-    @MockBean
-    private UserService userService;
-
+public class UserControllerTest extends AbstractWebTest {
 
     @Test
     public void registerUser() throws Exception {
@@ -53,10 +42,15 @@ public class UserControllerTest {
         given(this.userService.register(input))
                 .willReturn(new UserResponse(5,"login", "email",false));
 
-        this.mvc.perform(post("/users")
+        MvcResult result = this.mvc
+                .perform(post("/users")
                 .content(json)
                 .header("Content-type",MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andReturn();
+
+        UserResponse response = parse(result, UserResponse.class);
+        assert (response.getId() == 5);
     }
 
     @Test
@@ -65,9 +59,14 @@ public class UserControllerTest {
 
         given(this.userService.loadByUsername(username))
                 .willReturn(Optional.of(new UserResponse(5,"Ivan", "email",false)));
-        this.mvc.perform(get("/users/" + username)
+        MvcResult result = this.mvc
+                .perform(get("/users/" + username)
                 .header("Content-type",MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andReturn();
+
+        UserResponse response = parse(result, UserResponse.class);
+        assert (response.getId() == 5);
     }
 
     @Test

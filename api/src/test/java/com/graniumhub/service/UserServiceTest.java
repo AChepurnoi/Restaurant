@@ -3,6 +3,7 @@ package com.graniumhub.service;
 import com.graniumhub.data.domain.User;
 import com.graniumhub.data.dto.user.UserInput;
 import com.graniumhub.data.dto.user.UserResponse;
+import com.graniumhub.data.exception.NotFound;
 import com.graniumhub.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,4 +58,12 @@ public class UserServiceTest {
         User user = userService.loadUserByUsername("Ivan");
     }
 
+    @Test
+    public void findUserByName() throws Exception {
+        registerUser();
+        UserResponse user = userService.loadByUsername("Ivan").orElseThrow(NotFound::new);
+        assert (user != null);
+        assert (user.getLogin().equals("Ivan"));
+
+    }
 }

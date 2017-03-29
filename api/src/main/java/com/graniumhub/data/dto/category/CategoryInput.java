@@ -3,6 +3,7 @@ package com.graniumhub.data.dto.category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by Sasha on 3/28/17.
@@ -13,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class CategoryInput {
 
     private String title;
-    private String image;
+    private MultipartFile image;
 }
