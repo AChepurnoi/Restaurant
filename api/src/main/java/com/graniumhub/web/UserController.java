@@ -1,6 +1,7 @@
 package com.graniumhub.web;
 
 import com.graniumhub.data.domain.User;
+import com.graniumhub.data.dto.category.CategoryResponse;
 import com.graniumhub.data.dto.user.UserInput;
 import com.graniumhub.data.dto.user.UserResponse;
 import com.graniumhub.service.UserService;
@@ -12,17 +13,25 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+import static org.springframework.security.config.Elements.CORS;
+
 /**
  * Created by Sasha on 3/28/17.
  */
 @RestController
-public class UserController {
+@CrossOrigin
+public class UserController{
 
     private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping(value = "/echo")
+    public ResponseEntity<CategoryResponse> echoTest(){
+        return ResponseEntity.ok(new CategoryResponse(1,"Test","url"));
     }
 
     @PostMapping(value = "/users")

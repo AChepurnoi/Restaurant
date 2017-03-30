@@ -13,11 +13,9 @@ import java.util.List;
 /**
  * Created by Sasha on 3/28/17.
  */
-
 @RestController
+@CrossOrigin
 public class CategoryController {
-
-
 
     private final CategoryService categoryService;
 

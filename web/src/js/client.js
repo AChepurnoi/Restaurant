@@ -19,8 +19,9 @@ ReactDOM.render(
 <Provider store={store}>
 	<Router history={browserHistory}>
 		<Route path="/"component={App}>
-			<IndexRoute component={MainPage} />
-			 <Route path="menu" component={MenuPage} />
+			<IndexRoute component={MenuPage} />
 		</Route>
 	</Router>
 </Provider>, application);
+
+ // <Route path="menu" component={MainPage} />

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from "react-redux"
 import { Link } from 'react-router'
 import Cropper from '../../../assets/javascripts/Cropper'
+import axios from 'axios'
 
 export default class CreateCategoryModal extends React.Component{
 
@@ -10,11 +11,45 @@ export default class CreateCategoryModal extends React.Component{
     }
 
     componentDidMount() {
-    
+    	let self = this;
+    	$('#image-holder').change(function(event){
+    		let file = event.target.files[0];
+    		if(file == undefined) return;
+    		let reader = new FileReader();	
+    		reader.onload = () => self.loadImage(reader.result);
+    		reader.readAsDataURL(file);
+    	});
     }
 
-    crop(){
-    	
+
+    recreateImagePreview(){
+    	$('#image-preview').remove();
+    	$('.cropper-container').remove();
+    	let img = $('<img />', { 
+		  id: 'image-preview',
+		  src: 'http://placehold.it/640x480',
+		  width: 640,
+		  height: 480,
+		  class:"img-responsive"
+		});
+		img.appendTo($('#image-input-block'));
+    }
+
+
+    loadImage(image){
+    	this.recreateImagePreview();
+    	let img = $('#image-preview')[0];
+    	img.src = image;
+    	let cropper = new Cropper(img, {
+		  aspectRatio: 16 / 9
+		});
+
+    }
+
+
+
+    addImage(){
+    	$('#image-holder').click();
     }
     
 	render(){
@@ -30,7 +65,12 @@ export default class CreateCategoryModal extends React.Component{
 							<div class="input-group">
 							  <input type="text" class="form-control" placeholder="Category name" aria-describedby="basic-addon1"/>
 							</div>
-							
+							<div id="image-input-block" class="input-group">
+								<div class="btn" onClick={this.addImage.bind(this)}>Select image </div>
+								<input id="image-holder" type="file" class="hide"/>
+								<img id="image-preview" class="img-responsive" height="480" width="640" src="http://placehold.it/640x480"/>
+							</div>
+
 				        </form>
 
 				      </div>

@@ -55,7 +55,7 @@ public class AmazonS3ServiceImpl implements AmazonS3Service{
         String format = getFormat(filename);
         String objectName = String.format("%s/%s.%s", PHOTO_FOLDER, UUID.randomUUID(), format);
         amazonClient.putObject(BUCKET_NAME, objectName, image, new ObjectMetadata());
-        return objectName;
+        return AMAZON_S3_URL + BUCKET_NAME + "/" + objectName;
     }
 
     @Override
