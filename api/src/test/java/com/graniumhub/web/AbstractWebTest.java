@@ -3,7 +3,6 @@ package com.graniumhub.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.graniumhub.config.OAuth2ServerConfig;
 import com.graniumhub.config.SecurityConfig;
-import com.graniumhub.service.DishService;
 import com.graniumhub.service.UserService;
 import lombok.SneakyThrows;
 import org.junit.runner.RunWith;

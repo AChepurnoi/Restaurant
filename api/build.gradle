@@ -31,7 +31,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     runtime('org.springframework.boot:spring-boot-devtools')
     compile("com.h2database:h2")
-    compileOnly('org.projectlombok:lombok')
+    compile('org.projectlombok:lombok')
     compile 'com.amazonaws:aws-java-sdk-s3'
     compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
     testCompile('org.springframework.boot:spring-boot-starter-test')
