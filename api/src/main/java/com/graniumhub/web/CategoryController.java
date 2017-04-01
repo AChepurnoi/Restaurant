@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class CategoryController {
     }
 
     @PostMapping("/categories")
-    public ResponseEntity<CategoryResponse> create(CategoryInput input){
+    public ResponseEntity<CategoryResponse> create(@Valid CategoryInput input){
         CategoryResponse response = categoryService.create(input);
         return ResponseEntity.ok(response);
     }

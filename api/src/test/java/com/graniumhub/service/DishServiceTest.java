@@ -23,6 +23,7 @@ import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Sasha on 3/28/17.
@@ -43,6 +44,7 @@ public class DishServiceTest {
     public void setUp() throws Exception {
         given(amazon.saveImage(any(String.class), any(InputStream.class)))
                 .willReturn("fileobject.png");
+
     }
 
     @Test

@@ -12,7 +12,7 @@ export default class CreateCategoryModal extends React.Component{
 
     componentDidMount() {
     	let self = this;
-    	$('#image-holder').change(function(event){
+    	$('#image-holder').change(event => {
     		let file = event.target.files[0];
     		if(file == undefined) return;
     		let reader = new FileReader();	
@@ -40,18 +40,29 @@ export default class CreateCategoryModal extends React.Component{
     	this.recreateImagePreview();
     	let img = $('#image-preview')[0];
     	img.src = image;
-    	let cropper = new Cropper(img, {
+    	this.cropper = new Cropper(img, {
 		  aspectRatio: 16 / 9
 		});
-
     }
-
-
 
     addImage(){
     	$('#image-holder').click();
     }
     
+    getImageBlob(){
+    	let cropper = this.cropper;
+    	return new Promise((resolve, reject) => cropper.getCroppedCanvas().toBlob(blob => resolve(blob)));
+    }
+
+    onSave(){
+    	let title = $('#category-title').val();
+    	let self = this;
+    	self.getImageBlob()
+    		.then(result => self.props.onSavePressed(title,result));
+		
+    }
+
+
 	render(){
 		return <div id={this.props.modalId} class="modal fade" tabIndex="-1" role="dialog">
 				  <div class="modal-dialog" role="document">
@@ -63,7 +74,7 @@ export default class CreateCategoryModal extends React.Component{
 				      <div class="modal-body">
 				        <form id="modal-form">
 							<div class="input-group">
-							  <input type="text" class="form-control" placeholder="Category name" aria-describedby="basic-addon1"/>
+							  <input id="category-title" type="text" class="form-control" placeholder="Category name" aria-describedby="basic-addon1"/>
 							</div>
 							<div id="image-input-block" class="input-group">
 								<div class="btn" onClick={this.addImage.bind(this)}>Select image </div>
@@ -76,7 +87,7 @@ export default class CreateCategoryModal extends React.Component{
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        <button type="button" class="btn btn-primary" onClick={this.props.onSavePressed}>Save changes</button>
+				        <button type="button" class="btn btn-primary" onClick={this.onSave.bind(this)}>Save changes</button>
 				      </div>
 				    </div>
 				  </div>
