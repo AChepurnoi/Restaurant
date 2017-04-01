@@ -52,7 +52,7 @@ public class DishControllerTest extends AbstractWebTest {
         DishInput input = new DishInput("Title", "Testdc", file, 100);
 
         given(this.dishService.create(input))
-                .willReturn(new DishResponse(5, "Test", "Test", "imageurl"));
+                .willReturn(new DishResponse(5, "Test", "Test", "imageurl",5));
 
         MvcResult result = this.mvc.perform(
                 fileUpload("/dishes")
