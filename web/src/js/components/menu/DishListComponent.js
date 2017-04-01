@@ -1,23 +1,23 @@
 import React from 'react'
 import { connect } from "react-redux"
 import { Link } from 'react-router'
-import CategoryList from './CategoryList'
-import CreateCategoryModal from '../modals/CreateCategoryModal'
-import {getCategories, createCategory, deleteCategory} from '../../actions/categoryActions'
+import DishList from './DishList'
+import CreateDishModal from '../modals/CreateDishModal'
 import {openModal, closeModal} from '../../actions/modalActions'
-import {getDishes} from '../../actions/dishActions'
+import {getCategories} from '../../actions/categoryActions'
+
+import {createDish, deleteDish} from '../../actions/dishActions'
 
 @connect( (store) =>{
-	return {category: store.category, modal: store.modal};
+	return {category: store.category, dish: store.dish, modal: store.modal};
 })
-export default class CategoryListComponent extends React.Component{
+export default class DishListComponent extends React.Component{
 
     constructor(props) {
         super(props);
         const {categories, loading} = this.props.category;
-
         if(!categories.length && !loading) this.props.dispatch(getCategories());
-        this.modalId = "categoryModal";
+        this.modalId = "dishModal";
     }
 
     openModal(){
@@ -40,12 +40,9 @@ export default class CategoryListComponent extends React.Component{
     }
 
     deleteClick(id){
-    	this.props.dispatch(deleteCategory(id));
+    	this.props.dispatch(deleteDish(id));
     }
 
-    selectClick(id){
-        this.props.dispatch(getDishes(id));
-    }
 
     componentDidUpdate(){
     	if(this.props.modal.id != this.modalId) return;
@@ -54,20 +51,22 @@ export default class CategoryListComponent extends React.Component{
     	else this.closeModal();
     }
 
-	createCategory(title, image){
-		this.props.dispatch(createCategory(title, image))
+	createDish(title, description, categoryId, image){
+		this.props.dispatch(createDish(title, description, categoryId, image))
 	}
 	render(){
-		return <div>
-            <CreateCategoryModal modalId={this.modalId} 
-            					 onSavePressed={this.createCategory.bind(this)}
+		return <div class="row">
+            <CreateDishModal modalId={this.modalId} 
+                             categories={this.props.category.categories}
+        					 onSavePressed={this.createDish.bind(this)}
             					 />
             					 
-			<CategoryList onAddCategory={this.addClick.bind(this)}
-						  items={this.props.category.categories}
-						  onDeleteCategory={this.deleteClick.bind(this)}
-                          onSelect={this.selectClick.bind(this)}
+			<DishList onAddDish={this.addClick.bind(this)}
+					  items={this.props.dish.dishes}
+                      onDelete={this.deleteClick.bind(this)}
 						  />
+                    
+                      
 		</div>
                     
 	}

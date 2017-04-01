@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import Cropper from '../../../assets/javascripts/Cropper'
 import axios from 'axios'
 
-export default class CreateCategoryModal extends React.Component{
+export default class CreateDishModal extends React.Component{
 
     constructor(props) {
         super(props);
@@ -12,7 +12,7 @@ export default class CreateCategoryModal extends React.Component{
 
     componentDidMount() {
     	let self = this;
-    	$('#category-image-holder').change(event => {
+    	$('#dish-image-holder').change(event => {
     		let file = event.target.files[0];
     		if(file == undefined) return;
     		let reader = new FileReader();	
@@ -23,22 +23,22 @@ export default class CreateCategoryModal extends React.Component{
 
 
     recreateImagePreview(){
-    	$('#category-image-preview').remove();
+    	$('#dish-image-preview').remove();
     	$('.cropper-container').remove();
     	let img = $('<img />', { 
-		  id: 'category-image-preview',
+		  id: 'dish-image-preview',
 		  src: 'http://placehold.it/640x480',
 		  width: 640,
 		  height: 480,
 		  class:"img-responsive"
 		});
-		img.appendTo($('#category-image-input-block'));
+		img.appendTo($('#dish-image-input-block'));
     }
 
 
     loadImage(image){
     	this.recreateImagePreview();
-    	let img = $('#category-image-preview')[0];
+    	let img = $('#dish-image-preview')[0];
     	img.src = image;
     	this.cropper = new Cropper(img, {
 		  aspectRatio: 16 / 9
@@ -46,7 +46,7 @@ export default class CreateCategoryModal extends React.Component{
     }
 
     addImage(){
-    	$('#category-image-holder').click();
+    	$('#dish-image-holder').click();
     }
     
     getImageBlob(){
@@ -55,10 +55,13 @@ export default class CreateCategoryModal extends React.Component{
     }
 
     onSave(){
-    	let title = $('#category-title').val();
+    	console.log(this);
+    	let title = $('#dish-title').val();
+    	let description = $('#dish-description').val();
+    	let categoryId = $('#dish-categoryId').val();
     	let self = this;
     	self.getImageBlob()
-    		.then(result => self.props.onSavePressed(title,result));
+    		.then(result => self.props.onSavePressed(title, description, categoryId, result));
 		
     }
 
@@ -72,14 +75,27 @@ export default class CreateCategoryModal extends React.Component{
 				        <h4 class="modal-title">Create category</h4>
 				      </div>
 				      <div class="modal-body">
-				        <form id="category-modal-form">
+				        <form id="dish-modal-form">
 							<div class="input-group">
-							  <input id="category-title" type="text" class="form-control" placeholder="Category name" aria-describedby="basic-addon1"/>
+							  <input id="dish-title" type="text" class="form-control" placeholder="Dish title" aria-describedby="basic-addon1"/>
 							</div>
-							<div id="category-image-input-block" class="input-group">
+							
+							<div class="input-group">
+							  <input id="dish-description" type="text" class="form-control" placeholder="Dish description" aria-describedby="basic-addon1"/>
+							</div>
+
+							<div class="input-group">
+							  <label for="exampleSelect1">Category select</label>
+							  <select id="dish-categoryId">
+							    {this.props.categories.map( c => <option key={c.id} value={c.id}>{c.title}</option>)}
+							  </select>
+							</div>
+
+
+							<div id="dish-image-input-block" class="input-group">
 								<div class="btn" onClick={this.addImage.bind(this)}>Select image </div>
-								<input id="category-image-holder" type="file" class="hide"/>
-								<img id="category-image-preview" class="img-responsive" height="480" width="640" src="http://placehold.it/640x480"/>
+								<input id="dish-image-holder" type="file" class="hide"/>
+								<img id="dish-image-preview" class="img-responsive" height="480" width="640" src="http://placehold.it/640x480"/>
 							</div>
 
 				        </form>

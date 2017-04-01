@@ -24,6 +24,25 @@ class api {
 	deleteCategory(id){
 		return this.client.delete('/categories/' + id);
 	}
+
+	createDish(data){
+		const {title, description, categoryId, image} = data;
+		let formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('categoryId', categoryId);
+        formData.append('image', image);
+		return this.client.post('/dishes', formData);
+	}
+
+	loadDishes(category){
+		return this.client.get('/categories/'+ category + '/dishes');
+	}
+
+
+	deleteDish(id){
+		return this.client.delete('/dishes/' + id);
+	}
 }
 
 export default (new api());

@@ -1,6 +1,6 @@
 export default function reducer (
 	state={
-		items:[],
+		categories:[],
 		loading: false,
 		error: false
 	}, action){
@@ -12,7 +12,7 @@ export default function reducer (
 		}
 
 		case "CATEGORY_GET_ALL_FULFILLED":{
-			return {...state, items: action.payload.data || [], loading: false}
+			return {...state, categories: action.payload.data || [], loading: false}
 		}
 
 		case "CATEGORY_GET_ALL_REJECTED":{
@@ -25,9 +25,9 @@ export default function reducer (
 		}
 
 		case "CATEGORY_CREATE_FULFILLED":{
-			let updated = [].concat(state.items);
+			let updated = [].concat(state.categories);
 			updated.push(action.payload);
-			return {...state, loading:false, items: updated}
+			return {...state, loading:false, categories: updated}
 		}
 
 		case "CATEGORY_CREATE_REJECTED":{
@@ -41,8 +41,8 @@ export default function reducer (
 		}
 
 		case "CATEGORY_DELETE_FULFILLED":{
-			let updated = state.items.filter( a => a.id != action.payload);
-			return {...state, loading:false, items: updated}
+			let updated = state.categories.filter( a => a.id != action.payload);
+			return {...state, loading:false, categories: updated}
 		}
 
 		case "CATEGORY_DELETE_REJECTED":{

@@ -16,5 +16,6 @@ public class DishResponse {
     private String title;
     private String description;
     private String image;
+    private int categoryId;
 
 }

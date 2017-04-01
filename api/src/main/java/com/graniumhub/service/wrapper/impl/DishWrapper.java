@@ -38,7 +38,7 @@ public class DishWrapper implements AbstractDTOWrapper<DishInput, Dish, DishResp
 
     @Override
     public DishResponse toResponse(Dish entity) {
-        return new DishResponse(entity.getId(),entity.getTitle(),entity.getDescription(),entity.getImage());
+        return new DishResponse(entity.getId(),entity.getTitle(),entity.getDescription(),entity.getImage(),entity.getCategory().getId());
     }
 
     @Override

@@ -16,7 +16,6 @@ export function createCategory(title, image){
 		   .then(response => {
 		   		dispatch({type: "CATEGORY_CREATE_FULFILLED", payload: response.data});
 		   		let modalId = getState().modal.id;
-		   		console.log(getState());
 		   		dispatch({type: "CLOSE_MODAL", payload: modalId});
 		   })
 		   .catch(err => dispatch({type: "CATEGORY_CREATE_REJECTED"}));
