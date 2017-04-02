@@ -1,9 +1,21 @@
 import api from '../utility/api'
+import {getDishes} from './dishActions'
+
 
 export function getCategories(){
-	return{
-		type: "CATEGORY_GET_ALL",
-		payload: api.loadCategories()
+
+	return (dispatch, getState) => {
+		dispatch({type:"CATEGORY_GET_ALL_PENDING"});
+		api.loadCategories()
+		   .then(response => {
+		   		dispatch({type:"CATEGORY_GET_ALL_FULFILLED", payload: response});
+		   		let categories = response.data;
+		   		if(!categories.length) return;
+		   		dispatch(getDishes(categories[0].id));
+		   }).catch(err => {
+		   		console.log(err);
+		   		dispatch({type:"CATEGORY_GET_ALL_REJECTED"})
+		   })
 	}
 }
 
