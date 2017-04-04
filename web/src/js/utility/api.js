@@ -5,8 +5,9 @@ class api {
 
 	constructor() {
 		this.client = axios.create({
-			baseURL: "http://localhost:8080/"
+			baseURL: "http://localhost:3000/",
 		});
+		this.client.defaults.headers.common['Authorization'] = 'Basic cmVhY3RfYXBwOmtwaV9sdWNoaXlfdnV6';
 	}
 
 	loadCategories(){
@@ -42,6 +43,24 @@ class api {
 
 	deleteDish(id){
 		return this.client.delete('/dishes/' + id);
+	}
+
+	login(log, pass){
+		let headers = {'Authorization': 'Basic cmVhY3RfYXBwOmtwaV9sdWNoaXlfdnV6',
+						'Content-type': 'application/x-www-form-urlencoded'}
+		let formData = new FormData();
+        formData.append('username', log);
+        formData.append('password', pass);
+        formData.append('grant_type', 'password');
+        formData.append('score', 'read write');
+		return this.client.post('/oauth/token', formData, {headers: headers});
+	}
+
+	checkToken(token){
+		let headers = {'Authorization': 'Basic cmVhY3RfYXBwOmtwaV9sdWNoaXlfdnV6'}
+		let formData = new FormData();
+        formData.append('token', token);
+		return this.client.post('/oauth/check_token', formData, {headers: headers});
 	}
 }
 

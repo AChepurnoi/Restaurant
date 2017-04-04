@@ -18,7 +18,7 @@ const application = document.getElementById('app')
 ReactDOM.render(
 <Provider store={store}>
 	<Router history={browserHistory}>
-		<Route path="/"component={App}>
+		<Route path="/" component={App}>
 			<IndexRoute component={MenuPage} />
 		</Route>
 	</Router>
