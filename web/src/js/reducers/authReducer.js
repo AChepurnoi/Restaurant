@@ -1,20 +1,22 @@
+import cookie from 'react-cookie';
+
+
 export default function reducer (
 	state={
-		userId: false
+		user: null,
+		authorized: false,
+
 	}, action){
 	
 	switch (action.type){
 
-		case "LOGIN_PENDING":{
-			return {...state, open: true, id: action.payload}
-		}
-
-		case "LOGIN_FULFILLED":{
-			return {...state, open: false, id: action.payload}
-		}
-
-		case "LOGIN_REJECTED":{
-			return {...state, open: false, id: action.payload}
+		case "SAVE_TOKEN":{
+			let token = action.payload.access_token;
+			let refresh = action.payload.refresh_token;
+			let expDate = new Date(new Date().getMiliseconds + action.payload.expires_in);
+			cookie.save('access_token', token, { path: '/' , expires: expDate});
+			cookie.save('refresh_token', refresh, {path: '/', expires: expDate});
+			return {...state, authorized: true}
 		}
 
 	}

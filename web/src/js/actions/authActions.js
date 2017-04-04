@@ -1,13 +1,16 @@
 import api from '../utility/api'
+import {closeModal} from './modalActions'
+
 
 export function login(login, password){
 	return(dispatch, getState) => {
 		api.login(login, password)
 		   .then(result =>{
-		   		console.log(result.data);
-		   		dispatch(checkToken(result.data.access_token));
-		   })
-		   .catch(err => console.log(err));
+		   		console.log(result);
+		   		dispatch({type: "SAVE_TOKEN", payload: result.data});
+		   		dispatch(closeModal('loginModal'));
+
+		   }).catch(err => console.log(err));
 	}
 }
 

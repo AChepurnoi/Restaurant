@@ -2,10 +2,17 @@
 import React from 'react'
 import { connect } from "react-redux"
 import { Link } from 'react-router'
+import {openModal} from '../actions/modalActions'
 
-
+@connect( store => {
+    return {modal: store.modal}
+})
 export default class Navbar extends React.Component{
 
+
+    openLoginModal(){
+        this.props.dispatch(openModal('loginModal'));
+    }
 
 	render(){
 		return <nav class="navbar navbar-inverse">
@@ -21,6 +28,7 @@ export default class Navbar extends React.Component{
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
+                        <li class="navbar-text" onClick={this.openLoginModal.bind(this)}>Login</li>
                         <li class="navbar-text cart"><span class="glyphicon glyphicon-shopping-cart cart-icon" aria-hidden="true"></span> Cart</li>
                     </ul>
                 </div>
