@@ -7,7 +7,6 @@ class api {
 		this.client = axios.create({
 			baseURL: "http://localhost:3000/",
 		});
-		this.client.defaults.headers.common['Authorization'] = 'Basic cmVhY3RfYXBwOmtwaV9sdWNoaXlfdnV6';
 	}
 
 	loadCategories(){
