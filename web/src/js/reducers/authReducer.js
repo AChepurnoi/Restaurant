@@ -19,6 +19,15 @@ export default function reducer (
 			return {...state, authorized: true}
 		}
 
+		case "LOGOUT":{
+			cookie.remove('access_token',{path: '/'});
+			cookie.remove('refresh_token', {path: '/'});
+			return {...state, authorized: false}
+		}
+
+		case "TOKEN_VALID":{
+			return {...state, authorized: true}
+		}
 	}
 	
 	return state;

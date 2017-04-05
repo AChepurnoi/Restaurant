@@ -5,15 +5,16 @@ import { Link } from 'react-router'
 import axios from 'axios'
 import LoginModal from './modals/LoginModal'
 import {closeModal} from '../actions/modalActions'
-import {login} from '../actions/authActions'
+import {login, checkLoginValidity} from '../actions/authActions'
 
 @connect( store =>{
-	return {modal: store.modal};
+	return {modal: store.modal, auth: store.auth};
 })
 export default class AuthComponent extends React.Component{
 
     constructor(props) {
         super(props);
+        this.props.dispatch(checkLoginValidity());
         this.modalId = "loginModal";
     }
     

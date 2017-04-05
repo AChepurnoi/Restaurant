@@ -61,6 +61,14 @@ class api {
         formData.append('token', token);
 		return this.client.post('/oauth/check_token', formData, {headers: headers});
 	}
+
+	refreshToken(token){
+		let headers = {'Authorization': 'Basic cmVhY3RfYXBwOmtwaV9sdWNoaXlfdnV6'}
+		let formData = new FormData();
+        formData.append('refresh_token', token);
+        formData.append('grant_type','refresh_token');
+		return this.client.post('/oauth/token', formData, {headers: headers});
+	}
 }
 
 export default (new api());

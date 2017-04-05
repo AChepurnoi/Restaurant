@@ -8,7 +8,7 @@ import {openModal, closeModal} from '../../actions/modalActions'
 import {getDishes} from '../../actions/dishActions'
 
 @connect( (store) =>{
-	return {category: store.category, modal: store.modal};
+	return {category: store.category, modal: store.modal, auth: store.auth};
 })
 export default class CategoryListComponent extends React.Component{
 
@@ -57,16 +57,26 @@ export default class CategoryListComponent extends React.Component{
 	createCategory(title, image){
 		this.props.dispatch(createCategory(title, image))
 	}
+
+
 	render(){
+
+
+        let modal;
+
+        if(this.props.auth.authorized){
+            modal = <CreateCategoryModal modalId={this.modalId} 
+                                 onSavePressed={this.createCategory.bind(this)}
+                                 />
+        }
+
 		return <div>
-            <CreateCategoryModal modalId={this.modalId} 
-            					 onSavePressed={this.createCategory.bind(this)}
-            					 />
-            					 
+            {modal}		
 			<CategoryList onAddCategory={this.addClick.bind(this)}
 						  items={this.props.category.categories}
 						  onDeleteCategory={this.deleteClick.bind(this)}
                           onSelect={this.selectClick.bind(this)}
+                          authorized={this.props.auth.authorized}
 						  />
 		</div>
                     

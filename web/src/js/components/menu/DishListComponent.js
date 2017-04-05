@@ -9,7 +9,7 @@ import {getCategories} from '../../actions/categoryActions'
 import {createDish, deleteDish} from '../../actions/dishActions'
 
 @connect( (store) =>{
-	return {category: store.category, dish: store.dish, modal: store.modal};
+	return {category: store.category, dish: store.dish, modal: store.modal, auth: store.auth};
 })
 export default class DishListComponent extends React.Component{
 
@@ -55,16 +55,24 @@ export default class DishListComponent extends React.Component{
 		this.props.dispatch(createDish(title, description, categoryId, image))
 	}
 	render(){
-		return <div class="row">
-            <CreateDishModal modalId={this.modalId} 
+
+        let modal
+
+        if(this.props.auth.authorized){
+            modal =  <CreateDishModal modalId={this.modalId} 
                              categories={this.props.category.categories}
-        					 onSavePressed={this.createDish.bind(this)}
-            					 />
-            					 
+                             onSavePressed={this.createDish.bind(this)}
+                                 />
+        }
+		return <div class="row">
+           
+            {modal}		 
 			<DishList onAddDish={this.addClick.bind(this)}
 					  items={this.props.dish.dishes}
                       onDelete={this.deleteClick.bind(this)}
+                      authorized={this.props.auth.authorized}
 						  />
+                      
                     
                       
 		</div>
