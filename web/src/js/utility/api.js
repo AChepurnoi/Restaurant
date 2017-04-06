@@ -69,6 +69,19 @@ class api {
         formData.append('grant_type','refresh_token');
 		return this.client.post('/oauth/token', formData, {headers: headers});
 	}
+
+	loadTables(){
+		return this.client.get('/tables');
+	}
+
+	createTable(data){
+		return this.client.post('/tables', data);
+	}
+
+	deleteTable(id){
+		return this.client.delete('/tables/' + id);
+	}
+
 }
 
 export default (new api());

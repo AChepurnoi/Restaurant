@@ -4,6 +4,7 @@ import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import {login} from './actions/authActions'
 import AuthComponent from './components/AuthComponent'
+
 @connect( (store) =>{
 	return {category: store.category, modal: store.modal};
 })

@@ -32,6 +32,7 @@
     "request": "^2.81.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.0",
+    "svg.js": "^2.5.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.2.1",

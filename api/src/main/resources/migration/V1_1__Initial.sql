@@ -19,3 +19,9 @@ CREATE TABLE Dish(
   image VARCHAR(255) NOT NULL ,
   category_id INT NOT NULL,
 );
+
+CREATE TABLE Table(
+  id INT AUTO_INCREMENT NOT NULL,
+  posx DOUBLE NOT NULL,
+  posy DOUBLE NOT NULL
+)

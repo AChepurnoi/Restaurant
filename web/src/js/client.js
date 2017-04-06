@@ -12,6 +12,7 @@ import App from './App'
 import store from "./store"
 import MainPage from './pages/MainPage'
 import MenuPage from './pages/MenuPage'
+import BookingPage from './pages/BookingPage'
 
 const application = document.getElementById('app')
 
@@ -19,9 +20,11 @@ ReactDOM.render(
 <Provider store={store}>
 	<Router history={browserHistory}>
 		<Route path="/" component={App}>
-			<IndexRoute component={MenuPage} />
+			<IndexRoute component={BookingPage}/>
 		</Route>
 	</Router>
 </Provider>, application);
 
- // <Route path="menu" component={MainPage} />
+// <Route path="menu" component={MainPage} />
+// <IndexRoute component={MenuPage} />
+// 

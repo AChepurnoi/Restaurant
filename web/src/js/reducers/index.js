@@ -3,4 +3,6 @@ import category from './categoryReducer'
 import modal from './modalReducer'
 import dish from './dishReducer'
 import auth from './authReducer'
-export default combineReducers({category,modal, dish, auth})
+import booking from './bookingReducer'
+
+export default combineReducers({category,modal, dish, auth, booking})
