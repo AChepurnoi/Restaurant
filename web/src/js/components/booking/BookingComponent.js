@@ -82,8 +82,6 @@ export default class BookingComponent extends React.Component{
 
 
     componentDidUpdate(prevProps, prevState) {
-
-
         if(this.props.modal.id == this.modalId){
             if(this.props.modal.open) this.openModal();
             else this.closeModal();
@@ -96,15 +94,13 @@ export default class BookingComponent extends React.Component{
     }
 
 	render(){
-
 		return <div class="row">
             <BookTableModal modalId={this.modalId}/>
            <div class={"btn " + (this.state.placing ? 'btn-success' : '')} onClick={this.togglePlacing.bind(this)}>Place table</div>
            <div class={"btn " + (this.state.deleting ? 'btn-success' : '')} onClick={this.toggleDeletion.bind(this)}>Delete table</div>
            <div id="svg-container">
 
-           </div>
-                      
+           </div>          
 		</div>
                     
 	}
