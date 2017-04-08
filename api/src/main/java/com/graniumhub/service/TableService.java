@@ -12,4 +12,6 @@ public interface TableService {
     TableResponse place(TableInput input);
     List<TableResponse> findAll();
     boolean remove(int id);
+
+    
 }

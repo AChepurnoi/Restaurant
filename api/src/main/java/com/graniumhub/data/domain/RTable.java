@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Sasha on 4/6/17.
@@ -22,6 +24,10 @@ public class RTable {
     private double posx;
     private double posy;
 
-    
-    
+
+    @OneToMany(mappedBy = "table", fetch = FetchType.LAZY,
+            orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private Set<Booking> bookings = new HashSet<>();
+
+
 }
