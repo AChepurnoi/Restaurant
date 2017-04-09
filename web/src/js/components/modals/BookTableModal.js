@@ -12,22 +12,21 @@ export default class BookTableModal extends React.Component{
     onSubmit(){
     	let booker = $('#booker-name').val();
     	let phone = $('#booker-phone').val();
-    	let start = new Date($('#start').val());
-    	console.log(start);
-    	start = start.toISOString();
+    	let date = new Date($('#start').val());
+		date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds()); 
+    	let start = date.toISOString();
 
     	let duration = $('#duration').val();
     	let data = {booker, phone, start, duration};
-    	console.log(data);
     	this.props.onBook(data);
     }
     
 	render(){
-		console.log(this.props.booking);
 		let dateOptions = {  
 		    weekday: "long", month: "short",  
 		    day: "numeric", hour: "2-digit", minute: "2-digit"  
 		};  
+		
 		return <div id={this.props.modalId} class="modal fade" tabIndex="-1" role="dialog">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">

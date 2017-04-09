@@ -1,5 +1,6 @@
 import api from '../utility/api'
-
+import {closeModal} from './modalActions'
+import {notify} from './notificationActions'
 
 export function loadTables(){
 
@@ -23,6 +24,7 @@ export function createTable(posx, posy){
 		api.createTable({posx, posy})
 		   .then(response => {
 		   		dispatch({type: "TABLES_CREATE_FULFILLED", payload: response.data});
+		   		dispatch(notify('Table created', 'Table created OK', 'success'));
 		   })
 		   .catch(err => dispatch({type: "TABLES_CREATE_REJECTED"}));
 
@@ -33,7 +35,10 @@ export function deleteTable(id){
 	return (dispatch, getState) => {
 		dispatch({type: "TABLES_DELETE_PENDING", payload: id});
 		api.deleteTable(id)
-		   .then(res => dispatch({type: "TABLES_DELETE_FULFILLED",payload: id}))
+		   .then(res => {
+			   	dispatch({type: "TABLES_DELETE_FULFILLED",payload: id})
+			   	dispatch(notify('Table deleted', 'Table deleted OK', 'success'));
+		   })
 		   .catch(err => dispatch({type: "TABLES_DELETE_REJECTED", payload: err}))
 	}
 }
@@ -51,7 +56,11 @@ export function bookTable(table, data){
 	return (dispatch, getState) => {
 		dispatch({type: "BOOK_PENDING", payload: table});
 		api.bookTable(table, data)
-		   .then(res => dispatch({type: "BOOK_FULFILLED",payload: res.data}))
+		   .then(res => {
+		   	dispatch({type: "BOOK_FULFILLED",payload: res.data})
+		   	dispatch(closeModal('bookModal'));
+		   	dispatch(notify('Table booked', 'Table booked OK', 'success'));
+		   })
 		   .catch(err => dispatch({type: "BOOK_REJECTED", payload: err}))
 	}
 }
