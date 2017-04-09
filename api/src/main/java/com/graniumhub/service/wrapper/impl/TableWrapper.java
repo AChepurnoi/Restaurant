@@ -4,17 +4,20 @@ import com.graniumhub.data.domain.RTable;
 import com.graniumhub.data.dto.table.TableInput;
 import com.graniumhub.data.dto.table.TableResponse;
 import com.graniumhub.service.wrapper.AbstractDTOWrapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 
 /**
  * Created by Sasha on 4/6/17.
  */
-@Service
+@Component
 public class TableWrapper implements AbstractDTOWrapper<TableInput, RTable, TableResponse> {
 
     @Override
     public RTable toEntity(TableInput input) {
-        return new RTable(0,input.getPosx(), input.getPosy());
+        return new RTable(0,input.getPosx(), input.getPosy(), Collections.emptyList());
     }
 
     @Override

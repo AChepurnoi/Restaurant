@@ -33,8 +33,11 @@ dependencies {
     compile("com.h2database:h2")
     compile('org.projectlombok:lombok')
     compile 'com.amazonaws:aws-java-sdk-s3'
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.6")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.6")
     compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
 }
 
 dependencyManagement {

@@ -38,3 +38,36 @@ export function deleteTable(id){
 	}
 }
 
+export function loadBooking(table){
+	return (dispatch, getState) => {
+		dispatch({type: "BOOKING_LOAD_PENDING", payload: table});
+		api.loadBooking(table)
+		   .then(res => dispatch({type: "BOOKING_LOAD_FULFILLED",payload: res.data}))
+		   .catch(err => dispatch({type: "BOOKING_LOAD_REJECTED", payload: err}))
+	}
+}
+
+export function bookTable(table, data){
+	return (dispatch, getState) => {
+		dispatch({type: "BOOK_PENDING", payload: table});
+		api.bookTable(table, data)
+		   .then(res => dispatch({type: "BOOK_FULFILLED",payload: res.data}))
+		   .catch(err => dispatch({type: "BOOK_REJECTED", payload: err}))
+	}
+}
+
+
+
+export function selectTable(table){
+	return {
+		type:"SELECT_TABLE",
+		payload: table
+	}
+}
+
+export function deselectTable(table){
+	return {
+		type:"DESELECT_TABLE",
+		payload: table
+	}
+}

@@ -82,6 +82,14 @@ class api {
 		return this.client.delete('/tables/' + id);
 	}
 
+	loadBooking(table){
+		return this.client.get('/tables/' + table + '/booking');
+	}
+
+	bookTable(table, data){
+		return this.client.post('/tables/' + table + '/booking', data);
+	}
+
 }
 
 export default (new api());

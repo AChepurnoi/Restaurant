@@ -2,6 +2,7 @@ export default function reducer (
 	state={
 		tables:[],
 		bookings:[],
+		selectedTable: null,
 		loading: false,
 		error: false
 	}, action){
@@ -35,7 +36,7 @@ export default function reducer (
 			return {...state, loading: false, error: true}
 		}
 
-
+// ----------------------------------------------------
 
 		case "TABLES_DELETE_PENDING":{
 			return {...state, loading:true, error:false}
@@ -48,6 +49,30 @@ export default function reducer (
 
 		case "TABLES_DELETE_REJECTED":{
 			return {...state, loading: false, error: true}
+		}
+
+// --------------------------------------------------------
+
+		case "BOOKING_LOAD_PENDING":{
+			return {...state, loading: true, error: false}
+		}
+
+		case "BOOKING_LOAD_FULFILLED":{
+			return {...state, loading: false, bookings: action.payload}
+		}
+
+		case "BOOKING_LOAD_REJECTED":{
+			return {...state, loading: false, error: true}
+		}
+
+// ----------------------------------------------------------
+
+		case "SELECT_TABLE":{
+			return {...state, selectedTable: action.payload}
+		}
+
+		case "DESELECT_TABLE":{
+			return {...state, selectedTable: null}
 		}
 
 	}

@@ -1,5 +1,7 @@
 package com.graniumhub.service;
 
+import com.graniumhub.data.dto.booking.BookingInput;
+import com.graniumhub.data.dto.booking.BookingResponse;
 import com.graniumhub.data.dto.table.TableInput;
 import com.graniumhub.data.dto.table.TableResponse;
 
@@ -13,5 +15,8 @@ public interface TableService {
     List<TableResponse> findAll();
     boolean remove(int id);
 
-    
+    BookingResponse book(BookingInput input);
+
+
+    List<BookingResponse> loadBookings(int id);
 }
