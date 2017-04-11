@@ -13,8 +13,9 @@ export default class DishList extends React.Component{
 
         let addBtn;
         let delBtn = (id) => {}
-
-        if(this.props.authorized){
+        let admin = this.props.auth.authorized? (this.props.auth.user ? this.props.auth.user.admin : false) : false;
+        
+        if(admin){
             addBtn = <div class="col-md-12" onClick={this.props.onAddDish.bind(this)}> 
                          <span class="btn">Add dish</span>
                      </div>

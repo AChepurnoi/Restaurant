@@ -103,10 +103,16 @@ export default class BookingComponent extends React.Component{
     }
 
 	render(){
+
+        let admin = this.props.auth.authorized? (this.props.auth.user ? this.props.auth.user.admin : false) : false;
+
+        let placingButton =  admin ? <div class={"btn " + (this.state.placing ? 'btn-success' : '')} onClick={this.togglePlacing.bind(this)}>Place table</div> : ""
+        let deleteButton = admin ? <div class={"btn " + (this.state.deleting ? 'btn-success' : '')} onClick={this.toggleDeletion.bind(this)}>Delete table</div> : ""
+
 		return <div class="row">
             <BookTableModal modalId={this.modalId} booking={this.props.booking} onBook={this.onBook.bind(this)} />
-           <div class={"btn " + (this.state.placing ? 'btn-success' : '')} onClick={this.togglePlacing.bind(this)}>Place table</div>
-           <div class={"btn " + (this.state.deleting ? 'btn-success' : '')} onClick={this.toggleDeletion.bind(this)}>Delete table</div>
+           {placingButton}
+           {deleteButton}
            <div id="svg-container">
 
            </div>          

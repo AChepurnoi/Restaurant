@@ -32,6 +32,7 @@ public class User implements UserDetails{
     private String password;
     @NotNull
     private String email;
+
     private boolean admin;
 
     @Override

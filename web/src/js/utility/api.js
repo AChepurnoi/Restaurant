@@ -90,6 +90,11 @@ class api {
 		return this.client.post('/tables/' + table + '/booking', data);
 	}
 
+	loadUser(name){
+		return this.client.get('/users/' + name);
+	}
+
+
 }
 
 export default (new api());

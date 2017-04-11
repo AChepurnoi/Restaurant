@@ -38,10 +38,10 @@ export default class BookTableModal extends React.Component{
 				      	Booked
 				      	<div>
 
-				      		{this.props.booking.bookings.map((book, i) => <span key={i}>
+				      		{this.props.booking.bookings.map((book, i) => <div key={i}>
 				      		 From {(new Date(book.start)).toLocaleTimeString('en-us',dateOptions)} 
 				      		 to {(new Date(book.end)).toLocaleTimeString('en-us',dateOptions)} 
-				      		 </span>)}
+				      		 </div>)}
 
 				      	</div>
 

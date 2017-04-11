@@ -9,10 +9,23 @@ export function login(login, password){
 		   .then(result =>{
 		   		console.log(result);
 		   		dispatch({type: "SAVE_TOKEN", payload: result.data});
+		   		dispatch(loadUser(login));
 		   		dispatch(closeModal('loginModal'));
 
 		   }).catch(err => console.log(err));
 	}
+}
+
+
+export function loadUser(name){
+	return (dispatch, getState) => {
+		api.loadUser(name)
+		   .then(res => {
+		   		dispatch({type: "SAVE_USER", payload: res.data})
+		   })
+		   .catch(err => console.log(err));
+	}
+
 }
 
 
@@ -39,7 +52,11 @@ export function checkLoginValidity(){
 			return;
 		}
 		api.checkToken(token)
-		   .then(result => dispatch({type: 'TOKEN_VALID', payload: result.data}))
+		   .then(result => {
+		       dispatch({type: 'TOKEN_VALID', payload: result.data});
+		       let username = cookie.load("user_name");
+		       dispatch(loadUser(username));
+		   })
 		   .catch(err => dispatch(refreshToken()));
 	}
 }

@@ -14,7 +14,9 @@ export default class CategoryList extends React.Component{
     let addBtn;
     let delBtn = (id) =>{}
 
-    if(this.props.authorized){
+    let admin = this.props.auth.authorized? (this.props.auth.user ? this.props.auth.user.admin : false) : false;
+    
+    if(admin){
       addBtn = <li class="list-group-item" onClick={this.props.onAddCategory}>Add new category</li> 
       delBtn = (id) => <span class="glyphicon glyphicon-remove" onClick={this.props.onDeleteCategory.bind(this, id)}></span>
     }

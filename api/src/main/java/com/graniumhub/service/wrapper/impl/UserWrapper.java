@@ -22,7 +22,7 @@ public class UserWrapper implements AbstractDTOWrapper<UserInput, User, UserResp
                 input.getLogin(),
                 encoder.encode(input.getPassword()),
                 input.getEmail(),
-                false);
+                true);
     }
 
     @Override

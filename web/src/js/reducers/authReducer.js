@@ -16,17 +16,23 @@ export default function reducer (
 			let expDate = new Date(new Date().getMiliseconds + action.payload.expires_in);
 			cookie.save('access_token', token, { path: '/' , expires: expDate});
 			cookie.save('refresh_token', refresh, {path: '/', expires: expDate});
-			return {...state, authorized: true}
+			return {...state, authorized: true};
+		}
+
+		case "SAVE_USER": {
+			cookie.save('user_name', action.payload.login, {path: '/'});
+			return {...state, user: action.payload};
 		}
 
 		case "LOGOUT":{
+			cookie.remove('user_name', {path: '/'});
 			cookie.remove('access_token',{path: '/'});
 			cookie.remove('refresh_token', {path: '/'});
-			return {...state, authorized: false}
+			return {...state, authorized: false};
 		}
 
 		case "TOKEN_VALID":{
-			return {...state, authorized: true}
+			return {...state, authorized: true};
 		}
 	}
 	
