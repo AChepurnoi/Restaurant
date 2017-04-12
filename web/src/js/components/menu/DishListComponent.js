@@ -56,9 +56,12 @@ export default class DishListComponent extends React.Component{
 	}
 	render(){
 
+        let {user} = this.props.auth;
+
+        let admin = user? user.admin : false
         let modal
 
-        if(this.props.auth.authorized){
+        if(admin){
             modal =  <CreateDishModal modalId={this.modalId} 
                              categories={this.props.category.categories}
                              onSavePressed={this.createDish.bind(this)}
@@ -70,7 +73,7 @@ export default class DishListComponent extends React.Component{
 			<DishList onAddDish={this.addClick.bind(this)}
 					  items={this.props.dish.dishes}
                       onDelete={this.deleteClick.bind(this)}
-                      authorized={this.props.auth.authorized}
+                      admin={admin}
 						  />
                       
                     

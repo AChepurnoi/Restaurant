@@ -64,7 +64,10 @@ export default class CategoryListComponent extends React.Component{
 
         let modal;
 
-        if(this.props.auth.authorized){
+        let {user} = this.props.auth;
+        let admin = user? user.admin : false ;
+
+        if(admin){
             modal = <CreateCategoryModal modalId={this.modalId} 
                                  onSavePressed={this.createCategory.bind(this)}
                                  />
@@ -76,7 +79,7 @@ export default class CategoryListComponent extends React.Component{
 						  items={this.props.category.categories}
 						  onDeleteCategory={this.deleteClick.bind(this)}
                           onSelect={this.selectClick.bind(this)}
-                          authorized={this.props.auth.authorized}
+                          admin={admin}
 						  />
 		</div>
                     

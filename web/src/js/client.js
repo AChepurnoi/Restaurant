@@ -20,11 +20,12 @@ ReactDOM.render(
 <Provider store={store}>
 	<Router history={browserHistory}>
 		<Route path="/" component={App}>
-			<IndexRoute component={BookingPage}/>
+
+			<IndexRoute component={MainPage}/>
+			<Route path="menu" component={MenuPage} />
+			<Route path="booking" component={BookingPage} />
+		
 		</Route>
 	</Router>
 </Provider>, application);
 
-// <Route path="menu" component={MainPage} />
-// <IndexRoute component={MenuPage} />
-// 

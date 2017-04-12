@@ -1,6 +1,7 @@
 import api from '../utility/api'
 import {closeModal} from './modalActions'
 import {notify} from './notificationActions'
+import {handleError} from './errorActions'
 
 export function loadTables(){
 
@@ -10,7 +11,7 @@ export function loadTables(){
 		   .then(response => {
 		   		dispatch({type:"TABLES_GET_ALL_FULFILLED", payload: response});
 		   }).catch(err => {
-		   		console.log(err);
+		   		dispatch(handleError(err));
 		   		dispatch({type:"TABLES_GET_ALL_REJECTED"})
 		   })
 	}
@@ -26,7 +27,10 @@ export function createTable(posx, posy){
 		   		dispatch({type: "TABLES_CREATE_FULFILLED", payload: response.data});
 		   		dispatch(notify('Table created', 'Table created OK', 'success'));
 		   })
-		   .catch(err => dispatch({type: "TABLES_CREATE_REJECTED"}));
+		   .catch(err => {
+		   		dispatch(handleError(err))
+		   		dispatch({type: "TABLES_CREATE_REJECTED"})
+		   });
 
 	}
 }
@@ -39,7 +43,10 @@ export function deleteTable(id){
 			   	dispatch({type: "TABLES_DELETE_FULFILLED",payload: id})
 			   	dispatch(notify('Table deleted', 'Table deleted OK', 'success'));
 		   })
-		   .catch(err => dispatch({type: "TABLES_DELETE_REJECTED", payload: err}))
+		   .catch(err => {
+		   		dispatch(handleError(err));
+		   		dispatch({type: "TABLES_DELETE_REJECTED", payload: err})
+		   })
 	}
 }
 
@@ -48,7 +55,10 @@ export function loadBooking(table){
 		dispatch({type: "BOOKING_LOAD_PENDING", payload: table});
 		api.loadBooking(table)
 		   .then(res => dispatch({type: "BOOKING_LOAD_FULFILLED",payload: res.data}))
-		   .catch(err => dispatch({type: "BOOKING_LOAD_REJECTED", payload: err}))
+		   .catch(err => {
+		   		dispatch(handleError(err));
+		   		dispatch({type: "BOOKING_LOAD_REJECTED", payload: err})
+		   	})
 	}
 }
 
@@ -61,7 +71,10 @@ export function bookTable(table, data){
 		   	dispatch(closeModal('bookModal'));
 		   	dispatch(notify('Table booked', 'Table booked OK', 'success'));
 		   })
-		   .catch(err => dispatch({type: "BOOK_REJECTED", payload: err}))
+		   .catch(err => {
+		   		dispatch(handleError(err));
+		   		dispatch({type: "BOOK_REJECTED", payload: err})
+		   	})
 	}
 }
 

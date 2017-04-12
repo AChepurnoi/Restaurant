@@ -14,12 +14,11 @@ let compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
 
+let proxy = require('express-http-proxy');
+
 app.use(express.static('output'))
 
-app.use('/', function(req, res) {  
-  let url = "http://localhost:8080/" + req.url;
-  req.pipe(request(url)).pipe(res);
-});
+app.use('/api', proxy("http://localhost:8080/"));
 
 app.get("/*", function(req, res) {
     res.sendFile(__dirname + '/output/index.html')

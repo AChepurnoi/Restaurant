@@ -1,4 +1,5 @@
 import api from '../utility/api'
+import {handleError} from './errorActions'
 
 export function getDishes(category){
 	return(dispatch, getState) => {
@@ -18,7 +19,10 @@ export function createDish(title, description, categoryId, image){
 		   		let modalId = getState().modal.id;
 		   		dispatch({type: "CLOSE_MODAL", payload: modalId});
 		   })
-		   .catch(err => dispatch({type: "DISH_CREATE_REJECTED"}));
+		   .catch(err => {
+		   		dispatch(handleError(err));
+		   		dispatch({type: "DISH_CREATE_REJECTED"});
+		   	});
 
 	}
 }
@@ -28,6 +32,9 @@ export function deleteDish(id){
 		dispatch({type: "DISH_DELETE_PENDING", payload: id});
 		api.deleteDish(id)
 		   .then(res => dispatch({type: "DISH_DELETE_FULFILLED",payload: id}))
-		   .catch(err => dispatch({type: "DISH_DELETE_REJECTED", payload: err}))
+		   .catch(err => {
+		   		dispatch(handleError(err));
+		   		dispatch({type: "DISH_DELETE_REJECTED", payload: err});
+		   	})
 	}
 }

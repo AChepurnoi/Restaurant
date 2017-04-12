@@ -50,7 +50,7 @@ public class TableServiceImpl implements TableService {
                 .reduce(false,
                         (cur, obj) -> this.haveCollision(obj,booking),
                         (l, r) -> l || r);
-        if(intersect) throw new RuntimeException("Intersection!");
+        if(intersect) throw new RuntimeException("This table is booked for this time interval");
         Booking res = bookingRepository.save(booking);
         return bookWrapper.toResponse(res);
     }

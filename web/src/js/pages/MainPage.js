@@ -19,7 +19,7 @@ export default class MainPage extends React.Component{
                     <div class="row menu">
                         <div class="col-sm-3"><Link to="/menu">Menu</Link></div>
                         <div class="col-sm-3">Delivery</div>
-                        <div class="col-sm-3">Book</div>
+                        <div class="col-sm-3"><Link to="/booking">Book</Link></div>
                         <div class="col-sm-3">Sales</div>
                     </div>
                     <div class="row">

@@ -1,5 +1,6 @@
 import api from '../utility/api'
 import {getDishes} from './dishActions'
+import {handleError} from './errorActions'
 
 
 export function getCategories(){
@@ -13,8 +14,8 @@ export function getCategories(){
 		   		if(!categories.length) return;
 		   		dispatch(getDishes(categories[0].id));
 		   }).catch(err => {
-		   		console.log(err);
-		   		dispatch({type:"CATEGORY_GET_ALL_REJECTED"})
+		   		dispatch(handleError(err));
+		   		dispatch({type:"CATEGORY_GET_ALL_REJECTED"});
 		   })
 	}
 }
@@ -30,7 +31,10 @@ export function createCategory(title, image){
 		   		let modalId = getState().modal.id;
 		   		dispatch({type: "CLOSE_MODAL", payload: modalId});
 		   })
-		   .catch(err => dispatch({type: "CATEGORY_CREATE_REJECTED"}));
+		   .catch(err => {
+		   		dispatch(handleError(err));
+		   		dispatch({type: "CATEGORY_CREATE_REJECTED"});
+		   	});
 
 	}
 }
@@ -40,7 +44,10 @@ export function deleteCategory(id){
 		dispatch({type: "CATEGORY_DELETE_PENDING", payload: id});
 		api.deleteCategory(id)
 		   .then(res => dispatch({type: "CATEGORY_DELETE_FULFILLED",payload: id}))
-		   .catch(err => dispatch({type: "CATEGORY_DELETE_REJECTED", payload: err}))
+		   .catch(err => {
+		   		dispatch(handleError(err));
+		   		dispatch({type: "CATEGORY_DELETE_REJECTED", payload: err});
+		   	})
 	}
 }
 

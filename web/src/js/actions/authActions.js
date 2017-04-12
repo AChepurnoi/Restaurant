@@ -1,7 +1,7 @@
 import api from '../utility/api'
 import {closeModal} from './modalActions'
 import cookie from 'react-cookie';
-
+import {handleError} from './errorActions'
 
 export function login(login, password){
 	return(dispatch, getState) => {
@@ -12,7 +12,7 @@ export function login(login, password){
 		   		dispatch(loadUser(login));
 		   		dispatch(closeModal('loginModal'));
 
-		   }).catch(err => console.log(err));
+		   }).catch(err => dispatch(handleError(err)));
 	}
 }
 
@@ -23,7 +23,7 @@ export function loadUser(name){
 		   .then(res => {
 		   		dispatch({type: "SAVE_USER", payload: res.data})
 		   })
-		   .catch(err => console.log(err));
+		   .catch(err => dispatch(handleError(err)));
 	}
 
 }
