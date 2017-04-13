@@ -9,6 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MvcResult;
 
+import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by Sasha on 3/30/17.
  */
+
 @WebMvcTest(CategoryController.class)
 public class CategoryControllerTest extends AbstractWebTest {
 

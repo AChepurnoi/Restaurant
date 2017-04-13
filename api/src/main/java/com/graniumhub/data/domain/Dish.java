@@ -1,9 +1,6 @@
 package com.graniumhub.data.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -16,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"category"})
+@ToString(exclude = {"category"})
 public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

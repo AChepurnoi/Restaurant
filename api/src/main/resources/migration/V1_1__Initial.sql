@@ -34,4 +34,11 @@ CREATE TABLE Booking(
   start DATETIME  NOT NULL,
   end DATETIME NOT NULL ,
   table_id INT NOT NULL
+);
+
+CREATE TABLE Cart_items(
+  id INT AUTO_INCREMENT NOT NULL ,
+  user_id INT NOT NULL,
+  dish_id INT NOT NULL,
+  count INT
 )

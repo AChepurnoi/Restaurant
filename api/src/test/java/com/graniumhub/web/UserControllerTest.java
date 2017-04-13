@@ -32,8 +32,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by Sasha on 3/28/17.
  */
+
 @WebMvcTest(UserController.class)
 public class UserControllerTest extends AbstractWebTest {
+
 
     @Test
     public void registerUser() throws Exception {

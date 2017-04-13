@@ -3,6 +3,8 @@ package com.graniumhub.data.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Sasha on 3/27/17.
@@ -33,7 +36,23 @@ public class User implements UserDetails{
     @NotNull
     private String email;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @Fetch(FetchMode.SUBSELECT)
+    private List<CartItem> cartItems;
+
+
+
+
     private boolean admin;
+
+
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+
 /**
  * Created by Sasha on 3/28/17.
  */
@@ -22,6 +24,7 @@ public class UserWrapper implements AbstractDTOWrapper<UserInput, User, UserResp
                 input.getLogin(),
                 encoder.encode(input.getPassword()),
                 input.getEmail(),
+                Collections.emptyList(),
                 true);
     }
 
