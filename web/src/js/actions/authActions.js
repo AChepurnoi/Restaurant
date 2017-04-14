@@ -1,6 +1,7 @@
 import api from '../utility/api'
 import {closeModal} from './modalActions'
 import cookie from 'react-cookie';
+import {notify} from './notificationActions'
 import {handleError} from './errorActions'
 
 export function login(login, password){
@@ -13,6 +14,20 @@ export function login(login, password){
 		   		dispatch(closeModal('loginModal'));
 
 		   }).catch(err => dispatch(handleError(err)));
+	}
+}
+
+
+export function register(login, password, email){
+	return(dispatch, getState) => {
+		dispatch({type: "REGISTER_PENDING"});
+		api.register(login, password,email)
+		   .then(result =>{
+		   		dispatch({type:"REGISTER_FULFILLED", payload: result.data})
+		   		dispatch(closeModal('registerModal'));
+		   		dispatch(notify('User registered', 'User registered', 'success'))
+		   }).catch(err => dispatch(handleError(err)));
+
 	}
 }
 
@@ -60,3 +75,11 @@ export function checkLoginValidity(){
 		   .catch(err => dispatch(refreshToken()));
 	}
 }
+
+
+
+
+
+
+
+

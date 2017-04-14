@@ -4,8 +4,9 @@ import { connect } from "react-redux"
 import { Link } from 'react-router'
 import axios from 'axios'
 import LoginModal from './modals/LoginModal'
+import RegisterModal from './modals/RegisterModal'
 import {closeModal} from '../actions/modalActions'
-import {login, checkLoginValidity} from '../actions/authActions'
+import {login, register, checkLoginValidity} from '../actions/authActions'
 
 @connect( store =>{
 	return {modal: store.modal, auth: store.auth};
@@ -15,12 +16,12 @@ export default class AuthComponent extends React.Component{
     constructor(props) {
         super(props);
         this.props.dispatch(checkLoginValidity());
-        this.modalId = "loginModal";
+        this.loginModalId = "loginModal";
+        this.registerModalId = "registerModal"
     }
     
 
-    openModal(){
-    	let id = this.modalId;
+    openModal(id){
     	$("#" + id).modal('show');
     	let self = this;
         $('#' + id).one('hidden.bs.modal', function(e) {
@@ -28,25 +29,39 @@ export default class AuthComponent extends React.Component{
         });
     }
 
-    closeModal(){
-    	let id = this.modalId;
+    closeModal(id){
     	$("#" + id).off('hidden.bs.modal');
     	$("#" + id).modal('hide');
     }
 
   	componentDidUpdate(){
-    	if(this.props.modal.id != this.modalId) return;
+    	if(this.props.modal.id == this.loginModalId){
+            let id = this.loginModalId;
+        	if(this.props.modal.open) this.openModal(id);
+        	else this.closeModal(id);
+        }
 
-    	if(this.props.modal.open) this.openModal();
-    	else this.closeModal();
+        if(this.props.modal.id == this.registerModalId){
+            let id = this.registerModalId;
+            if(this.props.modal.open) this.openModal(id);
+            else this.closeModal(id);
+        }
+
     }
    
    	login(log, pass){
    		this.props.dispatch(login(log, pass));
    	}
 
+    register(log, pass, email){
+        this.props.dispatch(register(log,pass,email))
+    }
+
 	render(){
-		return <LoginModal modalId={this.modalId} onLogin={this.login.bind(this)}/>
+		return <div>
+                   <LoginModal modalId={this.loginModalId} onLogin={this.login.bind(this)}/>
+                   <RegisterModal modalId={this.registerModalId} onRegister={this.register.bind(this)}/>
+                </div>
 	}
 
 

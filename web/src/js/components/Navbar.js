@@ -14,15 +14,27 @@ export default class Navbar extends React.Component{
         this.props.dispatch(openModal('loginModal'));
     }
 
+    openRegisterModal(){
+        this.props.dispatch(openModal('registerModal'));
+    }
+
+    logout(){
+        this.props.dispatch({type: "LOGOUT"});
+    }
+
 	render(){
 
         let loginButton;
+        let registerButton;
         let administationButton;
+        let logoutButton;
 
         if(!this.props.auth.authorized){
             loginButton = <li class="navbar-text" onClick={this.openLoginModal.bind(this)}>Login</li>
+            registerButton = <li class="navbar-text" onClick={this.openRegisterModal.bind(this)}>Register</li>
         }else {
             administationButton = <Link to="/admin"> <li class="navbar-text">Admin</li></Link>
+            logoutButton = <li class="navbar-text" onClick={this.logout.bind(this)}>Logout</li>
         }
 
 		return <nav class="navbar navbar-inverse">
@@ -39,7 +51,9 @@ export default class Navbar extends React.Component{
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         {loginButton}
+                        {registerButton}
                         {administationButton}
+                        {logoutButton}
                         <li class="navbar-text cart"><span class="glyphicon glyphicon-shopping-cart cart-icon" aria-hidden="true"></span> Cart</li>
                         
                     </ul>

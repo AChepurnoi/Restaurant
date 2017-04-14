@@ -7,6 +7,7 @@ import com.graniumhub.config.OAuth2ServerConfig;
 import com.graniumhub.config.SecurityConfig;
 import com.graniumhub.service.UserService;
 import lombok.SneakyThrows;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -36,7 +37,7 @@ public abstract class AbstractWebTest {
     protected DataSource dataSource;
 
     @Autowired
-    protected MockMvc mvc;
+    protected MockMvc mvc ;
 
     protected ObjectMapper mapper = new Jackson2ObjectMapperBuilder().build();
 

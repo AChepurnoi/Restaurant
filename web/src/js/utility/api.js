@@ -8,7 +8,18 @@ class api {
 			baseURL: "http://localhost:3000/api/",
 			responseType: 'json'
 		});
+
 	}
+
+
+	setToken(token){
+		this.client.defaults.headers.common['Authorization'] = 'bearer ' + token;
+	}
+
+	clearToken(){
+		delete this.client.defaults.headers.common["Authorization"];
+	}
+
 
 	loadCategories(){
 		return this.client.get('/categories');
@@ -54,6 +65,10 @@ class api {
         formData.append('grant_type', 'password');
         formData.append('score', 'read write');
 		return this.client.post('/oauth/token', formData, {headers: headers});
+	}
+
+	register(login, password, email){
+		return this.client.post('/users', {login, password, email});
 	}
 
 	checkToken(token){

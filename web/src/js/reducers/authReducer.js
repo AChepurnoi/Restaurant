@@ -1,5 +1,5 @@
 import cookie from 'react-cookie';
-
+import api from '../utility/api'
 
 export default function reducer (
 	state={
@@ -14,6 +14,7 @@ export default function reducer (
 			let token = action.payload.access_token;
 			let refresh = action.payload.refresh_token;
 			let expDate = new Date(new Date().getMiliseconds + action.payload.expires_in);
+			api.setToken(action.payload.access_token);
 			cookie.save('access_token', token, { path: '/' , expires: expDate});
 			cookie.save('refresh_token', refresh, {path: '/', expires: expDate});
 			return {...state, authorized: true};
@@ -25,13 +26,16 @@ export default function reducer (
 		}
 
 		case "LOGOUT":{
+			api.clearToken();
 			cookie.remove('user_name', {path: '/'});
 			cookie.remove('access_token',{path: '/'});
 			cookie.remove('refresh_token', {path: '/'});
-			return {...state, authorized: false};
+			return {...state, authorized: false, user: null};
 		}
 
 		case "TOKEN_VALID":{
+			let token = cookie.load('access_token');
+			api.setToken(token);
 			return {...state, authorized: true};
 		}
 	}
