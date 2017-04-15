@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ServerExceptionHandler {
 
-
     @ExceptionHandler({ServerException.class, UsernameNotFoundException.class})
-    public ResponseEntity handleServerException(ServerException ex){
+    public ResponseEntity handleServerException(Exception ex){
         ExceptionResponse response = new ExceptionResponse(ex.getMessage(),400);
         return ResponseEntity.badRequest().body(response);
     }

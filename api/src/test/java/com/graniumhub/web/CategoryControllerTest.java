@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by Sasha on 3/30/17.
  */
 
-@WebMvcTest(CategoryController.class)
 public class CategoryControllerTest extends AbstractWebTest {
 
     @MockBean
