@@ -8,9 +8,11 @@ import RegisterModal from './modals/RegisterModal'
 import CartModal from './modals/CartModal'
 import {closeModal} from '../actions/modalActions'
 import {login, register, checkLoginValidity} from '../actions/authActions'
+import {deleteFromCart,addToCart } from '../actions/cartActions'
+import ProfileModal from './modals/ProfileModal'
 
 @connect( store =>{
-	return {modal: store.modal, auth: store.auth};
+	return {modal: store.modal, auth: store.auth, cart: store.cart};
 })
 export default class AuthComponent extends React.Component{
 
@@ -20,6 +22,7 @@ export default class AuthComponent extends React.Component{
         this.loginModalId = "loginModal";
         this.registerModalId = "registerModal"
         this.cartModalId = 'cartModal'
+        this.profileModalId = 'profileModal'
     }
     
 
@@ -49,8 +52,14 @@ export default class AuthComponent extends React.Component{
             else this.closeModal(id);
         }
 
-         if(this.props.modal.id == this.cartModalId){
+        if(this.props.modal.id == this.cartModalId){
             let id = this.cartModalId;
+            if(this.props.modal.open) this.openModal(id);
+            else this.closeModal(id);
+        }
+
+        if(this.props.modal.id == this.profileModalId){
+            let id = this.profileModalId;
             if(this.props.modal.open) this.openModal(id);
             else this.closeModal(id);
         }
@@ -65,11 +74,21 @@ export default class AuthComponent extends React.Component{
         this.props.dispatch(register(log,pass,email))
     }
 
+    onCartItemDelete(id){
+        this.props.dispatch(deleteFromCart(id));
+    }
+
 	render(){
+
+        let profile;
+        if(this.props.auth.user){
+            profile = <ProfileModal modalId={this.profileModalId} user={this.props.auth.user} />
+        }
 		return <div>
                    <LoginModal modalId={this.loginModalId} onLogin={this.login.bind(this)}/>
                    <RegisterModal modalId={this.registerModalId} onRegister={this.register.bind(this)}/>
-                   <CartModal modalId={this.cartModalId} items={this.props.auth.cart}/>
+                   <CartModal modalId={this.cartModalId} items={this.props.cart.items} onDelete={this.onCartItemDelete.bind(this)}/>
+                   {profile}
                 </div>
 	}
 

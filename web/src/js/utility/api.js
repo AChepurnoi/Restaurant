@@ -117,6 +117,10 @@ class api {
 		return this.client.post('/cart/dish/' + id);
 	}
 
+	removeFromCart(id){
+		return this.client.delete('/cart/dish/' + id);
+	}
+
 }
 
 export default (new api());

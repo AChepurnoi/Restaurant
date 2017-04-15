@@ -26,6 +26,10 @@ export default class Navbar extends React.Component{
         this.props.dispatch({type: "LOGOUT"});
     }
 
+    openProfileModal(){
+        this.props.dispatch(openModal('profileModal'));
+    }
+
 	render(){
 
         let loginButton;
@@ -39,7 +43,7 @@ export default class Navbar extends React.Component{
             registerButton = <li class="navbar-text" onClick={this.openRegisterModal.bind(this)}>Register</li>
         }else {
             cartButton =  <li class="navbar-text cart" onClick={this.openCartModal.bind(this)}><span class="glyphicon glyphicon-shopping-cart cart-icon" aria-hidden="true"></span> Cart</li>
-            profileButton = <li class="navbar-text">Profile</li>
+            profileButton = <li class="navbar-text" onClick={this.openProfileModal.bind(this)}>Profile</li>
             logoutButton = <li class="navbar-text" onClick={this.logout.bind(this)}>Logout</li>
         }
 

@@ -3,6 +3,7 @@ import {closeModal} from './modalActions'
 import cookie from 'react-cookie';
 import {notify} from './notificationActions'
 import {handleError} from './errorActions'
+import {loadCart} from './cartActions'
 
 export function login(login, password){
 	return(dispatch, getState) => {
@@ -78,20 +79,6 @@ export function checkLoginValidity(){
 }
 
 
-export function loadCart(){
-
-	return (dispatch, getState) => {
-		dispatch({type: "LOAD_CART_PENDING"});
-		api.loadCart()
-			.then(res => dispatch({type: "LOAD_CART_FULFILLED", payload: res.data}))
-			.catch(err => {
-				dispatch(handleError(err));
-		   		dispatch({type: "LOAD_CART_REJECTED", payload: err});
-			})
-
-
-	}
-}
 
 
 

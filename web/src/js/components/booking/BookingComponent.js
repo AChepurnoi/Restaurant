@@ -13,7 +13,7 @@ export default class BookingComponent extends React.Component{
 
     constructor(props) {
         super(props);
-        this.plan = "https://s-media-cache-ak0.pinimg.com/originals/b5/00/03/b50003669af8e021d25c98d7cfd69689.jpg";
+        this.plan = "http://slyfelinos.com/plans/440x330-nicole-neills-portfolio-turquiose-restaurant-2122910.png";
         this.marker = "http://www.clker.com/cliparts/B/B/1/E/y/r/marker-pin-google.svg";
         this.markerWidth = 55;
         this.markerHeight = 30;

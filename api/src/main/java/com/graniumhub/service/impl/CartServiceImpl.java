@@ -62,7 +62,7 @@ public class CartServiceImpl implements CartService {
                 .orElseThrow(NotFound::new);
         item.setCount(item.getCount() - 1);
 
-        if(item.getCount() > 1) cartRepository.delete(item.getId());
+        if(item.getCount() < 1) cartRepository.delete(item.getId());
         else item = cartRepository.save(item);
 
         return cartItemConverter.convert(item);

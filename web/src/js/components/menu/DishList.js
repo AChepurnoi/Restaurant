@@ -12,7 +12,8 @@ export default class DishList extends React.Component{
 	render(){
 
         let addBtn;
-        let delBtn = (id) => {}
+        let delBtn = (id) => {};
+        let addCartBtn;
         
         if(this.props.admin){
             addBtn = <div class="col-md-12" onClick={this.props.onAddDish.bind(this)}> 
@@ -20,7 +21,8 @@ export default class DishList extends React.Component{
                      </div>
 
             delBtn = (id) => <span class="glyphicon glyphicon-remove" onClick={this.props.onDelete.bind(this, id)}></span>
-                
+         
+            addCartBtn = <div class="btn" onClick={this.props.onAddToCart.bind(this,item.id)}>Add to cart</div>     
         }
 
 		return <div class="row"> 
@@ -38,7 +40,7 @@ export default class DishList extends React.Component{
                                 </div>
 
                                 <div>{item.description}</div>
-                                <div class="btn" onClick={this.props.onAddToCart.bind(this,item.id)}>Add to cart</div>
+                                {addCartBtn}
                               </div>
                             </div>
                           </div>)}

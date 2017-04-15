@@ -4,7 +4,6 @@ import api from '../utility/api'
 export default function reducer (
 	state={
 		user: null,
-		cart: [],
 		authorized: false,
 
 	}, action){
@@ -26,9 +25,6 @@ export default function reducer (
 			return {...state, user: action.payload};
 		}
 
-		case "LOAD_CART_FULFILLED": {
-			return {...state, cart: action.payload};
-		}
 
 		case "LOGOUT":{
 			api.clearToken();

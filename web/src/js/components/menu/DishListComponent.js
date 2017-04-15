@@ -6,7 +6,8 @@ import CreateDishModal from '../modals/CreateDishModal'
 import {openModal, closeModal} from '../../actions/modalActions'
 import {getCategories} from '../../actions/categoryActions'
 
-import {createDish, deleteDish, addToCart} from '../../actions/dishActions'
+import {createDish, deleteDish} from '../../actions/dishActions'
+import {addToCart} from '../../actions/cartActions'
 
 @connect( (store) =>{
 	return {category: store.category, dish: store.dish, modal: store.modal, auth: store.auth};
