@@ -38,3 +38,21 @@ export function deleteDish(id){
 		   	})
 	}
 }
+
+export function addToCart(id){
+
+	return (dispatch, getState) => {
+		dispatch({type: "ADD_TO_CART_PEDNING", payload: id});
+		api.addToCart(id)
+			.then(res => dispatch({type: "ADD_TO_CART_FULFILLED", payload: res.data}))
+			.catch( err => {
+				dispatch(handleError(err));
+		   		dispatch({type: "ADD_TO_CART_REJECTED", payload: err});
+			})
+	}
+
+}
+
+
+
+

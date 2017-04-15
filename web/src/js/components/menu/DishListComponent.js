@@ -6,7 +6,7 @@ import CreateDishModal from '../modals/CreateDishModal'
 import {openModal, closeModal} from '../../actions/modalActions'
 import {getCategories} from '../../actions/categoryActions'
 
-import {createDish, deleteDish} from '../../actions/dishActions'
+import {createDish, deleteDish, addToCart} from '../../actions/dishActions'
 
 @connect( (store) =>{
 	return {category: store.category, dish: store.dish, modal: store.modal, auth: store.auth};
@@ -44,6 +44,11 @@ export default class DishListComponent extends React.Component{
     }
 
 
+    addToCart(id){
+        this.props.dispatch(addToCart(id));
+    }
+
+
     componentDidUpdate(){
     	if(this.props.modal.id != this.modalId) return;
 
@@ -72,6 +77,7 @@ export default class DishListComponent extends React.Component{
             {modal}		 
 			<DishList onAddDish={this.addClick.bind(this)}
 					  items={this.props.dish.dishes}
+                      onAddToCart={this.addToCart.bind(this)}
                       onDelete={this.deleteClick.bind(this)}
                       admin={admin}
 						  />

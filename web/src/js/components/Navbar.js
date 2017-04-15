@@ -18,6 +18,10 @@ export default class Navbar extends React.Component{
         this.props.dispatch(openModal('registerModal'));
     }
 
+    openCartModal(){
+        this.props.dispatch(openModal('cartModal'))
+    }
+
     logout(){
         this.props.dispatch({type: "LOGOUT"});
     }
@@ -26,14 +30,16 @@ export default class Navbar extends React.Component{
 
         let loginButton;
         let registerButton;
-        let administationButton;
+        let profileButton;
         let logoutButton;
+        let cartButton;
 
         if(!this.props.auth.authorized){
             loginButton = <li class="navbar-text" onClick={this.openLoginModal.bind(this)}>Login</li>
             registerButton = <li class="navbar-text" onClick={this.openRegisterModal.bind(this)}>Register</li>
         }else {
-            administationButton = <Link to="/admin"> <li class="navbar-text">Admin</li></Link>
+            cartButton =  <li class="navbar-text cart" onClick={this.openCartModal.bind(this)}><span class="glyphicon glyphicon-shopping-cart cart-icon" aria-hidden="true"></span> Cart</li>
+            profileButton = <li class="navbar-text">Profile</li>
             logoutButton = <li class="navbar-text" onClick={this.logout.bind(this)}>Logout</li>
         }
 
@@ -52,10 +58,10 @@ export default class Navbar extends React.Component{
                     <ul class="nav navbar-nav navbar-right">
                         {loginButton}
                         {registerButton}
-                        {administationButton}
+                        {profileButton}
                         {logoutButton}
-                        <li class="navbar-text cart"><span class="glyphicon glyphicon-shopping-cart cart-icon" aria-hidden="true"></span> Cart</li>
-                        
+                        {cartButton}
+                       
                     </ul>
                 </div>
             </div>

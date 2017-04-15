@@ -38,7 +38,7 @@ export default class DishList extends React.Component{
                                 </div>
 
                                 <div>{item.description}</div>
-                                
+                                <div class="btn" onClick={this.props.onAddToCart.bind(this,item.id)}>Add to cart</div>
                               </div>
                             </div>
                           </div>)}

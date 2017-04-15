@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import axios from 'axios'
 import LoginModal from './modals/LoginModal'
 import RegisterModal from './modals/RegisterModal'
+import CartModal from './modals/CartModal'
 import {closeModal} from '../actions/modalActions'
 import {login, register, checkLoginValidity} from '../actions/authActions'
 
@@ -18,6 +19,7 @@ export default class AuthComponent extends React.Component{
         this.props.dispatch(checkLoginValidity());
         this.loginModalId = "loginModal";
         this.registerModalId = "registerModal"
+        this.cartModalId = 'cartModal'
     }
     
 
@@ -47,6 +49,12 @@ export default class AuthComponent extends React.Component{
             else this.closeModal(id);
         }
 
+         if(this.props.modal.id == this.cartModalId){
+            let id = this.cartModalId;
+            if(this.props.modal.open) this.openModal(id);
+            else this.closeModal(id);
+        }
+
     }
    
    	login(log, pass){
@@ -61,6 +69,7 @@ export default class AuthComponent extends React.Component{
 		return <div>
                    <LoginModal modalId={this.loginModalId} onLogin={this.login.bind(this)}/>
                    <RegisterModal modalId={this.registerModalId} onRegister={this.register.bind(this)}/>
+                   <CartModal modalId={this.cartModalId} items={this.props.auth.cart}/>
                 </div>
 	}
 

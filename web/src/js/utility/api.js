@@ -11,7 +11,6 @@ class api {
 
 	}
 
-
 	setToken(token){
 		this.client.defaults.headers.common['Authorization'] = 'bearer ' + token;
 	}
@@ -110,6 +109,13 @@ class api {
 		return this.client.get('/users/' + name);
 	}
 
+	loadCart(){
+		return this.client.get('/cart');
+	}
+
+	addToCart(id){
+		return this.client.post('/cart/dish/' + id);
+	}
 
 }
 

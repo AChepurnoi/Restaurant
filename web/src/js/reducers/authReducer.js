@@ -4,6 +4,7 @@ import api from '../utility/api'
 export default function reducer (
 	state={
 		user: null,
+		cart: [],
 		authorized: false,
 
 	}, action){
@@ -25,12 +26,16 @@ export default function reducer (
 			return {...state, user: action.payload};
 		}
 
+		case "LOAD_CART_FULFILLED": {
+			return {...state, cart: action.payload};
+		}
+
 		case "LOGOUT":{
 			api.clearToken();
 			cookie.remove('user_name', {path: '/'});
 			cookie.remove('access_token',{path: '/'});
 			cookie.remove('refresh_token', {path: '/'});
-			return {...state, authorized: false, user: null};
+			return {...state, authorized: false, user: null, cart: null};
 		}
 
 		case "TOKEN_VALID":{

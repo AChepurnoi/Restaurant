@@ -37,6 +37,7 @@ export function loadUser(name){
 		api.loadUser(name)
 		   .then(res => {
 		   		dispatch({type: "SAVE_USER", payload: res.data})
+		   		dispatch(loadCart());
 		   })
 		   .catch(err => dispatch(handleError(err)));
 	}
@@ -76,6 +77,21 @@ export function checkLoginValidity(){
 	}
 }
 
+
+export function loadCart(){
+
+	return (dispatch, getState) => {
+		dispatch({type: "LOAD_CART_PENDING"});
+		api.loadCart()
+			.then(res => dispatch({type: "LOAD_CART_FULFILLED", payload: res.data}))
+			.catch(err => {
+				dispatch(handleError(err));
+		   		dispatch({type: "LOAD_CART_REJECTED", payload: err});
+			})
+
+
+	}
+}
 
 
 
