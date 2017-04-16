@@ -7,8 +7,6 @@ import {deleteTable, createTable, loadTables, loadBooking, selectTable, deselect
 import ModalController from '../../controllers/ModalController'
 import {BOOK_MODAL_ID} from '../../const'
 
-
-
 @connect( (store) =>{
 	return {modal: store.modal, auth: store.auth, booking: store.booking};
 })
@@ -79,10 +77,6 @@ export default class BookingComponent extends React.Component{
         })
     }
 
-    onBook(data){
-        this.props.dispatch(bookTable(this.props.booking.selectedTable, data));
-    }
-
 
     componentDidMount(prevProps, prevState) {
         const {markerWidth, markerHeight} = {markerWidth: 55, markerHeight: 30};
@@ -98,7 +92,6 @@ export default class BookingComponent extends React.Component{
 
         this.disablePlacing();
         if(this.state.placing) this.enablePlacing();
-        
         this.drawTables();
     }
 
@@ -110,7 +103,11 @@ export default class BookingComponent extends React.Component{
         let deleteButton = admin ? <div class={"btn " + (this.state.deleting ? 'btn-success' : '')} onClick={this.toggleDeletion.bind(this)}>Delete table</div> : ""
 
 		return <div class="row">
-            <BookTableModal modalId={BOOK_MODAL_ID} booking={this.props.booking} onBook={this.onBook.bind(this)} />
+            <BookTableModal 
+                modalId={BOOK_MODAL_ID} 
+                booking={this.props.booking} 
+                onBook={(data) => this.props.dispatch(bookTable(this.props.booking.selectedTable, data))} />
+
            {placingButton}
            {deleteButton}
            <div id="svg-container">

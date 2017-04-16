@@ -23,23 +23,6 @@ export default class CategoryListComponent extends React.Component{
 
     }
 
-    addClick(){
-    	this.modalController.openModal(CATEGORY_MODAL_ID);
-    }
-
-    deleteClick(id){
-    	this.props.dispatch(deleteCategory(id));
-    }
-
-    selectClick(id){
-        this.props.dispatch(getDishes(id));
-    }
-
-	createCategory(title, image){
-		this.props.dispatch(createCategory(title, image))
-	}
-
-
 	render(){
 
 
@@ -50,16 +33,16 @@ export default class CategoryListComponent extends React.Component{
 
         if(admin){
             modal = <CreateCategoryModal modalId={CATEGORY_MODAL_ID} 
-                                 onSavePressed={this.createCategory.bind(this)}
+                                 onSavePressed={(data) => this.props.dispatch(createCategory(data))}
                                  />
         }
 
 		return <div>
             {modal}		
-			<CategoryList onAddCategory={this.addClick.bind(this)}
+			<CategoryList onAddCategory={() => this.modalController.openModal(CATEGORY_MODAL_ID)}
 						  items={this.props.category.categories}
-						  onDeleteCategory={this.deleteClick.bind(this)}
-                          onSelect={this.selectClick.bind(this)}
+						  onDeleteCategory={(id) => this.props.dispatch(deleteCategory(id))}
+                          onSelect={(id) => this.props.dispatch(getDishes(id))}
                           admin={admin}
 						  />
 		</div>

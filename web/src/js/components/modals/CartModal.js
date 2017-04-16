@@ -14,6 +14,10 @@ export default class CartModal extends React.Component{
     	this.props.onDelete(id);
     }
 
+    onAdd(id){
+    	this.props.onAdd(id);
+    }
+
 	render(){
 		return <div id={this.props.modalId} class="modal fade" tabIndex="-1" role="dialog">
 				  <div class="modal-dialog" role="document">
@@ -24,8 +28,11 @@ export default class CartModal extends React.Component{
 				      </div>
 				      <div class="modal-body">
 				       {this.props.items.map((item, i) => <div key={i}> 
-				       		<span>Dish: {item.title}. Count: {item.count}</span> 
+				       		<span>Dish: {item.title} </span> 
 				       		<span class="glyphicon glyphicon-remove" onClick={this.onDelete.bind(this, item.id)}></span>
+				       		<span>Count: {item.count} </span>
+				       		<span class="glyphicon glyphicon-plus" onClick={this.onAdd.bind(this, item.id)}></span>
+
 				       	</div>)}
 
 				      </div>

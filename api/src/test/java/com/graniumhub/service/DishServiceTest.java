@@ -52,7 +52,7 @@ public class DishServiceTest {
     public void createDish() {
         MultipartFile file = new MockMultipartFile("Test", "Helloworld".getBytes());
 
-        DishInput input = new DishInput("title", "desc", file,100);
+        DishInput input = new DishInput("title", "desc", file, 100, 0);
         DishResponse response = dishService.create(input);
         assert (response != null);
     }

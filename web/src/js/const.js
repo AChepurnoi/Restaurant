@@ -13,4 +13,4 @@ export const DISH_MODAL_ID = "dishModalId"
 
 export const BOOK_MODAL_ID = "bookModalId"
 
-
+export const DELIVERY_MODAL_ID = "deliveryModalId"

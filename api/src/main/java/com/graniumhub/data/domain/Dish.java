@@ -21,6 +21,9 @@ public class Dish {
     private String title;
     private String description;
     private String image;
+    private int price;
+    private boolean sale;
+    private int discount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)

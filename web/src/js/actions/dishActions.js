@@ -11,12 +11,12 @@ export function getDishes(category){
 	}
 }
 
-export function createDish(title, description, categoryId, image){
+export function createDish(data){
 	return (dispatch, getState) => {
 
 		dispatch({type: "DISH_CREATE_PENDING"});
 
-		api.createDish({title, description, categoryId, image})
+		api.createDish(data)
 		   .then(response => {
 		   		dispatch({type: "DISH_CREATE_FULFILLED", payload: response.data});
 		   		dispatch(closeModal(DISH_MODAL_ID));

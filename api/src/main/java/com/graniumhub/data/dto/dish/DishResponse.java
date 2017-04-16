@@ -17,5 +17,7 @@ public class DishResponse {
     private String description;
     private String image;
     private int categoryId;
-
+    private int price;
+    private boolean sale;
+    private int discount;
 }

@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.DataSource;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,13 +47,18 @@ public class DishControllerTest extends AbstractWebTest {
     @MockBean
     private DishService dishService;
 
+    private DishResponse response = new DishResponse(5, "Test", "Test",
+            "imageurl", 5, 10,
+            false, 0);
+
     @Test
     public void createDish() throws Exception {
         MockMultipartFile file = new MockMultipartFile("image", "Helloworld".getBytes());
-        DishInput input = new DishInput("Title", "Testdc", file, 100);
+        DishInput input = new DishInput("Title", "Testdc", file,
+                100, 50);
 
         given(this.dishService.create(input))
-                .willReturn(new DishResponse(5, "Test", "Test", "imageurl",5));
+                .willReturn(response);
 
         MvcResult result = this.mvc.perform(
                 fileUpload("/dishes")
@@ -60,6 +66,7 @@ public class DishControllerTest extends AbstractWebTest {
                         .param("title", "Title")
                         .param("description", "Testdc")
                         .param("categoryId", "100")
+                        .param("price","50")
                         .header("Content-type", MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -84,9 +91,25 @@ public class DishControllerTest extends AbstractWebTest {
 
     @Test
     public void findByCategoryId() throws Exception {
-        given(this.dishService.findByCategoryId(5)).willReturn(Collections.emptyList());
+        given(this.dishService.findByCategoryId(5))
+                .willReturn(Collections.singletonList(response));
         MvcResult result = this.mvc
                 .perform(get("/categories/5/dishes"))
+                .andExpect(status().isOk())
+                .andReturn();
+        List response = parse(result, List.class);
+        assert (response.size() == 1);
+
+    }
+
+    @Test
+    public void findByCategoryIdWithFilter() throws Exception {
+        given(this.dishService.findByCategoryId(5))
+                .willReturn(Collections.singletonList(response));
+
+        MvcResult result = this.mvc
+                .perform(get("/categories/5/dishes")
+                        .param("sale", "true"))
                 .andExpect(status().isOk())
                 .andReturn();
         List response = parse(result, List.class);

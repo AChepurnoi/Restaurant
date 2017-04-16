@@ -20,12 +20,12 @@ export function getCategories(){
 	}
 }
 
-export function createCategory(title, image){
+export function createCategory(data){
 	return (dispatch, getState) => {
 
 		dispatch({type: "CATEGORY_CREATE_PENDING"});
 
-		api.createCategory({title, image})
+		api.createCategory(data)
 		   .then(response => {
 		   		dispatch({type: "CATEGORY_CREATE_FULFILLED", payload: response.data});
 		   		dispatch(closeModal(CATEGORY_MODAL_ID));

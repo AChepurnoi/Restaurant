@@ -37,7 +37,7 @@ public class CartControllerTest extends AbstractWebTest {
         int dishId = 5;
 
         DishResponse response = new DishResponse(dishId, "Title",
-                "desc", "img", 1);
+                "desc", "img", 1, 0, false, 0);
 
         given(cartService.addToCart(10, dishId))
                 .willReturn(new CartResponse(response, 5));
@@ -57,7 +57,8 @@ public class CartControllerTest extends AbstractWebTest {
     public void getCart() throws Exception {
 
         DishResponse response = new DishResponse(5, "Title",
-                "desc", "img", 1);
+                "desc", "img", 1,
+                0, false, 0 );
 
         given(cartService.loadCart(10))
                 .willReturn(Collections.singletonList(new CartResponse(response, 5)));
@@ -77,7 +78,7 @@ public class CartControllerTest extends AbstractWebTest {
 
         int dishId = 5;
         DishResponse response = new DishResponse(dishId, "Title",
-                "desc", "img", 1);
+                "desc", "img", 1, 0, false , 0);
 
         given(cartService.removeFromCart(10, dishId))
                 .willReturn((new CartResponse(response, 1)));

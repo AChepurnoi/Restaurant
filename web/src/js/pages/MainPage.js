@@ -2,9 +2,19 @@ import React from 'react'
 import { connect } from "react-redux"
 import { Link } from 'react-router'
 import Slider from '../components/Slider/Slider'
-
-
+import ModalController from '../controllers/ModalController'
+import {DELIVERY_MODAL_ID} from '../const'
+import DeliveryModal from '../components/modals/DeliveryModal'
+@connect(store => {
+    return {connected: true}
+})
 export default class MainPage extends React.Component{
+
+
+    constructor(props) {
+        super(props);
+        this.modalController = new ModalController(this.props.dispatch)
+    }
 
     componentDidMount(){
 
@@ -14,11 +24,14 @@ export default class MainPage extends React.Component{
 
 
 		return <div class="content">
+            <DeliveryModal modalId={DELIVERY_MODAL_ID}/>
             <div class="content-inside">
                 <div class="container-fluid">
                     <div class="row menu">
                         <div class="col-sm-3"><Link to="/menu">Menu</Link></div>
-                        <div class="col-sm-3">Delivery</div>
+                        <div class="col-sm-3">
+                            <span onClick={() => this.modalController.openModal(DELIVERY_MODAL_ID)}>Delivery</span>
+                        </div>
                         <div class="col-sm-3"><Link to="/booking">Book</Link></div>
                         <div class="col-sm-3">Sales</div>
                     </div>

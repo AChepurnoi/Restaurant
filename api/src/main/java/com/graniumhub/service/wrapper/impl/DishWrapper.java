@@ -33,12 +33,17 @@ public class DishWrapper implements AbstractDTOWrapper<DishInput, Dish, DishResp
         MultipartFile image = input.getImage();
         String imageUrl = amazon.saveImage(image.getOriginalFilename(), image.getInputStream());
         Category category = categoryRepository.findOne(input.getCategoryId()).orElseThrow(RuntimeException::new);
-        return new Dish(0, input.getTitle(),input.getDescription(),imageUrl,category);
+        return new Dish(0, input.getTitle(),
+                input.getDescription(),imageUrl,
+                input.getPrice(),false, 0,
+                category);
     }
 
     @Override
     public DishResponse toResponse(Dish entity) {
-        return new DishResponse(entity.getId(),entity.getTitle(),entity.getDescription(),entity.getImage(),entity.getCategory().getId());
+        return new DishResponse(entity.getId(),entity.getTitle(),
+                entity.getDescription(),entity.getImage(),entity.getCategory().getId(),
+                entity.getPrice(), entity.isSale(), entity.getDiscount());
     }
 
     @Override

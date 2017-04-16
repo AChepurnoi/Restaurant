@@ -31,25 +31,29 @@ export default class AuthComponent extends React.Component{
         this.props.dispatch(register(log,pass,email))
     }
 
-    onCartItemDelete(id){
-        this.props.dispatch(deleteFromCart(id));
-    }
 
-	render(){
+  	render(){
 
         let profile;
         let cart;
         if(this.props.auth.user){
-            profile = <ProfileModal modalId={PROFILE_MODAL_ID} user={this.props.auth.user} />
-            cart = <CartModal modalId={CART_MODAL_ID} items={this.props.cart.items} onDelete={this.onCartItemDelete.bind(this)}/>
+          profile = <ProfileModal 
+                      modalId={PROFILE_MODAL_ID} 
+                      user={this.props.auth.user} />
+
+          cart = <CartModal 
+                      modalId={CART_MODAL_ID} 
+                      items={this.props.cart.items} 
+                      onAdd={(id) => this.props.dispatch(addToCart(id))}
+                      onDelete={(id) => this.props.dispatch(deleteFromCart(id))}/>
         }
-		return <div>
-                   <LoginModal modalId={LOGIN_MODAL_ID} onLogin={this.login.bind(this)}/>
-                   <RegisterModal modalId={REGISTER_MODAL_ID} onRegister={this.register.bind(this)}/>
-                   {cart}
-                   {profile}
-                </div>
-	}
+  		return <div>
+                     <LoginModal modalId={LOGIN_MODAL_ID} onLogin={this.login.bind(this)}/>
+                     <RegisterModal modalId={REGISTER_MODAL_ID} onRegister={this.register.bind(this)}/>
+                     {cart}
+                     {profile}
+                  </div>
+  	}
 
 
 

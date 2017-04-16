@@ -23,4 +23,6 @@ public class DishInput {
     private MultipartFile image;
     private int categoryId;
 
+    private int price;
+
 }

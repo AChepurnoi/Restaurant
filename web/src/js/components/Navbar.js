@@ -3,12 +3,18 @@ import React from 'react'
 import { connect } from "react-redux"
 import { Link } from 'react-router'
 import {openModal} from '../actions/modalActions'
+import ModalController from '../controllers/ModalController'
 
 @connect( store => {
     return {modal: store.modal, auth: store.auth}
 })
 export default class Navbar extends React.Component{
 
+
+    constructor(props) {
+        super(props);
+        this.modalController = new ModalController(this.props.dispatch)
+    }
 
     openLoginModal(){
         this.props.dispatch(openModal('loginModalId'));

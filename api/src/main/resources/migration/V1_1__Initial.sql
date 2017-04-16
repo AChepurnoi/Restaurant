@@ -19,6 +19,9 @@ CREATE TABLE Dish(
   description VARCHAR(255),
   image VARCHAR(255) NOT NULL ,
   category_id INT NOT NULL,
+  price INT DEFAULT 0 NOT NULL  ,
+  sale BOOL DEFAULT FALSE NOT NULL,
+  discount INT DEFAULT 0 NOT NULL
 );
 
 CREATE TABLE Table(

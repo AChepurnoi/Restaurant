@@ -58,7 +58,7 @@ export default class CreateCategoryModal extends React.Component{
     	let title = $('#category-title').val();
     	let self = this;
     	self.getImageBlob()
-    		.then(result => self.props.onSavePressed(title,result));
+    		.then(image => self.props.onSavePressed({title,image}));
 		
     }
 

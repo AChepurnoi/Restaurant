@@ -2,12 +2,14 @@ package com.graniumhub.web;
 
 import com.graniumhub.data.dto.dish.DishInput;
 import com.graniumhub.data.dto.dish.DishResponse;
+import com.graniumhub.data.filter.OnSaleDishFilter;
 import com.graniumhub.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Sasha on 3/28/17.
@@ -24,20 +26,27 @@ public class DishController {
     }
 
     @PostMapping(value = "/dishes")
-    public ResponseEntity<DishResponse> create(DishInput input){
+    public ResponseEntity<DishResponse> create(DishInput input) {
         DishResponse response = service.create(input);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping(value = "/dishes/{id}")
-    public ResponseEntity<Object> delete(@PathVariable int id){
+    public ResponseEntity<Object> delete(@PathVariable int id) {
         boolean result = service.delete(id);
         return result ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
     @GetMapping(value = "/categories/{id}/dishes")
-    public ResponseEntity<List<DishResponse>> findByCategory(@PathVariable int id){
+    public ResponseEntity<List<DishResponse>> findByCategory(
+            @PathVariable int id,
+            OnSaleDishFilter dishFilter) {
+
         List<DishResponse> dishes = service.findByCategoryId(id);
+        dishes = dishes.stream()
+                .filter(dishFilter)
+                .collect(Collectors.toList());
+
         return ResponseEntity.ok(dishes);
     }
 
