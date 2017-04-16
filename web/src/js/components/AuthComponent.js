@@ -10,6 +10,7 @@ import {closeModal} from '../actions/modalActions'
 import {login, register, checkLoginValidity} from '../actions/authActions'
 import {deleteFromCart,addToCart } from '../actions/cartActions'
 import ProfileModal from './modals/ProfileModal'
+import {REGISTER_MODAL_ID, LOGIN_MODAL_ID, CART_MODAL_ID, PROFILE_MODAL_ID} from '../const'
 
 @connect( store =>{
 	return {modal: store.modal, auth: store.auth, cart: store.cart};
@@ -19,53 +20,9 @@ export default class AuthComponent extends React.Component{
     constructor(props) {
         super(props);
         this.props.dispatch(checkLoginValidity());
-        this.loginModalId = "loginModal";
-        this.registerModalId = "registerModal"
-        this.cartModalId = 'cartModal'
-        this.profileModalId = 'profileModal'
     }
     
 
-    openModal(id){
-    	$("#" + id).modal('show');
-    	let self = this;
-        $('#' + id).one('hidden.bs.modal', function(e) {
-        	self.props.dispatch(closeModal(id));
-        });
-    }
-
-    closeModal(id){
-    	$("#" + id).off('hidden.bs.modal');
-    	$("#" + id).modal('hide');
-    }
-
-  	componentDidUpdate(){
-    	if(this.props.modal.id == this.loginModalId){
-            let id = this.loginModalId;
-        	if(this.props.modal.open) this.openModal(id);
-        	else this.closeModal(id);
-        }
-
-        if(this.props.modal.id == this.registerModalId){
-            let id = this.registerModalId;
-            if(this.props.modal.open) this.openModal(id);
-            else this.closeModal(id);
-        }
-
-        if(this.props.modal.id == this.cartModalId){
-            let id = this.cartModalId;
-            if(this.props.modal.open) this.openModal(id);
-            else this.closeModal(id);
-        }
-
-        if(this.props.modal.id == this.profileModalId){
-            let id = this.profileModalId;
-            if(this.props.modal.open) this.openModal(id);
-            else this.closeModal(id);
-        }
-
-    }
-   
    	login(log, pass){
    		this.props.dispatch(login(log, pass));
    	}
@@ -81,13 +38,15 @@ export default class AuthComponent extends React.Component{
 	render(){
 
         let profile;
+        let cart;
         if(this.props.auth.user){
-            profile = <ProfileModal modalId={this.profileModalId} user={this.props.auth.user} />
+            profile = <ProfileModal modalId={PROFILE_MODAL_ID} user={this.props.auth.user} />
+            cart = <CartModal modalId={CART_MODAL_ID} items={this.props.cart.items} onDelete={this.onCartItemDelete.bind(this)}/>
         }
 		return <div>
-                   <LoginModal modalId={this.loginModalId} onLogin={this.login.bind(this)}/>
-                   <RegisterModal modalId={this.registerModalId} onRegister={this.register.bind(this)}/>
-                   <CartModal modalId={this.cartModalId} items={this.props.cart.items} onDelete={this.onCartItemDelete.bind(this)}/>
+                   <LoginModal modalId={LOGIN_MODAL_ID} onLogin={this.login.bind(this)}/>
+                   <RegisterModal modalId={REGISTER_MODAL_ID} onRegister={this.register.bind(this)}/>
+                   {cart}
                    {profile}
                 </div>
 	}

@@ -1,8 +1,8 @@
 import api from '../utility/api'
 import {getDishes} from './dishActions'
 import {handleError} from './errorActions'
-
-
+import {closeModal} from './modalActions'
+import {CATEGORY_MODAL_ID} from '../const'
 export function getCategories(){
 
 	return (dispatch, getState) => {
@@ -28,8 +28,7 @@ export function createCategory(title, image){
 		api.createCategory({title, image})
 		   .then(response => {
 		   		dispatch({type: "CATEGORY_CREATE_FULFILLED", payload: response.data});
-		   		let modalId = getState().modal.id;
-		   		dispatch({type: "CLOSE_MODAL", payload: modalId});
+		   		dispatch(closeModal(CATEGORY_MODAL_ID));
 		   })
 		   .catch(err => {
 		   		dispatch(handleError(err));

@@ -5,9 +5,11 @@ import DishList from './DishList'
 import CreateDishModal from '../modals/CreateDishModal'
 import {openModal, closeModal} from '../../actions/modalActions'
 import {getCategories} from '../../actions/categoryActions'
-
+import {DISH_MODAL_ID} from '../../const'
 import {createDish, deleteDish} from '../../actions/dishActions'
 import {addToCart} from '../../actions/cartActions'
+
+import ModalController from '../../controllers/ModalController'
 
 @connect( (store) =>{
 	return {category: store.category, dish: store.dish, modal: store.modal, auth: store.auth};
@@ -16,28 +18,14 @@ export default class DishListComponent extends React.Component{
 
     constructor(props) {
         super(props);
+        this.modalController = new ModalController(this.props.dispatch);
+        
         const {categories, loading} = this.props.category;
         if(!categories.length && !loading) this.props.dispatch(getCategories());
-        this.modalId = "dishModal";
-    }
-
-    openModal(){
-    	let id = this.modalId;
-    	$("#" + id).modal('show');
-    	let self = this;
-        $('#' + id).one('hidden.bs.modal', function(e) {
-        	self.props.dispatch(closeModal(id));
-        });
-    }
-
-    closeModal(){
-    	let id = this.modalId;
-    	$("#" + id).off('hidden.bs.modal');
-    	$("#" + id).modal('hide');
     }
 
     addClick(){
-    	this.props.dispatch(openModal(this.modalId));
+    	this.modalController.openModal(DISH_MODAL_ID);
     }
 
     deleteClick(id){
@@ -50,16 +38,10 @@ export default class DishListComponent extends React.Component{
     }
 
 
-    componentDidUpdate(){
-    	if(this.props.modal.id != this.modalId) return;
-
-    	if(this.props.modal.open) this.openModal();
-    	else this.closeModal();
-    }
-
 	createDish(title, description, categoryId, image){
 		this.props.dispatch(createDish(title, description, categoryId, image))
 	}
+
 	render(){
 
         let {user} = this.props.auth;
@@ -68,7 +50,7 @@ export default class DishListComponent extends React.Component{
         let modal
 
         if(admin){
-            modal =  <CreateDishModal modalId={this.modalId} 
+            modal =  <CreateDishModal modalId={DISH_MODAL_ID} 
                              categories={this.props.category.categories}
                              onSavePressed={this.createDish.bind(this)}
                                  />

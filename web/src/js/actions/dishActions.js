@@ -1,5 +1,8 @@
 import api from '../utility/api'
 import {handleError} from './errorActions'
+import {closeModal} from './modalActions'
+import {DISH_MODAL_ID} from '../const'
+
 
 export function getDishes(category){
 	return(dispatch, getState) => {
@@ -16,8 +19,7 @@ export function createDish(title, description, categoryId, image){
 		api.createDish({title, description, categoryId, image})
 		   .then(response => {
 		   		dispatch({type: "DISH_CREATE_FULFILLED", payload: response.data});
-		   		let modalId = getState().modal.id;
-		   		dispatch({type: "CLOSE_MODAL", payload: modalId});
+		   		dispatch(closeModal(DISH_MODAL_ID));
 		   })
 		   .catch(err => {
 		   		dispatch(handleError(err));

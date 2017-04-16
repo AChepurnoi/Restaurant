@@ -1,10 +1,13 @@
 import React from 'react'
 import { connect } from "react-redux"
 import { Link } from 'react-router'
-import {openModal, closeModal} from '../../actions/modalActions'
 import BookTableModal from '../modals/BookTableModal'
 import SVG from 'svg.js'
 import {deleteTable, createTable, loadTables, loadBooking, selectTable, deselectTable, bookTable} from '../../actions/bookingActions'
+import ModalController from '../../controllers/ModalController'
+import {BOOK_MODAL_ID} from '../../const'
+
+
 
 @connect( (store) =>{
 	return {modal: store.modal, auth: store.auth, booking: store.booking};
@@ -13,12 +16,13 @@ export default class BookingComponent extends React.Component{
 
     constructor(props) {
         super(props);
+        this.modalController = new ModalController(this.props.dispatch);
+
         this.plan = "http://slyfelinos.com/plans/440x330-nicole-neills-portfolio-turquiose-restaurant-2122910.png";
         this.marker = "http://www.clker.com/cliparts/B/B/1/E/y/r/marker-pin-google.svg";
         this.markerWidth = 55;
         this.markerHeight = 30;
         this.state = {placing: false, deleting: false}
-        this.modalId = 'bookModal';
     }
 
 
@@ -39,7 +43,7 @@ export default class BookingComponent extends React.Component{
             this.props.dispatch(deleteTable(id));
             return;
         }
-        this.props.dispatch(openModal('bookModal'));
+        this.modalController.openModal(BOOK_MODAL_ID);
         this.props.dispatch(selectTable(id));
         this.props.dispatch(loadBooking(id));
         
@@ -91,10 +95,6 @@ export default class BookingComponent extends React.Component{
 
 
     componentDidUpdate(prevProps, prevState) {
-        if(this.props.modal.id == this.modalId){
-            if(this.props.modal.open) this.openModal();
-            else this.closeModal();
-        }
 
         this.disablePlacing();
         if(this.state.placing) this.enablePlacing();
@@ -110,7 +110,7 @@ export default class BookingComponent extends React.Component{
         let deleteButton = admin ? <div class={"btn " + (this.state.deleting ? 'btn-success' : '')} onClick={this.toggleDeletion.bind(this)}>Delete table</div> : ""
 
 		return <div class="row">
-            <BookTableModal modalId={this.modalId} booking={this.props.booking} onBook={this.onBook.bind(this)} />
+            <BookTableModal modalId={BOOK_MODAL_ID} booking={this.props.booking} onBook={this.onBook.bind(this)} />
            {placingButton}
            {deleteButton}
            <div id="svg-container">
@@ -120,19 +120,5 @@ export default class BookingComponent extends React.Component{
                     
 	}
 
-    openModal(){
-        let id = this.modalId;
-        $("#" + id).modal('show');
-        let self = this;
-        $('#' + id).one('hidden.bs.modal', function(e) {
-            self.props.dispatch(closeModal(id));
-        });
-    }
-
-    closeModal(){
-        let id = this.modalId;
-        $("#" + id).off('hidden.bs.modal');
-        $("#" + id).modal('hide');
-    }
 
 }

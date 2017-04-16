@@ -6,6 +6,9 @@ import CreateCategoryModal from '../modals/CreateCategoryModal'
 import {getCategories, createCategory, deleteCategory} from '../../actions/categoryActions'
 import {openModal, closeModal} from '../../actions/modalActions'
 import {getDishes} from '../../actions/dishActions'
+import {CATEGORY_MODAL_ID} from '../../const'
+import ModalController from '../../controllers/ModalController'
+
 
 @connect( (store) =>{
 	return {category: store.category, modal: store.modal, auth: store.auth};
@@ -14,29 +17,14 @@ export default class CategoryListComponent extends React.Component{
 
     constructor(props) {
         super(props);
+        this.modalController = new ModalController(this.props.dispatch);
         const {categories, loading} = this.props.category;
-
         if(!categories.length && !loading) this.props.dispatch(getCategories());
-        this.modalId = "categoryModal";
-    }
 
-    openModal(){
-    	let id = this.modalId;
-    	$("#" + id).modal('show');
-    	let self = this;
-        $('#' + id).one('hidden.bs.modal', function(e) {
-        	self.props.dispatch(closeModal(id));
-        });
-    }
-
-    closeModal(){
-    	let id = this.modalId;
-    	$("#" + id).off('hidden.bs.modal');
-    	$("#" + id).modal('hide');
     }
 
     addClick(){
-    	this.props.dispatch(openModal(this.modalId));
+    	this.modalController.openModal(CATEGORY_MODAL_ID);
     }
 
     deleteClick(id){
@@ -45,13 +33,6 @@ export default class CategoryListComponent extends React.Component{
 
     selectClick(id){
         this.props.dispatch(getDishes(id));
-    }
-
-    componentDidUpdate(){
-    	if(this.props.modal.id != this.modalId) return;
-
-    	if(this.props.modal.open) this.openModal();
-    	else this.closeModal();
     }
 
 	createCategory(title, image){
@@ -68,7 +49,7 @@ export default class CategoryListComponent extends React.Component{
         let admin = user? user.admin : false ;
 
         if(admin){
-            modal = <CreateCategoryModal modalId={this.modalId} 
+            modal = <CreateCategoryModal modalId={CATEGORY_MODAL_ID} 
                                  onSavePressed={this.createCategory.bind(this)}
                                  />
         }

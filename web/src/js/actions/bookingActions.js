@@ -2,7 +2,7 @@ import api from '../utility/api'
 import {closeModal} from './modalActions'
 import {notify} from './notificationActions'
 import {handleError} from './errorActions'
-
+import {BOOK_MODAL_ID} from '../const'
 export function loadTables(){
 
 	return (dispatch, getState) => {
@@ -68,7 +68,7 @@ export function bookTable(table, data){
 		api.bookTable(table, data)
 		   .then(res => {
 		   	dispatch({type: "BOOK_FULFILLED",payload: res.data})
-		   	dispatch(closeModal('bookModal'));
+		   	dispatch(closeModal(BOOK_MODAL_ID));
 		   	dispatch(notify('Table booked', 'Table booked OK', 'success'));
 		   })
 		   .catch(err => {

@@ -11,15 +11,15 @@ export default class Navbar extends React.Component{
 
 
     openLoginModal(){
-        this.props.dispatch(openModal('loginModal'));
+        this.props.dispatch(openModal('loginModalId'));
     }
 
     openRegisterModal(){
-        this.props.dispatch(openModal('registerModal'));
+        this.props.dispatch(openModal('registerModalId'));
     }
 
     openCartModal(){
-        this.props.dispatch(openModal('cartModal'))
+        this.props.dispatch(openModal('cartModalId'))
     }
 
     logout(){
@@ -27,7 +27,7 @@ export default class Navbar extends React.Component{
     }
 
     openProfileModal(){
-        this.props.dispatch(openModal('profileModal'));
+        this.props.dispatch(openModal('profileModalId'));
     }
 
 	render(){

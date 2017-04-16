@@ -4,6 +4,7 @@ import cookie from 'react-cookie';
 import {notify} from './notificationActions'
 import {handleError} from './errorActions'
 import {loadCart} from './cartActions'
+import {REGISTER_MODAL_ID, LOGIN_MODAL_ID, CART_MODAL_ID, PROFILE_MODAL_ID} from '../const'
 
 export function login(login, password){
 	return(dispatch, getState) => {
@@ -12,7 +13,7 @@ export function login(login, password){
 		   		console.log(result);
 		   		dispatch({type: "SAVE_TOKEN", payload: result.data});
 		   		dispatch(loadUser(login));
-		   		dispatch(closeModal('loginModal'));
+		   		dispatch(closeModal(LOGIN_MODAL_ID));
 
 		   }).catch(err => dispatch(handleError(err)));
 	}
@@ -25,7 +26,7 @@ export function register(login, password, email){
 		api.register(login, password,email)
 		   .then(result =>{
 		   		dispatch({type:"REGISTER_FULFILLED", payload: result.data})
-		   		dispatch(closeModal('registerModal'));
+		   		dispatch(closeModal(REGISTER_MODAL_ID));
 		   		dispatch(notify('User registered', 'User registered', 'success'))
 		   }).catch(err => dispatch(handleError(err)));
 
