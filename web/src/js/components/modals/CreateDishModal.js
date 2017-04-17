@@ -59,9 +59,10 @@ export default class CreateDishModal extends React.Component{
     	let title = $('#dish-title').val();
     	let description = $('#dish-description').val();
     	let categoryId = $('#dish-categoryId').val();
+    	let price = $('#dish-price').val();
     	let self = this;
     	self.getImageBlob()
-    		.then(image => self.props.onSavePressed({title, description, categoryId, image}));
+    		.then(image => self.props.onSavePressed({title, description, categoryId, image, price}));
 		
     }
 
@@ -82,6 +83,10 @@ export default class CreateDishModal extends React.Component{
 							
 							<div class="input-group">
 							  <input id="dish-description" type="text" class="form-control" placeholder="Dish description" aria-describedby="basic-addon1"/>
+							</div>
+
+							<div class="input-group">
+							  <input id="dish-price" type="text" class="form-control" placeholder="Dish price" aria-describedby="basic-addon1"/>
 							</div>
 
 							<div class="input-group">

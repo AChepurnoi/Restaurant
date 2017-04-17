@@ -1,5 +1,6 @@
 package com.graniumhub.web;
 
+import com.graniumhub.data.dto.dish.DiscountInput;
 import com.graniumhub.data.dto.dish.DishInput;
 import com.graniumhub.data.dto.dish.DishResponse;
 import com.graniumhub.data.filter.OnSaleDishFilter;
@@ -46,8 +47,8 @@ public class DishController {
 
     @PutMapping(value = "/dishes/{id}")
     public ResponseEntity<DishResponse> setDiscount(@PathVariable int id,
-                                                    @RequestParam int discount){
-        DishResponse response = service.setDiscount(id, discount);
+                                                    @RequestBody DiscountInput input){
+        DishResponse response = service.setDiscount(id, input.getDiscount());
         return ResponseEntity.ok(response);
     }
 

@@ -2,6 +2,7 @@ export default function reducer (
 	state={
 		dishes: [],
 		currentCategory: null,
+		selectedId: null,
 		loading: false,
 		error: false
 	}, action){
@@ -12,6 +13,14 @@ export default function reducer (
 			return {...state, currentCategory: action.payload}
 		}
 
+		case "DISH_UPDATE":{
+			let dish = action.payload;
+			let dishList = [].concat(state.dishes);
+			let index = dishList.findIndex(el => el.id == dish.id);
+			if(index == -1) dishList.push(dish);
+			else dishList[index] = dish;
+			return {...state, dishes: dishList}
+		}
 // ------------------------------------------------------------------------------------------------------------------------
 		case "DISH_GET_PENDING" :{
 			return {...state, loading: true, error: false}
@@ -49,6 +58,10 @@ export default function reducer (
 
 		case "DISH_DELETE_REJECTED":{
 			return {...state, loading: false, error: true}
+		}
+
+		case "SET_ACTIVE_DISH":{
+			return {...state, selectedId: action.payload }
 		}
 
 

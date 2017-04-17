@@ -121,6 +121,10 @@ class api {
 		return this.client.delete('/cart/dish/' + id);
 	}
 
+	updateDiscount(id, data){
+		return this.client.put('/dishes/' + id, data);
+	}
+
 }
 
 export default (new api());
