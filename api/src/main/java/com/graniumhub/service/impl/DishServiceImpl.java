@@ -5,6 +5,7 @@ import com.graniumhub.data.domain.Dish;
 import com.graniumhub.data.dto.dish.DishInput;
 import com.graniumhub.data.dto.dish.DishResponse;
 import com.graniumhub.data.exception.NotFound;
+import com.graniumhub.data.filter.OnSaleDishFilter;
 import com.graniumhub.data.repository.CategoryRepository;
 import com.graniumhub.data.repository.DishRepository;
 import com.graniumhub.service.DishService;
@@ -41,6 +42,15 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
+    public DishResponse setDiscount(int dishId, int discount) {
+        Dish dish = dishRepository.findOne(dishId).orElseThrow(NotFound::new);
+        dish.setDiscount(discount);
+        dish.setSale(discount > 0);
+        dish = dishRepository.save(dish);
+        return wrapper.toResponse(dish);
+    }
+
+    @Override
     public boolean delete(int i) {
         dishRepository.delete(i);
         return true;
@@ -57,6 +67,19 @@ public class DishServiceImpl implements DishService {
                 .map(wrapper::toResponse)
                 .collect(Collectors.toList());
 
+
+    }
+
+    @Override
+    public List<DishResponse> findSales() {
+        OnSaleDishFilter filter = new OnSaleDishFilter(true);
+
+        return dishRepository
+                .findAll()
+                .stream()
+                .map(wrapper::toResponse)
+                .filter(filter)
+                .collect(Collectors.toList());
 
     }
 

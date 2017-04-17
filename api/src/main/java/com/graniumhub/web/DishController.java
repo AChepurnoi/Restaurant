@@ -25,6 +25,13 @@ public class DishController {
         this.service = service;
     }
 
+
+    @GetMapping(value = "/sales")
+    public ResponseEntity<List<DishResponse>> sales(){
+        List<DishResponse> sales = service.findSales();
+        return ResponseEntity.ok(sales);
+    }
+
     @PostMapping(value = "/dishes")
     public ResponseEntity<DishResponse> create(DishInput input) {
         DishResponse response = service.create(input);
@@ -35,6 +42,13 @@ public class DishController {
     public ResponseEntity<Object> delete(@PathVariable int id) {
         boolean result = service.delete(id);
         return result ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
+    @PutMapping(value = "/dishes/{id}")
+    public ResponseEntity<DishResponse> setDiscount(@PathVariable int id,
+                                                    @RequestParam int discount){
+        DishResponse response = service.setDiscount(id, discount);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/categories/{id}/dishes")

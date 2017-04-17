@@ -14,7 +14,12 @@ public interface DishService {
 
     boolean delete(int i);
 
+    DishResponse setDiscount(int dishId, int discount);
+
     Optional<DishResponse> findById(int i);
 
     List<DishResponse> findByCategoryId(int id);
+
+    List<DishResponse> findSales();
+
 }

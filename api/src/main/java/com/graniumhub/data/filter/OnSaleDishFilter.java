@@ -12,6 +12,7 @@ import java.util.function.Predicate;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class OnSaleDishFilter implements Predicate<DishResponse> {
     private boolean sale;
 
