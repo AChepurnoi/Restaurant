@@ -60,6 +60,15 @@ export function setActiveDish(id){
 }
 
 
+export function loadSales(){
+	return (dispatch, getState) => {
+		api.loadSales()
+			.then(res => dispatch({type:"SALES_GET_FULFILLED", payload: res.data}))
+			.catch(err => handleError(err));
+			
+	}
+}
+
 
 
 

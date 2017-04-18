@@ -58,8 +58,8 @@ public class TableServiceImpl implements TableService {
     private boolean haveCollision(Booking a, Booking b){
         LocalDateTime starta = a.getStart();
         LocalDateTime startb = b.getStart();
-        LocalDateTime enda = a.getEnd();
-        LocalDateTime endb = b.getEnd();
+        LocalDateTime enda = a.getEndTime();
+        LocalDateTime endb = b.getEndTime();
 
         boolean isAfter = starta.isAfter(endb) && enda.isAfter(endb);
         boolean isBefore = starta.isBefore(startb) && enda.isBefore(startb);

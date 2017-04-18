@@ -5,8 +5,10 @@ import com.graniumhub.data.dto.dish.DishInput;
 import com.graniumhub.data.dto.dish.DishResponse;
 import com.graniumhub.data.filter.OnSaleDishFilter;
 import com.graniumhub.service.DishService;
+import com.graniumhub.web.security.RequiredAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,18 +35,21 @@ public class DishController {
         return ResponseEntity.ok(sales);
     }
 
+    @RequiredAdmin
     @PostMapping(value = "/dishes")
     public ResponseEntity<DishResponse> create(DishInput input) {
         DishResponse response = service.create(input);
         return ResponseEntity.ok(response);
     }
 
+    @RequiredAdmin
     @DeleteMapping(value = "/dishes/{id}")
     public ResponseEntity<Object> delete(@PathVariable int id) {
         boolean result = service.delete(id);
         return result ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
+    @RequiredAdmin
     @PutMapping(value = "/dishes/{id}")
     public ResponseEntity<DishResponse> setDiscount(@PathVariable int id,
                                                     @RequestBody DiscountInput input){

@@ -36,7 +36,7 @@ public class BookingWrapper implements AbstractDTOWrapper<BookingInput, Booking,
                 .table(table)
                 .booker(input.getBooker())
                 .start(input.getStart())
-                .end(end)
+                .endTime(end)
                 .phone(input.getPhone())
                 .build();
 
@@ -47,7 +47,7 @@ public class BookingWrapper implements AbstractDTOWrapper<BookingInput, Booking,
 
         return new BookingResponse(
                 entity.getStart().toInstant(ZoneOffset.UTC).toEpochMilli(),
-                entity.getEnd().toInstant(ZoneOffset.UTC).toEpochMilli());
+                entity.getEndTime().toInstant(ZoneOffset.UTC).toEpochMilli());
 
     }
 

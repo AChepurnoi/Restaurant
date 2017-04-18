@@ -1,49 +1,76 @@
 
 @import "../assets/stylesheets/bootstrap/_variables"
 
+body
+	background-color: #EEEEEE
 
 //Remove navbar margin
 .navbar
 	margin-bottom: 0
 
-.cart
-	font-size: 16px
-
 .menu
 	div
-		background: black
+		background-color: white
 		text-align: center
 		font-size: 24px
 
 .categories
 
+	margin-top: 40px
+
+
 .sales
 
-.actions
-	div
-		height: 60px	
-		background: blue
-		text-align: center
-		font-size: 24px
+	margin-top: 40px
 
+.actions
+
+	margin-bottom: 25px
+	.order-btn
+		margin-top: 40px
+		padding-left: 35px
+		padding-right: 35px
+	
+	.book-btn
+		margin-top: 40px
+		padding-left: 35px
+		padding-right: 35px
+
+	div
+		text-align: center
+		font-size: 20px
+
+
+.main-image-container
+	overflow: hidden
+	max-height: 650px
 
 .main-image
+	@media (max-width: $screen-md-max)
+		min-height: 700px
+		transform: translate(0px, -50px)
+		
 	@media (max-width: $screen-sm-max)
-		height: 250px
-		background-image: url("http://xn--80aalyc9azgg.xn--p1ai/d/734108/t/v644/images/body.jpg")
-	
-	@media (min-width: $screen-md-min)
-		height: 400px
-		background-image: url("http://xn--80aalyc9azgg.xn--p1ai/d/734108/t/v644/images/body.jpg")
+		min-height: 200px
+		transform: translate(0px, -30px)
 
-	
-	@media (min-width: $screen-lg-min) 
-		height: 400px
-		background-image: url("http://xn--80aalyc9azgg.xn--p1ai/d/734108/t/v644/images/body.jpg")
-	
+	@media (max-width: $screen-xs-max)
+		min-height: 150px
+		transform: translate(0px, -20px)
+
+	@media (min-width: $screen-lg)
+		min-height: 1000px
+		transform: translate(0px, -100px)
 	width: 100%
-
+	height: auto
+	display: block
+	margin: auto
 
 #svg-container
 	height: 600px
 	width: 600px
+
+
+
+
+

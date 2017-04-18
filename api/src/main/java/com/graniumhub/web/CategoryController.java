@@ -4,6 +4,7 @@ import com.graniumhub.data.dto.category.CategoryInput;
 import com.graniumhub.data.dto.category.CategoryResponse;
 import com.graniumhub.data.exception.NotFound;
 import com.graniumhub.service.CategoryService;
+import com.graniumhub.web.security.RequiredAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,11 +32,13 @@ public class CategoryController {
         return ResponseEntity.ok(categories);
     }
 
+    @RequiredAdmin
     @PostMapping("/categories")
     public ResponseEntity<CategoryResponse> create(@Valid CategoryInput input){
         CategoryResponse response = categoryService.create(input);
         return ResponseEntity.ok(response);
     }
+
 
     @GetMapping("/categories/{id}")
     public ResponseEntity<CategoryResponse> findById(@PathVariable int id){
@@ -43,6 +46,8 @@ public class CategoryController {
         return ResponseEntity.ok(response);
     }
 
+
+    @RequiredAdmin
     @DeleteMapping("/categories/{id}")
     public ResponseEntity delete(@PathVariable int id){
         boolean result = categoryService.deleteById(id);

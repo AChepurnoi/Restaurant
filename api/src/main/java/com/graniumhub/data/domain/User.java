@@ -21,13 +21,14 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "User")
+@Table(name = "Users")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails{
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName = "users_id_seq")
     private int id;
     @NotNull
     private String login;

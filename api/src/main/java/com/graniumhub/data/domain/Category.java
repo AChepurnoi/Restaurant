@@ -20,7 +20,8 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"dishes"})
 public class Category {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName= "category_id_seq")
     private int id;
     @NotNull
     private String title;

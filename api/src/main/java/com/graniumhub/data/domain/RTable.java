@@ -14,13 +14,14 @@ import java.util.Set;
  * Created by Sasha on 4/6/17.
  */
 @Entity
-@Table(name = "Table")
+@Table(name = "Tables")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class RTable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName = "tables_id_seq")
     private int id;
 
     private double posx;

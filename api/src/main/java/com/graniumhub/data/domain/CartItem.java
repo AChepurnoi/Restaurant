@@ -19,7 +19,8 @@ import javax.persistence.*;
 public class CartItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq",sequenceName = "cart_items_id_seq")
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)

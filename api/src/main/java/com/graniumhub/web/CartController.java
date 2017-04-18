@@ -3,6 +3,7 @@ package com.graniumhub.web;
 import com.graniumhub.data.domain.User;
 import com.graniumhub.data.dto.cart.CartResponse;
 import com.graniumhub.service.CartService;
+import com.graniumhub.web.security.RequiredUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,6 +26,7 @@ public class CartController {
     }
 
 
+    @RequiredUser
     @PostMapping("/cart/dish/{dishId}")
     public ResponseEntity<CartResponse> addToCart(@AuthenticationPrincipal User user,
                                                   @PathVariable int dishId) {
@@ -34,6 +36,7 @@ public class CartController {
     }
 
 
+    @RequiredUser
     @DeleteMapping("/cart/dish/{dishId}")
     public ResponseEntity<CartResponse> deleteFromCart(@AuthenticationPrincipal User user,
                                                        @PathVariable int dishId) {
@@ -43,6 +46,7 @@ public class CartController {
     }
 
 
+    @RequiredUser
     @GetMapping("/cart")
     public ResponseEntity<List<CartResponse>> getCart(@AuthenticationPrincipal User user) {
         List<CartResponse> cart = cartService.loadCart(user.getId());

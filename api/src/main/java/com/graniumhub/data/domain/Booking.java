@@ -22,12 +22,13 @@ import java.util.Date;
 public class Booking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq",sequenceName = "booking_id_seq")
     private int id;
     private String booker;
     private String phone;
     private LocalDateTime start;
-    private LocalDateTime end;
+    private LocalDateTime endTime;
 
     @ManyToOne
     @JoinColumn(name = "table_id")

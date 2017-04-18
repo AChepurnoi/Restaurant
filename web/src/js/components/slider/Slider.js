@@ -8,6 +8,7 @@ export default class Slider extends React.Component{
 
     constructor(props) {
         super(props);
+        this.slideOffset = 50;
         this.state = {
             current: 0
         }      
@@ -30,8 +31,12 @@ export default class Slider extends React.Component{
 
 
 	render(){
-        let offset = this.state.current * 370 * -1;
+        let slideWidth = parseInt($('.slide-image').css( "width" ), 10);
+        let wrapperWidth = (slideWidth + this.slideOffset) * (this.props.images.length);
+
+        let offset = this.state.current * (slideWidth + this.slideOffset) * -1;
         let style = {
+            width: "" + wrapperWidth + "px",
             transform:"translate(" + offset +"px)"
         };
 
@@ -40,8 +45,8 @@ export default class Slider extends React.Component{
                 <div class="slider-wrapper" style={style}>
                    {this.props.images.map((slide,i) => <Slide key={i} url={slide.url} content={slide.content}/>)}
                 </div>
-                <div class="prev-btn" onClick={this.prevSlide.bind(this)}>Prev</div>
-                <div class="next-btn" onClick={this.nextSlide.bind(this)}>Next</div>
+                <div class="glyphicon glyphicon-chevron-left prev-btn" onClick={this.prevSlide.bind(this)}></div>
+                <div class="glyphicon glyphicon-chevron-right next-btn" onClick={this.nextSlide.bind(this)}></div>
             </div>  
 
         </div>

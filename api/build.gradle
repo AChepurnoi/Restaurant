@@ -32,7 +32,9 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-web')
     runtime('org.springframework.boot:spring-boot-devtools')
-    compile("com.h2database:h2")
+
+    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+
     compile('org.projectlombok:lombok')
     compile 'com.amazonaws:aws-java-sdk-s3'
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.6")

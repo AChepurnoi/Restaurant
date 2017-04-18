@@ -15,19 +15,21 @@ export default class CategoryList extends React.Component{
     let delBtn = (id) =>{}
     
     if(this.props.admin){
-      addBtn = <li class="list-group-item" onClick={this.props.onAddCategory}>Add new category</li> 
-      delBtn = (id) => <span class="glyphicon glyphicon-remove" onClick={this.props.onDeleteCategory.bind(this, id)}></span>
+      addBtn = <div class="btn btn-default category-add-btn" onClick={this.props.onAddCategory}>Add new category</div> 
+      delBtn = (id) => <span class="glyphicon glyphicon-remove category-delete-btn" onClick={this.props.onDeleteCategory.bind(this, id)}></span>
     }
 
-		return <ul class="list-group">
-                  {addBtn}
-                  {this.props.items.map( item => 
-                  	<li class="list-group-item" key={item.id}>
-                      <span onClick={this.props.onSelect.bind(this, item.id)}> {item.title} </span> 
-                  		{delBtn(item.id)}
-                  	</li>
-                  )}
-                </ul>
+		return <div>
+                {addBtn}
+                <ul class="list-group">
+                    {this.props.items.map( item => 
+                    	<li class="list-group-item" key={item.id}>
+                        <span onClick={this.props.onSelect.bind(this, item.id)}> {item.title} </span> 
+                    		{delBtn(item.id)}
+                    	</li>
+                    )}
+                  </ul>
+          </div>
                     
 	}
 

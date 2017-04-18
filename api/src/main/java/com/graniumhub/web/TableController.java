@@ -5,6 +5,7 @@ import com.graniumhub.data.dto.booking.BookingResponse;
 import com.graniumhub.data.dto.table.TableInput;
 import com.graniumhub.data.dto.table.TableResponse;
 import com.graniumhub.service.TableService;
+import com.graniumhub.web.security.RequiredAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,11 +34,13 @@ public class TableController {
         return ResponseEntity.ok(result);
     }
 
+    @RequiredAdmin
     @PostMapping(value = "/tables")
     public ResponseEntity<TableResponse> place(@RequestBody TableInput table){
         TableResponse response = tableService.place(table);
         return ResponseEntity.ok(response);
     }
+
 
     @PostMapping(value = "/tables/{tableId}/booking")
     public ResponseEntity<BookingResponse> book(
@@ -54,6 +57,7 @@ public class TableController {
         return ResponseEntity.ok(response);
     }
 
+    @RequiredAdmin
     @DeleteMapping(value = "/tables/{id}")
     public ResponseEntity delete(@PathVariable int id){
         boolean res = tableService.remove(id);

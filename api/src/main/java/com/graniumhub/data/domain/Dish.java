@@ -16,7 +16,8 @@ import javax.persistence.*;
 @ToString(exclude = {"category"})
 public class Dish {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName = "dish_id_seq")
     private int id;
     private String title;
     private String description;

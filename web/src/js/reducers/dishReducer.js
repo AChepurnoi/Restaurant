@@ -1,6 +1,7 @@
 export default function reducer (
 	state={
 		dishes: [],
+		sales:[],
 		currentCategory: null,
 		selectedId: null,
 		loading: false,
@@ -62,6 +63,12 @@ export default function reducer (
 
 		case "SET_ACTIVE_DISH":{
 			return {...state, selectedId: action.payload }
+		}
+
+// ------------------------------------------------------------------------------------------------------------------------
+
+		case "SALES_GET_FULFILLED":{
+			return {...state, sales: action.payload}
 		}
 
 

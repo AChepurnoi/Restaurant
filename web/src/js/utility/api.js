@@ -62,7 +62,7 @@ class api {
         formData.append('username', log);
         formData.append('password', pass);
         formData.append('grant_type', 'password');
-        formData.append('score', 'read write');
+        formData.append('scope', 'read write');
 		return this.client.post('/oauth/token', formData, {headers: headers});
 	}
 
@@ -123,6 +123,10 @@ class api {
 
 	updateDiscount(id, data){
 		return this.client.put('/dishes/' + id, data);
+	}
+
+	loadSales(){
+		return this.client.get('/sales');
 	}
 
 }

@@ -45,12 +45,16 @@ export default class Navbar extends React.Component{
         let cartButton;
 
         if(!this.props.auth.authorized){
-            loginButton = <li class="navbar-text" onClick={this.openLoginModal.bind(this)}>Login</li>
-            registerButton = <li class="navbar-text" onClick={this.openRegisterModal.bind(this)}>Register</li>
+            loginButton = <li class="navbar-text" onClick={this.openLoginModal.bind(this)}><div class="navbar-button"> Login </div> </li>
+            registerButton = <li class="navbar-text" onClick={this.openRegisterModal.bind(this)}><div class="navbar-button"> Register</div></li>
         }else {
-            cartButton =  <li class="navbar-text cart" onClick={this.openCartModal.bind(this)}><span class="glyphicon glyphicon-shopping-cart cart-icon" aria-hidden="true"></span> Cart</li>
-            profileButton = <li class="navbar-text" onClick={this.openProfileModal.bind(this)}>Profile</li>
-            logoutButton = <li class="navbar-text" onClick={this.logout.bind(this)}>Logout</li>
+            cartButton =  <li class="navbar-text cart" onClick={this.openCartModal.bind(this)}>
+                    <div class="navbar-button">
+                        <span class="glyphicon glyphicon-shopping-cart cart-icon" aria-hidden="true"></span>
+                    </div>
+                </li>
+            profileButton = <li class="navbar-text" onClick={this.openProfileModal.bind(this)}><div class="navbar-button"> Profile</div></li>
+            logoutButton = <li class="navbar-text" onClick={this.logout.bind(this)}><div class="navbar-button"> Logout</div></li>
         }
 
 		return <nav class="navbar navbar-inverse">
@@ -62,7 +66,7 @@ export default class Navbar extends React.Component{
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <Link class="navbar-brand" to="/">Brand</Link>
+                    <Link class="navbar-brand" to="/"><div class="navbar-logo">Simple Restaurant</div></Link>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">

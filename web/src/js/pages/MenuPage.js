@@ -11,7 +11,7 @@ export default class MenuPage extends React.Component{
 
             <div class="content-inside">
                 <div class="container-fluid">
-                   <div class="row">
+                   <div class="row top-padded">
                         <div class="col-md-3">
                             <CategoryListComponent/>
                         </div>
