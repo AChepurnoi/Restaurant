@@ -1,5 +1,6 @@
 package com.graniumhub.web;
 
+import com.graniumhub.WithMockCustomUser;
 import com.graniumhub.data.dto.category.CategoryInput;
 import com.graniumhub.data.dto.category.CategoryResponse;
 import com.graniumhub.service.CategoryService;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 
 import javax.sql.DataSource;
@@ -29,6 +31,7 @@ public class CategoryControllerTest extends AbstractWebTest {
     private CategoryService categoryService;
 
     @Test
+    @WithMockCustomUser(admin = true)
     public void createCategory() throws Exception {
         MockMultipartFile mock = new MockMultipartFile("image", "hello".getBytes());
         CategoryInput input = new CategoryInput("Title", mock);
@@ -48,6 +51,7 @@ public class CategoryControllerTest extends AbstractWebTest {
     }
 
     @Test
+    @WithMockCustomUser(admin = true)
     public void deleteCategory() throws Exception {
 
         given(this.categoryService.deleteById(1))

@@ -6,8 +6,12 @@ import {DISH_MODAL_ID, DISCOUNT_MODAL_ID} from '../const'
 
 export function getDishes(category){
 	return(dispatch, getState) => {
-		dispatch({type: "DISH_GET",payload: api.loadDishes(category)});
-		dispatch({type: "DISH_SET_CURRENT", payload: category});
+
+		if(category == "sales") dispatch({type: "DISH_GET",payload: api.loadSales()});
+		else dispatch({type: "DISH_GET",payload: api.loadDishes(category)});
+
+		dispatch({type: "CATEGORY_SET_CURRENT", payload: category});
+		
 	}
 }
 

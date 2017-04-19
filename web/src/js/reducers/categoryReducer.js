@@ -1,11 +1,16 @@
 export default function reducer (
 	state={
 		categories:[],
+		selected: null,
 		loading: false,
 		error: false
 	}, action){
 	
 	switch (action.type){
+
+		case "CATEGORY_SET_CURRENT" :{
+			return {...state, selected: action.payload}
+		}
 
 		case "CATEGORY_GET_ALL_PENDING":{
 			return {...state, error: false, loading:true}

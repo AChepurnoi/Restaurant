@@ -53,7 +53,7 @@ export default class DishListComponent extends React.Component{
             {modal}		
             {discountModal} 
 			<DishList onAddDish={() => this.modalController.openModal(DISH_MODAL_ID)}
-					  items={this.props.dish.dishes}
+					      items={this.props.dish.dishes}
                       onAddToCart={(id) => this.props.dispatch(addToCart(id))}
                       onDelete={(id) => this.props.dispatch(deleteDish(id))}
                       onEditDiscount={(id) => this.onEditDiscount(id)}

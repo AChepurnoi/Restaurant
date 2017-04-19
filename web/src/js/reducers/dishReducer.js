@@ -2,7 +2,6 @@ export default function reducer (
 	state={
 		dishes: [],
 		sales:[],
-		currentCategory: null,
 		selectedId: null,
 		loading: false,
 		error: false

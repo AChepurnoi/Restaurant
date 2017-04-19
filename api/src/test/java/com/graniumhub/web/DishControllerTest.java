@@ -1,6 +1,7 @@
 package com.graniumhub.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.graniumhub.WithMockCustomUser;
 import com.graniumhub.config.OAuth2ServerConfig;
 import com.graniumhub.config.SecurityConfig;
 import com.graniumhub.data.domain.Category;
@@ -52,6 +53,7 @@ public class DishControllerTest extends AbstractWebTest {
             false, 0);
 
     @Test
+    @WithMockCustomUser(admin = true)
     public void createDish() throws Exception {
         MockMultipartFile file = new MockMultipartFile("image", "Helloworld".getBytes());
         DishInput input = new DishInput("Title", "Testdc", file,
@@ -78,6 +80,7 @@ public class DishControllerTest extends AbstractWebTest {
     }
 
     @Test
+    @WithMockCustomUser(admin = true)
     public void deleteDish() throws Exception {
 
         given(this.dishService.delete(1))

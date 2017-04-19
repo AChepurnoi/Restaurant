@@ -40,10 +40,12 @@ export default class CategoryListComponent extends React.Component{
 		return <div>
             {modal}		
 			<CategoryList onAddCategory={() => this.modalController.openModal(CATEGORY_MODAL_ID)}
-						  items={this.props.category.categories}
-						  onDeleteCategory={(id) => this.props.dispatch(deleteCategory(id))}
-                          onSelect={(id) => this.props.dispatch(getDishes(id))}
-                          admin={admin}
+                    selected={this.props.category.selected}
+						        items={this.props.category.categories}
+						        onDeleteCategory={(id) => this.props.dispatch(deleteCategory(id))}
+                    onSelect={(id) => this.props.dispatch(getDishes(id))}
+                    showSales={true}
+                    admin={admin}
 						  />
 		</div>
                     
