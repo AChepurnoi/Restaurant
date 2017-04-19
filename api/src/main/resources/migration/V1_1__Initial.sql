@@ -35,7 +35,7 @@ CREATE TABLE Booking(
   booker VARCHAR(50) NOT NULL,
   phone VARCHAR(50) NOT NULL,
   start TIMESTAMP  NOT NULL,
-  endTime TIMESTAMP NOT NULL ,
+  end_time TIMESTAMP NOT NULL ,
   table_id INT NOT NULL
 );
 

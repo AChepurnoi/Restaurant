@@ -28,6 +28,8 @@ public class Booking {
     private String booker;
     private String phone;
     private LocalDateTime start;
+
+    @Column(name = "end_time")
     private LocalDateTime endTime;
 
     @ManyToOne

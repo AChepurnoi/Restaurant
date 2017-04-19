@@ -16,7 +16,7 @@ export default class BookingComponent extends React.Component{
         super(props);
         this.modalController = new ModalController(this.props.dispatch);
 
-        this.plan = "http://slyfelinos.com/plans/440x330-nicole-neills-portfolio-turquiose-restaurant-2122910.png";
+        this.plan = "/images/plan.jpg";
         this.marker = "http://www.clker.com/cliparts/B/B/1/E/y/r/marker-pin-google.svg";
         this.markerWidth = 55;
         this.markerHeight = 30;
@@ -51,7 +51,7 @@ export default class BookingComponent extends React.Component{
     enablePlacing(){
         const {back} = this;
         const self = this;
-        let pos = $('#svg-container').position();    
+        let pos = $('#svg-container').offset(); 
 
         back.on('click', event => {
             let xpos = event.x - (self.markerWidth / 2) - pos.left;
@@ -81,7 +81,7 @@ export default class BookingComponent extends React.Component{
     componentDidMount(prevProps, prevState) {
         const {markerWidth, markerHeight} = {markerWidth: 55, markerHeight: 30};
         this.draw = new SVG('svg-container');
-        this.back = this.draw.image(this.plan, 600, 600);
+        this.back = this.draw.image(this.plan, 600, 420);
         this.itemsContainer = this.draw.group();
         this.props.dispatch(loadTables());
 
@@ -99,8 +99,8 @@ export default class BookingComponent extends React.Component{
 
         let admin = this.props.auth.authorized? (this.props.auth.user ? this.props.auth.user.admin : false) : false;
 
-        let placingButton =  admin ? <div class={"btn " + (this.state.placing ? 'btn-success' : '')} onClick={this.togglePlacing.bind(this)}>Place table</div> : ""
-        let deleteButton = admin ? <div class={"btn " + (this.state.deleting ? 'btn-success' : '')} onClick={this.toggleDeletion.bind(this)}>Delete table</div> : ""
+        let placingButton =  admin ? <div class={"btn booking-button " + (this.state.placing ? 'btn-success' : '')} onClick={this.togglePlacing.bind(this)}>Place table</div> : ""
+        let deleteButton = admin ? <div class={"btn booking-button " + (this.state.deleting ? 'btn-success' : '')} onClick={this.toggleDeletion.bind(this)}>Delete table</div> : ""
 
 		return <div class="row">
             <BookTableModal 
@@ -108,11 +108,22 @@ export default class BookingComponent extends React.Component{
                 booking={this.props.booking} 
                 onBook={(data) => this.props.dispatch(bookTable(this.props.booking.selectedTable, data))} />
 
-           {placingButton}
-           {deleteButton}
-           <div id="svg-container">
-
-           </div>          
+            <div class="booking-title text-center">
+                <h2> Book your table </h2>
+                <h3> This is restaurant plan where you can book table </h3>
+            </div>
+            <div class="text-center">
+                <div class="col-xs-5 col-xs-offset-1 col-sm-3 col-sm-offset-3 col-md-2 col-md-offset-4 col-lg-2 col-lg-offset-4">
+                    {placingButton}
+                </div>
+                <div class="col-xs-5 col-sm-offset-0 col-sm-3 col-lg-2">   
+                    {deleteButton}
+               </div>
+           </div>
+           <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+               <div id="svg-container">
+               </div>          
+           </div>
 		</div>
                     
 	}

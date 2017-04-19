@@ -1,0 +1,42 @@
+@import "../assets/stylesheets/bootstrap/_variables"
+
+#svg-container
+	overflow: scroll
+	margin-top: 30px
+	margin-bottom: 100px
+
+	@media (max-width: $screen-xs)
+		width: calc(100% + 26px)
+		margin-left: -13px
+		margin-right: -13px
+
+	@media (min-width: $screen-xs + 1) and (max-width: $screen-sm)
+		width: calc(100% + 28px)
+		margin-left: -13px
+		margin-right: -13px
+
+
+	@media (min-width: $screen-sm + 1) and (max-width: $screen-lg)
+		width: 100%
+		margin-left: 40px
+
+	@media (min-width: $screen-lg + 1)
+		width: 100%
+		margin-left: 40px
+
+#svg-container > svg
+	border: 5px solid #616161 
+	width: 610px
+	height: 430px
+
+
+.booking-button
+	margin-top: 30px
+
+.booking-title
+	padding: 25px
+	h2
+		font-size: 35px
+	h3
+		font-size: 18px
+
