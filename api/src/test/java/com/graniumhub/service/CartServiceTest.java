@@ -2,12 +2,14 @@ package com.graniumhub.service;
 
 import com.graniumhub.data.domain.CartItem;
 import com.graniumhub.data.dto.cart.CartResponse;
+import com.graniumhub.data.dto.order.OrderResponse;
 import com.graniumhub.data.repository.CartItemRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.transaction.BeforeTransaction;
@@ -80,9 +82,18 @@ public class CartServiceTest {
         int userId = 5;
         List<CartResponse> cart = cartService.loadCart(5);
 
-        assert(cart.size() == 2);
+        assert(cart.size() == 3);
     }
 
+
+    @Test
+    @Sql(scripts = "classpath:data/data.sql")
+    public void createOrder(){
+        int userId = 5;
+        OrderResponse order = cartService.createOrder(userId);
+        assert( order.getTotal() == 250);
+
+    }
 
 
 }

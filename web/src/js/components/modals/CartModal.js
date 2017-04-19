@@ -19,6 +19,9 @@ export default class CartModal extends React.Component{
     }
 
 	render(){
+
+		let totalSum = this.props.items.reduce( (acc, item) => acc + (item.sale? (item.price - item.price * (item.discount / 100)) : item.price) * item.count, 0)
+		
 		return <div id={this.props.modalId} class="modal fade" tabIndex="-1" role="dialog">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
@@ -27,15 +30,41 @@ export default class CartModal extends React.Component{
 				        <h4 class="modal-title">Cart</h4>
 				      </div>
 				      <div class="modal-body">
-				       {this.props.items.map((item, i) => <div key={i}> 
-				       		<span>Dish: {item.title} </span> 
-				       		<span class="glyphicon glyphicon-remove" onClick={this.onDelete.bind(this, item.id)}></span>
-				       		<span>Count: {item.count} </span>
-				       		<span class="glyphicon glyphicon-plus" onClick={this.onAdd.bind(this, item.id)}></span>
+					      <div class="row">
+					       {this.props.items.map((item, i) => (
+							<div class="media col-xs-12" key={i} >
+							  <div class="media-left">
+						      	<img class="media-object cart-image" src={item.image}/>
+							  </div>
+							  <div class="media-body">
+							    <h5 class="media-heading">
+							    	{item.title}
+							    	{!item.sale && <span class="label label-primary cart-item-price">{item.price}$</span>}
+							    	{item.sale && <span class="label label-warning cart-item-price">{item.price - item.price * (item.discount / 100)}$</span>}
+							    </h5>
 
-				       	</div>)}
+							    <div>
+							    	{item.description}
+							    </div>
+							
+								<div>
+							    	<span class="glyphicon glyphicon-minus cart-remove" onClick={() => this.onDelete(item.id)}></span> 
+							    	<span class="cart-counter">{item.count}</span> 
+							    	<span class="glyphicon glyphicon-plus cart-add" onClick={() => this.onAdd(item.id)}></span>
+							    </div>
 
+							  </div>
+							</div>
+
+					       	))}
+					      </div>
+					      <div class="horizontal-divider"></div>
+
+				      	  <div class="row pull-right">
+				      	  	<span class="total-sum">Total: {totalSum}$</span> 
+				      	  </div>
 				      </div>
+
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				        <button type="button" class="btn btn-primary">Create Order</button>

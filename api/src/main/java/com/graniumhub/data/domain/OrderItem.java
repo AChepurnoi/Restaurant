@@ -1,43 +1,37 @@
 package com.graniumhub.data.domain;
 
-import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
- * Created by Sasha on 4/12/17.
+ * Created by Sasha on 4/20/17.
  */
-
 @Entity
-@Table(name = "Cart_items")
+@Table(name = "order_item")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CartItem {
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq",sequenceName = "cart_items_id_seq")
+    @SequenceGenerator(sequenceName = "order_item_id_seq", name = "seq")
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.JOIN)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "dish_id")
     private Dish dish;
 
     private int count;
-
-
-
 
 }

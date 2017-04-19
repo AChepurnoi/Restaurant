@@ -8,7 +8,7 @@ export default class DeliveryModal extends React.Component{
     
 
 	render(){
-
+		 console.log("render delivery modal");
 		return <div id={this.props.modalId} class="modal fade" tabIndex="-1" role="dialog">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">

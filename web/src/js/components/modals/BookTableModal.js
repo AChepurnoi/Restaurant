@@ -32,34 +32,34 @@ export default class BookTableModal extends React.Component{
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title">Book a table</h4>
+				        <h4 class="modal-title booked">Booked</h4>
 				      </div>
 				      <div class="modal-body">
-				      	Booked
 				      	<div>
 
 				      		{this.props.booking.bookings.map((book, i) => <div key={i}>
-				      		 From {(new Date(book.start)).toLocaleTimeString('en-us',dateOptions)} 
-				      		 to {(new Date(book.end)).toLocaleTimeString('en-us',dateOptions)} 
+				      		 <span class="book-from">From {(new Date(book.start)).toLocaleTimeString('en-us',dateOptions)} </span>
+				      		 <span class="book-to">to {(new Date(book.end)).toLocaleTimeString('en-us',dateOptions)} </span>
 				      		 </div>)}
 
 				      	</div>
 
-
+				      	<h3 class="book-title"> Book a table </h3>
 
 				        <form id="category-modal-form">
-							<div class="input-group">
+							<div class="form-group">
 							  <input id="booker-name" type="text" class="form-control" placeholder="Booker name" aria-describedby="basic-addon1"/>
 							</div>
 
-							<div class="input-group">
+							<div class="form-group">
 							  <input id="booker-phone" type="text" class="form-control" placeholder="Booker phone" aria-describedby="basic-addon1"/>
 							</div>
 							
-							<div class="time-selector">
-								<input id="start" type="datetime-local"/>
-
-								<select id="duration">
+							<div class="form-group">
+								<input id="start" type="datetime-local" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<select id="duration" class="form-control">
 									<option value='1'> 1 hour </option>
 									<option value='2'> 2 hours </option>
 									<option value='3'> 3 hours </option>

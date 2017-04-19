@@ -18,7 +18,7 @@ export default class BookingComponent extends React.Component{
 
         this.plan = "/images/plan.jpg";
         this.marker = "http://www.clker.com/cliparts/B/B/1/E/y/r/marker-pin-google.svg";
-        this.markerWidth = 55;
+        this.markerWidth = 45;
         this.markerHeight = 30;
         this.state = {placing: false, deleting: false}
     }
@@ -55,7 +55,7 @@ export default class BookingComponent extends React.Component{
 
         back.on('click', event => {
             let xpos = event.x - (self.markerWidth / 2) - pos.left;
-            let ypos = event.y - pos.top - (self.markerHeight / 2);
+            let ypos = event.y - pos.top - (self.markerHeight / 2) - (self.markerHeight / 3);
             self.props.dispatch(createTable(xpos, ypos));
         })
     }

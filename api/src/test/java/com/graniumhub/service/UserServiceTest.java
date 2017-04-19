@@ -32,7 +32,7 @@ public class UserServiceTest {
 
     @Test
     public void registerUser() throws Exception {
-        UserInput input = new UserInput("Ivan","Password","Email");
+        UserInput input = new UserInput("Ivan","Password","Email","0000");
         UserResponse response = userService.register(input);
         assert(response != null);
         assert(response.getId() != 0);

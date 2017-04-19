@@ -1,5 +1,6 @@
 package com.graniumhub.web;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.graniumhub.config.OAuth2ServerConfig;
 import com.graniumhub.config.SecurityConfig;
@@ -26,10 +27,12 @@ import javax.sql.DataSource;
 
 import java.util.Optional;
 
+import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 /**
  * Created by Sasha on 3/28/17.
  */
@@ -39,20 +42,20 @@ public class UserControllerTest extends AbstractWebTest {
 
     @Test
     public void registerUser() throws Exception {
-        UserInput input = new UserInput("login","password","email");
+        UserInput input = new UserInput("login", "password", "email","000");
         String json = mapper.writeValueAsString(input);
         given(this.userService.register(input))
-                .willReturn(new UserResponse(5,"login", "email",false));
+                .willReturn(UserResponse.builder().id(5).login("Ivan").email("email").admin(false).orders(emptyList()).build());
 
         MvcResult result = this.mvc
                 .perform(post("/users")
-                .content(json)
-                .header("Content-type",MediaType.APPLICATION_JSON))
+                        .content(json)
+                        .header("Content-type", MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        UserResponse response = parse(result, UserResponse.class);
-        assert (response.getId() == 5);
+        int id = mapper.readTree(result.getResponse().getContentAsString()).get("id").asInt();
+        assert (id == 5);
     }
 
     @Test
@@ -60,15 +63,15 @@ public class UserControllerTest extends AbstractWebTest {
         String username = "Ivan";
 
         given(this.userService.loadByUsername(username))
-                .willReturn(Optional.of(new UserResponse(5,"Ivan", "email",false)));
+                .willReturn(Optional.of(UserResponse.builder().id(5).login("Ivan").email("email").orders(emptyList()).admin(false).build()));
         MvcResult result = this.mvc
                 .perform(get("/users/" + username)
-                .header("Content-type",MediaType.APPLICATION_JSON))
+                        .header("Content-type", MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        UserResponse response = parse(result, UserResponse.class);
-        assert (response.getId() == 5);
+        int id = mapper.readTree(result.getResponse().getContentAsString()).get("id").asInt();
+        assert (id == 5);
     }
 
     @Test
@@ -78,11 +81,9 @@ public class UserControllerTest extends AbstractWebTest {
         given(this.userService.loadByUsername(username))
                 .willReturn(Optional.empty());
         this.mvc.perform(get("/users/" + username)
-                .header("Content-type",MediaType.APPLICATION_JSON))
+                .header("Content-type", MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
     }
-
-
 
 
 }

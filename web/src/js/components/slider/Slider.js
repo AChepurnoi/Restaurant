@@ -31,6 +31,7 @@ export default class Slider extends React.Component{
 
 
 	render(){
+        console.log("render slider ");
         let slideWidth = parseInt($('.slide-image').css( "width" ), 10);
         let wrapperWidth = (slideWidth + this.slideOffset) * (this.props.images.length);
 

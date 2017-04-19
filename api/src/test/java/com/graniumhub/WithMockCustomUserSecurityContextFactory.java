@@ -20,8 +20,13 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
     public SecurityContext createSecurityContext(WithMockCustomUser customUser) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
 
-        User principal =
-                new User(customUser.id(), customUser.login(), customUser.password(), customUser.email(), Collections.emptyList(), customUser.admin());
+        User principal = User.builder()
+                .id(customUser.id())
+                .login(customUser.login())
+                .password(customUser.password())
+                .email(customUser.email())
+                .admin(customUser.admin())
+                .build();
         Authentication auth =
                 new UsernamePasswordAuthenticationToken(principal, "password", principal.getAuthorities());
         context.setAuthentication(auth);

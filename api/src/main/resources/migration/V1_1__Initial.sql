@@ -3,7 +3,8 @@ CREATE TABLE Users(
   login VARCHAR(50) NOT NULL ,
   password VARCHAR(255) NOT NULL ,
   email VARCHAR(50),
-  admin BOOL DEFAULT FALSE
+  phone VARCHAR(50),
+  admin BOOLEAN DEFAULT FALSE
 );
 
 
@@ -43,5 +44,18 @@ CREATE TABLE Cart_items(
   id SERIAL NOT NULL ,
   user_id INT NOT NULL,
   dish_id INT NOT NULL,
-  count INT
+  count INT NOT NULL
+);
+
+CREATE TABLE Orders(
+  id SERIAL NOT NULL ,
+  user_id INT NOT NULL ,
+  order_total INT NOT NULL
+);
+
+CREATE TABLE Order_item(
+  id SERIAL NOT NULL,
+  order_id INT NOT NULL,
+  dish_id INT NOT NULL,
+  count INT NOT NULL
 )

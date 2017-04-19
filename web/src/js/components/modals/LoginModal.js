@@ -28,11 +28,13 @@ export default class LoginModal extends React.Component{
 				      </div>
 				      <div class="modal-body">
 				        <form id="category-modal-form">
-							<div class="input-group">
-							  <input id="login-input" type="text" class="form-control" placeholder="Category name" aria-describedby="basic-addon1"/>
+							<div class="form-group">
+								<label for="login-input">Login</label>
+							  <input id="login-input" type="text" class="form-control" placeholder="login" aria-describedby="basic-addon1"/>
 							</div>
-							<div class="input-group">
-							  <input id="password-input" type="text" class="form-control" placeholder="Category name" aria-describedby="basic-addon1"/>
+							<div class="form-group">
+								<label for="password-input">Password</label>
+							  <input id="password-input" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon1"/>
 							</div>
 				        </form>
 

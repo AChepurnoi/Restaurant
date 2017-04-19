@@ -73,10 +73,12 @@ export default class CreateCategoryModal extends React.Component{
 				      </div>
 				      <div class="modal-body">
 				        <form id="category-modal-form">
-							<div class="input-group">
+							<div class="form-group">
+								<label for="category-title">Title</label>
 							  <input id="category-title" type="text" class="form-control" placeholder="Category name" aria-describedby="basic-addon1"/>
 							</div>
-							<div id="category-image-input-block" class="input-group">
+
+							<div id="category-image-input-block" class="form-group">
 								<div class="btn" onClick={this.addImage.bind(this)}>Select image </div>
 								<input id="category-image-holder" type="file" class="hide"/>
 								<img id="category-image-preview" class="img-responsive" height="480" width="640" src="http://placehold.it/640x480"/>

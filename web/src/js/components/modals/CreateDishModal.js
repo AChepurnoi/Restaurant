@@ -77,27 +77,27 @@ export default class CreateDishModal extends React.Component{
 				      </div>
 				      <div class="modal-body">
 				        <form id="dish-modal-form">
-							<div class="input-group">
+							<div class="form-group">
 							  <input id="dish-title" type="text" class="form-control" placeholder="Dish title" aria-describedby="basic-addon1"/>
 							</div>
 							
-							<div class="input-group">
+							<div class="form-group">
 							  <input id="dish-description" type="text" class="form-control" placeholder="Dish description" aria-describedby="basic-addon1"/>
 							</div>
 
-							<div class="input-group">
+							<div class="form-group">
 							  <input id="dish-price" type="text" class="form-control" placeholder="Dish price" aria-describedby="basic-addon1"/>
 							</div>
 
-							<div class="input-group">
+							<div class="form-group">
 							  <label for="exampleSelect1">Category select</label>
-							  <select id="dish-categoryId">
+							  <select id="dish-categoryId" class="form-control">
 							    {this.props.categories.map( c => <option key={c.id} value={c.id}>{c.title}</option>)}
 							  </select>
 							</div>
 
 
-							<div id="dish-image-input-block" class="input-group">
+							<div id="dish-image-input-block" class="form-group">
 								<div class="btn" onClick={this.addImage.bind(this)}>Select image </div>
 								<input id="dish-image-holder" type="file" class="hide"/>
 								<img id="dish-image-preview" class="img-responsive" height="480" width="640" src="http://placehold.it/640x480"/>

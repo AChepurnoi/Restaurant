@@ -29,14 +29,17 @@ export default class RegisterModal extends React.Component{
 				      </div>
 				      <div class="modal-body">
 				        <form id="category-modal-form">
-							<div class="input-group">
+							<div class="form-group">
+								<label for="login-register-input">Login</label>
 							  <input id="login-register-input" type="text" class="form-control" placeholder="Login" aria-describedby="basic-addon1"/>
 							</div>
-							<div class="input-group">
-							  <input id="password-register-input" type="text" class="form-control" placeholder="Password" aria-describedby="basic-addon1"/>
+							<div class="form-group">
+								<label for="password-register-input">Password</label>
+							  <input id="password-register-input" type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1"/>
 							</div>
 
-							<div class="input-group">
+							<div class="form-group">
+								<label for="email-register-input">Email</label>
 							  <input id="email-register-input" type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1"/>
 							</div>
 
@@ -45,7 +48,7 @@ export default class RegisterModal extends React.Component{
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        <button type="button" class="btn btn-primary" onClick={this.onSave.bind(this)}>Login</button>
+				        <button type="button" class="btn btn-primary" onClick={this.onSave.bind(this)}>Register</button>
 				      </div>
 				    </div>
 				  </div>

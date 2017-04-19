@@ -1,6 +1,7 @@
 package com.graniumhub.service;
 
 import com.graniumhub.data.dto.cart.CartResponse;
+import com.graniumhub.data.dto.order.OrderResponse;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface CartService {
     CartResponse removeFromCart(int userId, int itemId);
 
     List<CartResponse> loadCart(int userId);
+
+    OrderResponse createOrder(int userId);
 }

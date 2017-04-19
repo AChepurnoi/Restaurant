@@ -1,6 +1,7 @@
 package com.graniumhub.data.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
@@ -11,10 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Sasha on 3/27/17.
@@ -24,6 +22,7 @@ import java.util.List;
 @Table(name = "Users")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User implements UserDetails{
 
     @Id
@@ -37,12 +36,17 @@ public class User implements UserDetails{
     @NotNull
     private String email;
 
+    @NotNull
+    private String phone;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @Fetch(FetchMode.SUBSELECT)
-    private List<CartItem> cartItems;
+    private List<CartItem> cartItems = new ArrayList<>();
 
 
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @Fetch(FetchMode.SUBSELECT)
+    private List<Order> orders = new ArrayList<>();
 
     private boolean admin;
 
@@ -59,6 +63,22 @@ public class User implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String role = admin? "admin" : "user";
         return Arrays.asList(new SimpleGrantedAuthority(role));
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
