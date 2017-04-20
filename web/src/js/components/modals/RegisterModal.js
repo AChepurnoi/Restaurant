@@ -15,7 +15,8 @@ export default class RegisterModal extends React.Component{
     	let login = $('#login-register-input').val();
     	let password = $('#password-register-input').val();
     	let email = $('#email-register-input').val();
-    	this.props.onRegister(login,password, email);
+    	let phone = $('#phone-register-input').val();
+    	this.props.onRegister({login,password, phone, email});
     }
 
 
@@ -36,6 +37,11 @@ export default class RegisterModal extends React.Component{
 							<div class="form-group">
 								<label for="password-register-input">Password</label>
 							  <input id="password-register-input" type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1"/>
+							</div>
+
+							<div class="form-group">
+								<label for="phone-register-input">Phone</label>
+							  <input id="phone-register-input" type="text" class="form-control" placeholder="Phone" aria-describedby="basic-addon1"/>
 							</div>
 
 							<div class="form-group">

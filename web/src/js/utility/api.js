@@ -37,11 +37,12 @@ class api {
 	}
 
 	createDish(data){
-		const {title, description, categoryId, image} = data;
+		const {title, description, categoryId, image, price} = data;
 		let formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
         formData.append('categoryId', categoryId);
+        formData.append('price', price);
         formData.append('image', image);
 		return this.client.post('/dishes', formData);
 	}
@@ -66,8 +67,9 @@ class api {
 		return this.client.post('/oauth/token', formData, {headers: headers});
 	}
 
-	register(login, password, email){
-		return this.client.post('/users', {login, password, email});
+	register(data){
+		
+		return this.client.post('/users', data);
 	}
 
 	checkToken(token){
@@ -127,6 +129,10 @@ class api {
 
 	loadSales(){
 		return this.client.get('/sales');
+	}
+
+	createOrder(){
+		return this.client.post('/cart/order')
 	}
 
 }

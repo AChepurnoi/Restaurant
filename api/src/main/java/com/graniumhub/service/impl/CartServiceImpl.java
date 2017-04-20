@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,7 +100,15 @@ public class CartServiceImpl implements CartService {
                 .map(it -> new OrderItem(0, null, it.getDish(), it.getCount()))
                 .collect(Collectors.toList());
         int total = orderItems.stream().mapToInt(this::getOrderItemTotal).sum();
-        Order order = Order.builder().user(user).items(orderItems).total(total).build();
+
+        Order order = Order.builder()
+                .user(user)
+                .items(orderItems)
+                .total(total)
+                .created(LocalDateTime.now(Clock.systemUTC()))
+                .status(OrderStatus.NEW)
+                .build();
+
         orderItems.forEach(it -> it.setOrder(order));
         Order result = orderRepository.save(order);
         cartRepository.delete(user.getCartItems());

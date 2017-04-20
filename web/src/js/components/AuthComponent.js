@@ -8,7 +8,7 @@ import RegisterModal from './modals/RegisterModal'
 import CartModal from './modals/CartModal'
 import {closeModal} from '../actions/modalActions'
 import {login, register, checkLoginValidity} from '../actions/authActions'
-import {deleteFromCart,addToCart } from '../actions/cartActions'
+import {deleteFromCart,addToCart, createOrder} from '../actions/cartActions'
 import ProfileModal from './modals/ProfileModal'
 import {REGISTER_MODAL_ID, LOGIN_MODAL_ID, CART_MODAL_ID, PROFILE_MODAL_ID} from '../const'
 
@@ -27,8 +27,8 @@ export default class AuthComponent extends React.Component{
    		this.props.dispatch(login(log, pass));
    	}
 
-    register(log, pass, email){
-        this.props.dispatch(register(log,pass,email))
+    register(data){
+      this.props.dispatch(register(data))
     }
 
 
@@ -45,7 +45,8 @@ export default class AuthComponent extends React.Component{
                       modalId={CART_MODAL_ID} 
                       items={this.props.cart.items} 
                       onAdd={(id) => this.props.dispatch(addToCart(id))}
-                      onDelete={(id) => this.props.dispatch(deleteFromCart(id))}/>
+                      onDelete={(id) => this.props.dispatch(deleteFromCart(id))}
+                      onOrderCreate={() => this.props.dispatch(createOrder())}/>
         }
   		return <div>
                      <LoginModal modalId={LOGIN_MODAL_ID} onLogin={this.login.bind(this)}/>

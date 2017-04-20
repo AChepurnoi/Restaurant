@@ -3,13 +3,14 @@ export default function reducer (
 		dishes: [],
 		sales:[],
 		selectedId: null,
+		currentCategory: null,
 		loading: false,
 		error: false
 	}, action){
 	
 	switch (action.type){
 
-		case "DISH_SET_CURRENT" :{
+		case "DISH_SET_CURRENT_CATEGORY" :{
 			return {...state, currentCategory: action.payload}
 		}
 
@@ -38,7 +39,7 @@ export default function reducer (
 
 		case "DISH_CREATE_FULFILLED":{
 
-			let updated = [].concat(state.dishes);
+			let updated = JSON.parse(JSON.stringify(state.dishes));
 			if(state.currentCategory == action.payload.categoryId) updated.push(action.payload);
 			return {...state, dishes: updated || [], loading: false}
 		}

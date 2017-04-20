@@ -8,6 +8,7 @@ import com.graniumhub.service.wrapper.ResponseConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneOffset;
 import java.util.stream.Collectors;
 
 /**
@@ -30,6 +31,8 @@ public class OrderConverter implements ResponseConverter<Order, OrderResponse> {
                 .builder()
                 .id(input.getId())
                 .userId(input.getUser().getId())
+                .status(input.getStatus().name())
+                .created(input.getCreated().toInstant(ZoneOffset.UTC).toEpochMilli())
                 .items(input
                         .getItems()
                         .stream()

@@ -9,6 +9,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.WhereJoinTable;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,6 +31,12 @@ public class Order {
 
     @Column(name = "order_total")
     private int total;
+
+
+    private LocalDateTime created;
+
+    @Enumerated(value = EnumType.STRING)
+    private OrderStatus status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

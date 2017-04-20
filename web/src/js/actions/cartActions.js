@@ -1,5 +1,6 @@
 import api from '../utility/api'
 import {handleError} from './errorActions'
+import {notify} from './notificationActions'
 
 
 export function loadCart(){
@@ -14,6 +15,21 @@ export function loadCart(){
 			})
 
 
+	}
+}
+
+
+export function createOrder(){
+	console.log("ACtion called");
+	return (dispatch, getState) => {
+		api.createOrder()
+			.then(res => {
+				dispatch({type: "CLEAR_CART"});
+				dispatch({type: "ADD_ORDER", payload: res.data});
+				dispatch(notify('Order created', 'Order created', 'success'));
+
+			})
+			.catch(err => handleError(err));
 	}
 }
 

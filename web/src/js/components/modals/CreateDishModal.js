@@ -62,7 +62,7 @@ export default class CreateDishModal extends React.Component{
     	let price = $('#dish-price').val();
     	let self = this;
     	self.getImageBlob()
-    		.then(image => self.props.onSavePressed({title, description, categoryId, image, price}));
+    		.then(image => self.props.onSavePressed({title, description, categoryId, price, image}));
 		
     }
 

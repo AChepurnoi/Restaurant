@@ -20,10 +20,10 @@ export function login(login, password){
 }
 
 
-export function register(login, password, email){
+export function register(data){
 	return(dispatch, getState) => {
 		dispatch({type: "REGISTER_PENDING"});
-		api.register(login, password,email)
+		api.register(data)
 		   .then(result =>{
 		   		dispatch({type:"REGISTER_FULFILLED", payload: result.data})
 		   		dispatch(closeModal(REGISTER_MODAL_ID));

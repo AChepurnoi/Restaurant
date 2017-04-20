@@ -6,6 +6,9 @@ export default function reducer (
 	
 	switch (action.type){
 
+		case "CLEAR_CART":{
+			return {...state, items: []};
+		}
 
 		case "LOAD_CART_FULFILLED": {
 			return {...state, items: action.payload};

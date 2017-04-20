@@ -32,7 +32,6 @@ export default class MainPage extends React.Component{
 
 
 	render(){
-        console.log("render main page");
         let categorySlides = this.props.category.categories.map(item => ({content: item.title, url: item.image}));
         let salesSlides = this.props.dish.sales.map(item => ({content: item.title, url: item.image}));
 

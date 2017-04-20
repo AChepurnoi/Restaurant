@@ -20,6 +20,14 @@ export default function reducer (
 			return {...state, authorized: true};
 		}
 
+		case "ADD_ORDER":{
+			let orders = JSON.parse(JSON.stringify(state.user.orders));
+			orders.push(action.payload);
+			let user = {...state.user};
+			user.orders = orders;
+			return {...state, user: user}
+
+		}
 		case "SAVE_USER": {
 			cookie.save('user_name', action.payload.login, {path: '/'});
 			return {...state, user: action.payload};

@@ -50,7 +50,9 @@ CREATE TABLE Cart_items(
 CREATE TABLE Orders(
   id SERIAL NOT NULL ,
   user_id INT NOT NULL ,
-  order_total INT NOT NULL
+  order_total INT NOT NULL,
+  created TIMESTAMP NOT NULL,
+  status VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE Order_item(
