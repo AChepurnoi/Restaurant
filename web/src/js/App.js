@@ -7,11 +7,8 @@ import AuthComponent from './components/AuthComponent'
 import NotificationComponent from './components/NotificationComponent'
 import ModalControllerComponent from './components/ModalControllerComponent'
 
-@connect( (store) =>{
-	return {category: store.category, modal: store.modal};
-})
-export default class SecuredApp extends React.Component{
 
+export default class SecuredApp extends React.Component{
 
 	constructor(props) {
 		super(props);

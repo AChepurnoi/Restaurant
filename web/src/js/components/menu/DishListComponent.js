@@ -6,27 +6,37 @@ import CreateDishModal from '../modals/CreateDishModal'
 import DiscountModal from '../modals/DiscountModal'
 import {getCategories} from '../../actions/categoryActions'
 import {DISH_MODAL_ID, DISCOUNT_MODAL_ID} from '../../const'
-import ModalController from '../../controllers/ModalController'
-
+import { bindActionCreators } from 'redux'
 import {createDish, deleteDish, setActiveDish, updateDiscount} from '../../actions/dishActions'
 import {addToCart} from '../../actions/cartActions'
+import {openModal} from '../../actions/modalActions'
+
 
 @connect( (store) =>{
 	return {category: store.category, dish: store.dish, modal: store.modal, auth: store.auth};
+}, dispatch => {
+  return {
+    loadCategories: bindActionCreators(getCategories, dispatch),
+    setActiveDish: bindActionCreators(setActiveDish, dispatch),
+    openDiscountModal: bindActionCreators(() => openModal(DISCOUNT_MODAL_ID), dispatch),
+    openDishModal: bindActionCreators(() => openModal(DISH_MODAL_ID), dispatch),
+    createDish: bindActionCreators(createDish, dispatch),
+    updateDiscount: bindActionCreators(updateDiscount, dispatch),
+    addToCart: bindActionCreators(addToCart, dispatch),
+    deleteDish: bindActionCreators(deleteDish, dispatch)
+  }
 })
 export default class DishListComponent extends React.Component{
 
     constructor(props) {
         super(props);
-        this.modalController = new ModalController(this.props.dispatch);
-
         const {categories, loading} = this.props.category;
-        if(!categories.length && !loading) this.props.dispatch(getCategories());
+        if(!categories.length && !loading) this.props.loadCategories();
     }
 
     onEditDiscount(id) {
-        this.props.dispatch(setActiveDish(id))
-        this.modalController.openModal(DISCOUNT_MODAL_ID);
+        this.props.setActiveDish(id);
+        this.props.openDiscountModal();
     }
 
 	render(){
@@ -40,24 +50,24 @@ export default class DishListComponent extends React.Component{
         if(admin){
             modal = <CreateDishModal modalId={DISH_MODAL_ID} 
                              categories={this.props.category.categories}
-                             onSavePressed={ (data) => this.props.dispatch(createDish(data))}
+                             onSavePressed={ (data) => this.props.createDish(data)}
                                  />
 
             discountModal = <DiscountModal
                                 modalId={DISCOUNT_MODAL_ID}
-                                onSave={(data) => this.props.dispatch(updateDiscount(data))}
+                                onSave={(data) => this.props.updateDiscount(data)}
                                 />
         }
 		return <div class="row">
            
             {modal}		
             {discountModal} 
-			<DishList onAddDish={() => this.modalController.openModal(DISH_MODAL_ID)}
+			<DishList onAddDish={() => this.props.openDishModal()}
 					      items={this.props.dish.dishes}
-                      onAddToCart={(id) => this.props.dispatch(addToCart(id))}
-                      onDelete={(id) => this.props.dispatch(deleteDish(id))}
-                      onEditDiscount={(id) => this.onEditDiscount(id)}
-                      admin={admin}
+                onAddToCart={(id) => this.props.addToCart(id)}
+                onDelete={(id) => this.props.deleteDish(id)}
+                onEditDiscount={(id) => this.onEditDiscount(id)}
+                admin={admin}
 						  />
                       
                     

@@ -11,24 +11,29 @@ import {login, register, checkLoginValidity} from '../actions/authActions'
 import {deleteFromCart,addToCart, createOrder} from '../actions/cartActions'
 import ProfileModal from './modals/ProfileModal'
 import {REGISTER_MODAL_ID, LOGIN_MODAL_ID, CART_MODAL_ID, PROFILE_MODAL_ID} from '../const'
+import { bindActionCreators } from 'redux'
 
 @connect( store =>{
 	return {modal: store.modal, auth: store.auth, cart: store.cart};
+}, dispatch => {
+    return {
+      login: bindActionCreators(login, dispatch),
+      register: bindActionCreators(register, dispatch),
+      checkToken: bindActionCreators(checkLoginValidity, dispatch),
+      addToCart: bindActionCreators(addToCart, dispatch),
+      deleteFromCart: bindActionCreators(deleteFromCart, dispatch),
+      createOrder: bindActionCreators(createOrder, dispatch)
+    }
 })
 export default class AuthComponent extends React.Component{
 
     constructor(props) {
         super(props);
-        this.props.dispatch(checkLoginValidity());
     }
     
-
-   	login(log, pass){
-   		this.props.dispatch(login(log, pass));
-   	}
-
-    register(data){
-      this.props.dispatch(register(data))
+    componentDidMount() {
+        this.props.checkToken();
+        console.log(this);
     }
 
 
@@ -44,13 +49,13 @@ export default class AuthComponent extends React.Component{
           cart = <CartModal 
                       modalId={CART_MODAL_ID} 
                       items={this.props.cart.items} 
-                      onAdd={(id) => this.props.dispatch(addToCart(id))}
-                      onDelete={(id) => this.props.dispatch(deleteFromCart(id))}
-                      onOrderCreate={() => this.props.dispatch(createOrder())}/>
+                      onAdd={(id) => this.props.addToCart(id)}
+                      onDelete={(id) => this.props.deleteFromCart(id)}
+                      onOrderCreate={() => this.props.createOrder()}/>
         }
   		return <div>
-                     <LoginModal modalId={LOGIN_MODAL_ID} onLogin={this.login.bind(this)}/>
-                     <RegisterModal modalId={REGISTER_MODAL_ID} onRegister={this.register.bind(this)}/>
+                     <LoginModal modalId={LOGIN_MODAL_ID} onLogin={this.props.login}/>
+                     <RegisterModal modalId={REGISTER_MODAL_ID} onRegister={this.props.register}/>
                      {cart}
                      {profile}
                   </div>

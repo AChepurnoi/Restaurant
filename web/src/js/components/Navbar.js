@@ -4,9 +4,32 @@ import { connect } from "react-redux"
 import { Link } from 'react-router'
 import {openModal} from '../actions/modalActions'
 import ModalController from '../controllers/ModalController'
+import {loadCart} from '../actions/cartActions'
+import { bindActionCreators } from 'redux'
+import {seqCall} from '../utility/utils'
+import {reloadUser} from '../actions/authActions'
+
+import {LOGIN_MODAL_ID, PROFILE_MODAL_ID, CART_MODAL_ID, REGISTER_MODAL_ID} from '../const'
+
 
 @connect( store => {
     return {modal: store.modal, auth: store.auth}
+}, dispatch => {
+    return {
+        openLoginModal: bindActionCreators(() => openModal(LOGIN_MODAL_ID), dispatch),
+        openProfileModal: seqCall(bindActionCreators({
+            a: () => openModal(PROFILE_MODAL_ID),
+            b: () => reloadUser()
+        }, dispatch)),
+        openRegisterModal: bindActionCreators(() => openModal(REGISTER_MODAL_ID), dispatch),
+        openCartModal: seqCall(bindActionCreators({
+            a: () => openModal(CART_MODAL_ID),
+            b: () => loadCart()
+        },dispatch)),
+        logout: bindActionCreators(() => ({type: "LOGOUT"}), dispatch)
+
+
+    }
 })
 export default class Navbar extends React.Component{
 
@@ -16,28 +39,7 @@ export default class Navbar extends React.Component{
         this.modalController = new ModalController(this.props.dispatch)
     }
 
-    openLoginModal(){
-        this.props.dispatch(openModal('loginModalId'));
-    }
-
-    openRegisterModal(){
-        this.props.dispatch(openModal('registerModalId'));
-    }
-
-    openCartModal(){
-        this.props.dispatch(openModal('cartModalId'))
-    }
-
-    logout(){
-        this.props.dispatch({type: "LOGOUT"});
-    }
-
-    openProfileModal(){
-        this.props.dispatch(openModal('profileModalId'));
-    }
-
 	render(){
-
         let loginButton;
         let registerButton;
         let profileButton;
@@ -45,16 +47,16 @@ export default class Navbar extends React.Component{
         let cartButton;
 
         if(!this.props.auth.authorized){
-            loginButton = <li class="navbar-text" onClick={this.openLoginModal.bind(this)}><div class="navbar-button"> Login </div> </li>
-            registerButton = <li class="navbar-text" onClick={this.openRegisterModal.bind(this)}><div class="navbar-button"> Register</div></li>
+            loginButton = <li class="navbar-text" onClick={this.props.openLoginModal}><div class="navbar-button"> Login </div> </li>
+            registerButton = <li class="navbar-text" onClick={this.props.openRegisterModal}><div class="navbar-button"> Register</div></li>
         }else {
-            cartButton =  <li class="navbar-text cart" onClick={this.openCartModal.bind(this)}>
+            cartButton =  <li class="navbar-text cart" onClick={this.props.openCartModal}>
                     <div class="navbar-button">
                         <span class="glyphicon glyphicon-shopping-cart cart-icon" aria-hidden="true"></span>
                     </div>
                 </li>
-            profileButton = <li class="navbar-text" onClick={this.openProfileModal.bind(this)}><div class="navbar-button"> Profile</div></li>
-            logoutButton = <li class="navbar-text" onClick={this.logout.bind(this)}><div class="navbar-button"> Logout</div></li>
+            profileButton = <li class="navbar-text" onClick={this.props.openProfileModal}><div class="navbar-button"> Profile</div></li>
+            logoutButton = <li class="navbar-text" onClick={this.props.logout}><div class="navbar-button"> Logout</div></li>
         }
 
 		return <nav class="navbar navbar-inverse">

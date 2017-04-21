@@ -13,7 +13,8 @@ export default class BookTableModal extends React.Component{
     	let booker = $('#booker-name').val();
     	let phone = $('#booker-phone').val();
     	let date = new Date($('#start').val());
-		date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds()); 
+		date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+						date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds()); 
     	let start = date.toISOString();
 
     	let duration = $('#duration').val();

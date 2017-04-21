@@ -10,7 +10,6 @@ export function login(login, password){
 	return(dispatch, getState) => {
 		api.login(login, password)
 		   .then(result =>{
-		   		console.log(result);
 		   		dispatch({type: "SAVE_TOKEN", payload: result.data});
 		   		dispatch(loadUser(login));
 		   		dispatch(closeModal(LOGIN_MODAL_ID));
@@ -34,13 +33,16 @@ export function register(data){
 }
 
 
+export function reloadUser(){
+	return (dispatch, getState) => {
+		let login = getState().auth.user.login;
+		dispatch(loadUser(login));
+	}
+}
 export function loadUser(name){
 	return (dispatch, getState) => {
 		api.loadUser(name)
-		   .then(res => {
-		   		dispatch({type: "SAVE_USER", payload: res.data})
-		   		dispatch(loadCart());
-		   })
+		   .then(res => dispatch({type: "SAVE_USER", payload: res.data}))
 		   .catch(err => dispatch(handleError(err)));
 	}
 

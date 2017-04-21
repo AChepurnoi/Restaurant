@@ -8,7 +8,6 @@ export default class MenuPage extends React.Component{
 
 	render(){
 		return <div class="content">
-
             <div class="content-inside">
                 <div class="container-fluid">
                    <div class="row top-padded">

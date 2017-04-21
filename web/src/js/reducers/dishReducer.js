@@ -23,20 +23,10 @@ export default function reducer (
 			return {...state, dishes: dishList}
 		}
 // ------------------------------------------------------------------------------------------------------------------------
-		case "DISH_GET_PENDING" :{
-			return {...state, loading: true, error: false}
-		}
 		case "DISH_GET_FULFILLED" :{
 			return {...state, loading: false, dishes: action.payload.data || []}
 		}
-		case "DISH_GET_REJECTED" :{
-			return {...state, loading: false, error: true}
-		}
 // ------------------------------------------------------------------------------------------------------------------------
-		case "DISH_CREATE_PENDING":{
-			return {...state, loading: true, error: false}
-		}
-
 		case "DISH_CREATE_FULFILLED":{
 
 			let updated = JSON.parse(JSON.stringify(state.dishes));
@@ -44,22 +34,13 @@ export default function reducer (
 			return {...state, dishes: updated || [], loading: false}
 		}
 
-		case "DISH_CREATE_REJECTED":{
-			return {...state, loading: false, error: true}
-		}
 // ------------------------------------------------------------------------------------------------------------------------
-		case "DISH_DELETE_PENDING":{
-			return {...state, loading:true, error:false}
-		}
 
 		case "DISH_DELETE_FULFILLED":{
 			let updated = state.dishes.filter( a => a.id != action.payload);
 			return {...state, loading:false, dishes: updated}
 		}
 
-		case "DISH_DELETE_REJECTED":{
-			return {...state, loading: false, error: true}
-		}
 
 		case "SET_ACTIVE_DISH":{
 			return {...state, selectedId: action.payload }

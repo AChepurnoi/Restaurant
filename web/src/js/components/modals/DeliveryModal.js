@@ -8,7 +8,6 @@ export default class DeliveryModal extends React.Component{
     
 
 	render(){
-		 console.log("render delivery modal");
 		return <div id={this.props.modalId} class="modal fade" tabIndex="-1" role="dialog">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
@@ -17,8 +16,8 @@ export default class DeliveryModal extends React.Component{
 				        <h4 class="modal-title">Profile</h4>
 				      </div>
 				      <div class="modal-body">
-				       Delivery information
-				       Fill your cart and create oreder, we will call you to confirm delivery!
+				       Delivery information<br/>
+				       Fill your cart and create oreder, we will call you to confirm your delivery!
 
 				      </div>
 				      <div class="modal-footer">

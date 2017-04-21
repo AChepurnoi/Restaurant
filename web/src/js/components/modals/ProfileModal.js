@@ -33,7 +33,6 @@ export default class ProfileModal extends React.Component{
 				        {user.orders.map(order => (
 
 				        	<div class="order-item">
-				        		<div class="horizontal-divider"></div>
 				        		<div class="order-title"><span class="glyphicon glyphicon-list-alt"></span>Order {order.id}<div class="order-status label label-info">{order.status}</div></div>
 								<div class="order-total">Total {order.total}$</div>
 								<div class="order-created">Created: {(new Date(order.created)).toLocaleTimeString('en-us',dateOptions)}</div>

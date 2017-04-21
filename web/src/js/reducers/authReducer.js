@@ -9,7 +9,7 @@ export default function reducer (
 	}, action){
 	
 	switch (action.type){
-
+			//Not pure reducer -> shit
 		case "SAVE_TOKEN":{
 			let token = action.payload.access_token;
 			let refresh = action.payload.refresh_token;
@@ -28,12 +28,13 @@ export default function reducer (
 			return {...state, user: user}
 
 		}
+			//Not pure reducer -> shit
 		case "SAVE_USER": {
 			cookie.save('user_name', action.payload.login, {path: '/'});
 			return {...state, user: action.payload};
 		}
 
-
+			//Not pure reducer -> shit
 		case "LOGOUT":{
 			api.clearToken();
 			cookie.remove('user_name', {path: '/'});
@@ -42,6 +43,7 @@ export default function reducer (
 			return {...state, authorized: false, user: null, cart: null};
 		}
 
+			//Not pure reducer -> shit
 		case "TOKEN_VALID":{
 			let token = cookie.load('access_token');
 			api.setToken(token);

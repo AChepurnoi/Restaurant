@@ -7,27 +7,32 @@ import {DELIVERY_MODAL_ID} from '../const'
 import DeliveryModal from '../components/modals/DeliveryModal'
 import {getCategories} from '../actions/categoryActions'
 import {loadSales} from '../actions/dishActions'
-
+import { bindActionCreators } from 'redux'
+import {openModal} from '../actions/modalActions'
 
 @connect(store => {
     return {category: store.category, dish: store.dish}
+}, dispatch => {
+    return {
+        openDeliveryModal: bindActionCreators(() => openModal(DELIVERY_MODAL_ID),dispatch),
+        loadCategories: bindActionCreators(getCategories, dispatch),
+        loadSales: bindActionCreators(loadSales, dispatch)
+    }
 })
 export default class MainPage extends React.Component{
 
 
     constructor(props) {
         super(props);
-        this.modalController = new ModalController(this.props.dispatch);
-        const {categories, loading} = this.props.category;
-        if(!categories.length && !loading) this.props.dispatch(getCategories());
-
-        const {sales} = this.props.dish;
-        if(!sales.length) this.props.dispatch(loadSales());
     }
 
 
     componentDidMount(){
+        const {categories, loading} = this.props.category;
+        if(!categories.length && !loading) this.props.loadCategories();
 
+        const {sales} = this.props.dish;
+        if(!sales.length) this.props.loadSales();
     }
 
 
@@ -40,12 +45,12 @@ export default class MainPage extends React.Component{
             <div class="content-inside">
                 <div class="container-fluid">
                     <div class="row menu">
-                        <div class="col-sm-3 col-xs-6 btn btn-link"><Link to="/menu">Menu</Link></div>
-                        <div class="col-sm-3 col-xs-6 btn btn-link">
-                            <span onClick={() => this.modalController.openModal(DELIVERY_MODAL_ID)}>Delivery</span>
+                        <Link to="/menu"><div class="col-sm-3 col-xs-6 btn btn-link main-button">Menu</div></Link>
+                        <div onClick={() => this.props.openDeliveryModal()} class="col-sm-3 col-xs-6 btn btn-link main-button">
+                            <span >Delivery</span>
                         </div>
-                        <div class="col-sm-3 col-xs-6 btn btn-link"><Link to="/booking">Book</Link></div>
-                        <div class="col-sm-3 col-xs-6 btn btn-link">Sales</div>
+                        <Link to="/booking"><div class="col-sm-3 col-xs-6 btn btn-link main-button">Book</div></Link>
+                        <Link to="/menu"><div class="col-sm-3 col-xs-6 btn btn-link main-button">Sales</div></Link>
                     </div>
                     <div class="row">
                         <div class="main-image-container">

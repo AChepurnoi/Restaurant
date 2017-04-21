@@ -3,6 +3,7 @@ package com.graniumhub.data.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Sasha on 3/27/17.
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"category"})
 @ToString(exclude = {"category"})
+@Builder
 public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
@@ -29,4 +31,10 @@ public class Dish {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "dish")
+    private List<CartItem> cartItems;
+
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "dish")
+    private List<OrderItem> orderItems;
 }

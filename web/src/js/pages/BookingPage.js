@@ -6,13 +6,11 @@ import BookingComponent from "../components/booking/BookingComponent"
 
 export default class BookingPage extends React.Component{
 
-    componentDidMount(){
-
+    constructor(props) {
+        super(props);
     }
 
 	render(){
-
-
 		return <div class="content">
             <div class="content-inside">
                 <div class="container-fluid">

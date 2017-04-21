@@ -6,16 +6,27 @@ import SVG from 'svg.js'
 import {deleteTable, createTable, loadTables, loadBooking, selectTable, deselectTable, bookTable} from '../../actions/bookingActions'
 import ModalController from '../../controllers/ModalController'
 import {BOOK_MODAL_ID} from '../../const'
+import { bindActionCreators } from 'redux'
+import {openModal} from '../../actions/modalActions'
+
 
 @connect( (store) =>{
 	return {modal: store.modal, auth: store.auth, booking: store.booking};
+}, dispatch => {
+    return {
+        deleteTable: bindActionCreators(deleteTable, dispatch),
+        selectTable: bindActionCreators(selectTable, dispatch),
+        loadBooking: bindActionCreators(loadBooking, dispatch),
+        createTable: bindActionCreators(createTable, dispatch),
+        loadTables: bindActionCreators(loadTables, dispatch),
+        bookTable: bindActionCreators(bookTable, dispatch),
+        openBookModal: bindActionCreators(() => openModal(BOOK_MODAL_ID), dispatch)
+    }
 })
 export default class BookingComponent extends React.Component{
 
     constructor(props) {
         super(props);
-        this.modalController = new ModalController(this.props.dispatch);
-
         this.plan = "/images/plan.jpg";
         this.marker = "http://www.clker.com/cliparts/B/B/1/E/y/r/marker-pin-google.svg";
         this.markerWidth = 45;
@@ -38,12 +49,12 @@ export default class BookingComponent extends React.Component{
 
     itemClicked(id){
         if(this.state.deleting) {
-            this.props.dispatch(deleteTable(id));
+            this.props.deleteTable(id);
             return;
         }
-        this.modalController.openModal(BOOK_MODAL_ID);
-        this.props.dispatch(selectTable(id));
-        this.props.dispatch(loadBooking(id));
+        this.props.openBookModal();
+        this.props.selectTable(id);
+        this.props.loadBooking(id);
         
     
     }
@@ -56,7 +67,7 @@ export default class BookingComponent extends React.Component{
         back.on('click', event => {
             let xpos = event.x - (self.markerWidth / 2) - pos.left;
             let ypos = event.y - pos.top - (self.markerHeight / 2) - (self.markerHeight / 3);
-            self.props.dispatch(createTable(xpos, ypos));
+            self.props.createTable(xpos, ypos);
         })
     }
 
@@ -83,7 +94,7 @@ export default class BookingComponent extends React.Component{
         this.draw = new SVG('svg-container');
         this.back = this.draw.image(this.plan, 600, 420);
         this.itemsContainer = this.draw.group();
-        this.props.dispatch(loadTables());
+        this.props.loadTables();
 
     }
 
@@ -106,7 +117,7 @@ export default class BookingComponent extends React.Component{
             <BookTableModal 
                 modalId={BOOK_MODAL_ID} 
                 booking={this.props.booking} 
-                onBook={(data) => this.props.dispatch(bookTable(this.props.booking.selectedTable, data))} />
+                onBook={(data) => this.props.bookTable(this.props.booking.selectedTable, data)} />
 
             <div class="booking-title text-center">
                 <h2> Book your table </h2>

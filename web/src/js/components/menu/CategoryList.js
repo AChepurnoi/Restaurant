@@ -9,6 +9,7 @@ export default class CategoryList extends React.Component{
       super(props);
       
   }
+
 	render(){
 
     let addBtn;
