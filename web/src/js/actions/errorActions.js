@@ -1,10 +1,10 @@
-import {notify} from './notificationActions'
+import {notify, hideLoader} from './notificationActions'
 import {refreshToken} from './authActions'
 export function handleError(err){
 
 	return (dispatch, getState) => {
 		console.log(err.response);
-		
+		dispatch(hideLoader());
 		if(err.response.status == 401){
 			dispatch(refreshToken());
 			dispatch(notify("Retry", 'Please, try again', 'error'));

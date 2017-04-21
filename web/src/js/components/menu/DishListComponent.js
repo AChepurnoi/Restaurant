@@ -13,7 +13,11 @@ import {openModal} from '../../actions/modalActions'
 
 
 @connect( (store) =>{
-	return {category: store.category, dish: store.dish, modal: store.modal, auth: store.auth};
+	return {
+        category: store.category,
+        dish: store.dish,
+        auth: store.auth
+    }
 }, dispatch => {
   return {
     loadCategories: bindActionCreators(getCategories, dispatch),

@@ -4,14 +4,13 @@ import { Link } from 'react-router'
 import BookTableModal from '../modals/BookTableModal'
 import SVG from 'svg.js'
 import {deleteTable, createTable, loadTables, loadBooking, selectTable, deselectTable, bookTable} from '../../actions/bookingActions'
-import ModalController from '../../controllers/ModalController'
 import {BOOK_MODAL_ID} from '../../const'
 import { bindActionCreators } from 'redux'
 import {openModal} from '../../actions/modalActions'
 
 
 @connect( (store) =>{
-	return {modal: store.modal, auth: store.auth, booking: store.booking};
+	return {auth: store.auth, booking: store.booking};
 }, dispatch => {
     return {
         deleteTable: bindActionCreators(deleteTable, dispatch),

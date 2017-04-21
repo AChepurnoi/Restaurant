@@ -6,4 +6,6 @@ import auth from './authReducer'
 import booking from './bookingReducer'
 import notification from './notificationReducer'
 import cart from './cartReducer'
-export default combineReducers({category,modal, dish, auth, booking, notification, cart})
+import loader from './loaderReducer'
+
+export default combineReducers({category,modal, dish, auth, booking, notification, cart, loader})

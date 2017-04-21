@@ -2,6 +2,7 @@ import api from '../utility/api'
 import {handleError} from './errorActions'
 import {closeModal} from './modalActions'
 import {DISH_MODAL_ID, DISCOUNT_MODAL_ID} from '../const'
+import {notify, showLoader, hideLoader} from './notificationActions'
 
 
 export function getDishes(category){
@@ -17,10 +18,13 @@ export function getDishes(category){
 
 export function createDish(data){
 	return (dispatch, getState) => {
+		dispatch(showLoader());
 		api.createDish(data)
 		   .then(response => {
 		   		dispatch({type: "DISH_CREATE_FULFILLED", payload: response.data});
 		   		dispatch(closeModal(DISH_MODAL_ID));
+		   		dispatch(hideLoader());
+		   		dispatch(notify('Info', 'Dish created', 'success'));
 		   })
 		   .catch(err => dispatch(handleError(err)));
 
@@ -30,7 +34,10 @@ export function createDish(data){
 export function deleteDish(id){
 	return (dispatch, getState) => {
 		api.deleteDish(id)
-		   .then(res => dispatch({type: "DISH_DELETE_FULFILLED",payload: id}))
+		   .then(res => {
+		   		dispatch({type: "DISH_DELETE_FULFILLED",payload: id})
+		   		dispatch(notify('Info', 'Dish deleted', 'success'));
+		   	})
 		   .catch(err => dispatch(handleError(err)))
 	}
 }
@@ -43,6 +50,7 @@ export function updateDiscount(data){
 			.then(res => {
 				dispatch({type: "DISH_UPDATE", payload: res.data})
 				dispatch(closeModal(DISCOUNT_MODAL_ID));
+				dispatch(notify('Info', 'Dish discount updated', 'success'));
 			})
 			.catch(err => handleError(err));
 	}

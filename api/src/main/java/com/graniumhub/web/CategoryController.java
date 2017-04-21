@@ -2,11 +2,13 @@ package com.graniumhub.web;
 
 import com.graniumhub.data.dto.category.CategoryInput;
 import com.graniumhub.data.dto.category.CategoryResponse;
+import com.graniumhub.data.exception.InvalidInputException;
 import com.graniumhub.data.exception.NotFound;
 import com.graniumhub.service.CategoryService;
 import com.graniumhub.web.security.RequiredAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,7 +36,9 @@ public class CategoryController {
 
     @RequiredAdmin
     @PostMapping("/categories")
-    public ResponseEntity<CategoryResponse> create(@Valid CategoryInput input){
+    public ResponseEntity<CategoryResponse> create(@Valid CategoryInput input,
+                                                   BindingResult params){
+        if(params.hasErrors()) throw new InvalidInputException(params.getFieldErrors());
         CategoryResponse response = categoryService.create(input);
         return ResponseEntity.ok(response);
     }

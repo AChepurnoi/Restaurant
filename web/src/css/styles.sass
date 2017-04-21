@@ -9,7 +9,7 @@ $icon-font-path: "../assets/fonts/bootstrap/"
 @import "menu"
 @import "booking"
 @import "cart"
-
+@import "loader"
 
 html, body 
   height: 100%
@@ -20,9 +20,16 @@ html, body
   min-height: 100%
 
 .content-inside 
-  padding-bottom: 25px
+  margin-bottom: 25px
 
+.content-inside:after
+	content: ""
+	display: block
+	height: 50px
 
+.max-height
+	min-height: 100%
+	height: 100%
 
 
 

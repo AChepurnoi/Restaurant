@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from "react-redux"
 import { Link } from 'react-router'
 import Slider from '../components/Slider/Slider'
-import ModalController from '../controllers/ModalController'
 import {DELIVERY_MODAL_ID} from '../const'
 import DeliveryModal from '../components/modals/DeliveryModal'
 import {getCategories} from '../actions/categoryActions'
@@ -70,8 +69,8 @@ export default class MainPage extends React.Component{
                         />
                     </div>
                     <div class="row actions">
-                        <div class="col-sm-6"><div class="btn btn-primary order-btn">Order</div></div>
-                        <div class="col-sm-6"><div class="btn btn-primary book-btn">Book</div></div>
+                        <Link to="/menu"><div class="col-sm-6"><div class="btn btn-primary order-btn">Order</div></div></Link>
+                        <Link to="/booking"><div class="col-sm-6"><div class="btn btn-primary book-btn">Book</div></div></Link>
                     </div>
                 </div>
             </div>

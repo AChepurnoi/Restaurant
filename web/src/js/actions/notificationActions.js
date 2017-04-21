@@ -5,3 +5,12 @@ export function notify(title, message, level){
 	}
 }
 
+
+export function showLoader(){
+	return {type: "LOADER_SHOW"}
+}
+
+
+export function hideLoader(){
+	return {type: "LOADER_HIDE"}
+}

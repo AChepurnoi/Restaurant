@@ -3,6 +3,7 @@ package com.graniumhub.service.impl;
 import com.graniumhub.data.domain.User;
 import com.graniumhub.data.dto.user.UserInput;
 import com.graniumhub.data.dto.user.UserResponse;
+import com.graniumhub.data.exception.ServerException;
 import com.graniumhub.data.repository.UserRepository;
 import com.graniumhub.service.UserService;
 import com.graniumhub.service.wrapper.AbstractDTOWrapper;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse register(UserInput user) {
+        Optional<User> oldUser = repository.findByLogin(user.getLogin());
+        if(oldUser.isPresent()) throw new ServerException("User login duplicated");
+
         User userNew = wrapper.toEntity(user);
         userNew = repository.save(userNew);
         return wrapper.toResponse(userNew);

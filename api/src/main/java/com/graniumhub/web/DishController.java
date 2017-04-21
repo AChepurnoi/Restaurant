@@ -3,14 +3,17 @@ package com.graniumhub.web;
 import com.graniumhub.data.dto.dish.DiscountInput;
 import com.graniumhub.data.dto.dish.DishInput;
 import com.graniumhub.data.dto.dish.DishResponse;
+import com.graniumhub.data.exception.InvalidInputException;
 import com.graniumhub.data.filter.OnSaleDishFilter;
 import com.graniumhub.service.DishService;
 import com.graniumhub.web.security.RequiredAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +40,9 @@ public class DishController {
 
     @RequiredAdmin
     @PostMapping(value = "/dishes")
-    public ResponseEntity<DishResponse> create(DishInput input) {
+    public ResponseEntity<DishResponse> create(@Valid DishInput input,
+                                               BindingResult params) {
+        if(params.hasErrors()) throw new InvalidInputException(params.getFieldErrors());
         DishResponse response = service.create(input);
         return ResponseEntity.ok(response);
     }
@@ -52,7 +57,9 @@ public class DishController {
     @RequiredAdmin
     @PutMapping(value = "/dishes/{id}")
     public ResponseEntity<DishResponse> setDiscount(@PathVariable int id,
-                                                    @RequestBody DiscountInput input){
+                                                    @RequestBody @Valid DiscountInput input,
+                                                    BindingResult params){
+        if(params.hasErrors()) throw new InvalidInputException(params.getFieldErrors());
         DishResponse response = service.setDiscount(id, input.getDiscount());
         return ResponseEntity.ok(response);
     }

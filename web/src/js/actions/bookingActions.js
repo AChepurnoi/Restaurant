@@ -7,9 +7,8 @@ export function loadTables(){
 
 	return (dispatch, getState) => {
 		api.loadTables()
-		   .then(response => {
-		   		dispatch({type:"TABLES_GET_ALL_FULFILLED", payload: response});
-		   }).catch(err => dispatch(handleError(err)))
+		   .then(response =>dispatch({type:"TABLES_GET_ALL_FULFILLED", payload: response}))
+		   .catch(err => dispatch(handleError(err)))
 	}
 }
 
@@ -19,7 +18,7 @@ export function createTable(posx, posy){
 		api.createTable({posx, posy})
 		   .then(response => {
 		   		dispatch({type: "TABLES_CREATE_FULFILLED", payload: response.data});
-		   		dispatch(notify('Table created', 'Table created OK', 'success'));
+		   		dispatch(notify('Info', 'Table placed', 'success'));
 		   })
 		   .catch(err => dispatch(handleError(err)));
 
@@ -31,7 +30,7 @@ export function deleteTable(id){
 		api.deleteTable(id)
 		   .then(res => {
 			   	dispatch({type: "TABLES_DELETE_FULFILLED",payload: id})
-			   	dispatch(notify('Table deleted', 'Table deleted OK', 'success'));
+			   	dispatch(notify('Info', 'Table deleted', 'success'));
 		   })
 		   .catch(err =>dispatch(handleError(err)))
 	}
@@ -51,7 +50,7 @@ export function bookTable(table, data){
 		   .then(res => {
 		   	dispatch({type: "BOOK_FULFILLED",payload: res.data})
 		   	dispatch(closeModal(BOOK_MODAL_ID));
-		   	dispatch(notify('Table booked', 'Table booked OK', 'success'));
+		   	dispatch(notify('Info', 'Table booked', 'success'));
 		   })
 		   .catch(err =>dispatch(handleError(err)))
 	}

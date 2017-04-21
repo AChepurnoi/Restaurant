@@ -14,7 +14,7 @@ import {REGISTER_MODAL_ID, LOGIN_MODAL_ID, CART_MODAL_ID, PROFILE_MODAL_ID} from
 import { bindActionCreators } from 'redux'
 
 @connect( store =>{
-	return {modal: store.modal, auth: store.auth, cart: store.cart};
+	return {auth: store.auth, cart: store.cart};
 }, dispatch => {
     return {
       login: bindActionCreators(login, dispatch),

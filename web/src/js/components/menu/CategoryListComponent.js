@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux'
 import {CATEGORY_MODAL_ID} from '../../const'
 
 @connect( (store) =>{
-	return {category: store.category, modal: store.modal, auth: store.auth};
+	return {category: store.category, auth: store.auth};
 }, dispatch => {
     return {
        loadCategories: bindActionCreators(getCategories, dispatch),

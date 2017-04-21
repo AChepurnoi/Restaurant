@@ -3,7 +3,6 @@ import React from 'react'
 import { connect } from "react-redux"
 import { Link } from 'react-router'
 import {openModal} from '../actions/modalActions'
-import ModalController from '../controllers/ModalController'
 import {loadCart} from '../actions/cartActions'
 import { bindActionCreators } from 'redux'
 import {seqCall} from '../utility/utils'
@@ -36,7 +35,6 @@ export default class Navbar extends React.Component{
 
     constructor(props) {
         super(props);
-        this.modalController = new ModalController(this.props.dispatch)
     }
 
 	render(){

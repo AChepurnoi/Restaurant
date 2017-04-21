@@ -12,7 +12,6 @@ export default class ProfileModal extends React.Component{
 	render(){
 
 		let {user} = this.props;
-		console.log("Render profile modal");
 		let dateOptions = {  
 		    weekday: "long", month: "short",  
 		    day: "numeric", hour: "2-digit", minute: "2-digit"  
@@ -30,15 +29,15 @@ export default class ProfileModal extends React.Component{
 				        <div class="email-profile">Email: {user.email}</div>
 				        <div class="phone-profile">Mobile Phone: {user.phone}</div>
 
-				        {user.orders.map(order => (
+				        {user.orders.map((order,j) => (
 
-				        	<div class="order-item">
+				        	<div class="order-item" key={j}>
 				        		<div class="order-title"><span class="glyphicon glyphicon-list-alt"></span>Order {order.id}<div class="order-status label label-info">{order.status}</div></div>
 								<div class="order-total">Total {order.total}$</div>
 								<div class="order-created">Created: {(new Date(order.created)).toLocaleTimeString('en-us',dateOptions)}</div>
 
 					        	{order.items.map((item, i) => (
-					        	<div class="media" key={i} >
+					        	<div class="media" key={i + "" + j} >
 								  <div class="media-left">
 							      	<img class="media-object cart-image" src={item.image}/>
 								  </div>
