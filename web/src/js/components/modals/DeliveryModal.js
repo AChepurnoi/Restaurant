@@ -17,7 +17,7 @@ export default class DeliveryModal extends React.Component{
 				      </div>
 				      <div class="modal-body">
 				       Delivery information<br/>
-				       Fill your cart and create oreder, we will call you to confirm your delivery!
+				       Fill your cart and create order, we will call you to confirm your delivery!
 
 				      </div>
 				      <div class="modal-footer">

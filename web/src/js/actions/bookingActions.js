@@ -7,7 +7,7 @@ export function loadTables(){
 
 	return (dispatch, getState) => {
 		api.loadTables()
-		   .then(response =>dispatch({type:"TABLES_GET_ALL_FULFILLED", payload: response}))
+		   .then(response => dispatch({type:"TABLES_GET_ALL_FULFILLED", payload: response}))
 		   .catch(err => dispatch(handleError(err)))
 	}
 }
