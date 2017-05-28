@@ -4,10 +4,12 @@ import com.graniumhub.data.domain.Category;
 import com.graniumhub.data.domain.Dish;
 import com.graniumhub.data.dto.dish.DishInput;
 import com.graniumhub.data.dto.dish.DishResponse;
+import com.graniumhub.data.dto.dish.DishUpdate;
 import com.graniumhub.data.exception.NotFound;
 import com.graniumhub.data.filter.OnSaleDishFilter;
 import com.graniumhub.data.repository.CategoryRepository;
 import com.graniumhub.data.repository.DishRepository;
+import com.graniumhub.service.AmazonS3Service;
 import com.graniumhub.service.DishService;
 import com.graniumhub.service.wrapper.AbstractDTOWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,14 @@ public class DishServiceImpl implements DishService {
     private final CategoryRepository categoryRepository;
     private final DishRepository dishRepository;
     private final AbstractDTOWrapper<DishInput, Dish, DishResponse> wrapper;
+    private final AmazonS3Service amazon;
 
     @Autowired
-    public DishServiceImpl(CategoryRepository categoryRepository, DishRepository dishRepository, AbstractDTOWrapper<DishInput, Dish, DishResponse> wrapper) {
+    public DishServiceImpl(CategoryRepository categoryRepository, DishRepository dishRepository, AbstractDTOWrapper<DishInput, Dish, DishResponse> wrapper, AmazonS3Service amazon) {
         this.categoryRepository = categoryRepository;
         this.dishRepository = dishRepository;
         this.wrapper = wrapper;
+        this.amazon = amazon;
     }
 
     @Override
@@ -51,9 +55,28 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
+    public DishResponse update(int id, DishUpdate update) {
+        Dish dish = dishRepository.findOne(id).orElseThrow(NotFound::new);
+        String url = Optional.ofNullable(update.getImage()).map(amazon::saveImage).orElseGet(dish::getImage);
+        Category cat = categoryRepository.findOne(update.getCategoryId()).orElseThrow(NotFound::new);
+        dish.setTitle(update.getTitle());
+        dish.setDescription(update.getDescription());
+        dish.setCategory(cat);
+        dish.setPrice(update.getPrice());
+        dish.setImage(url);
+        dish = dishRepository.save(dish);
+        return wrapper.toResponse(dish);
+    }
+
+    @Override
     public boolean delete(int i) {
         dishRepository.delete(i);
         return true;
+    }
+
+    @Override
+    public List<DishResponse> search(String search) {
+        return dishRepository.findByTitleLike(search).stream().map(wrapper::toResponse).collect(Collectors.toList());
     }
 
     @Override

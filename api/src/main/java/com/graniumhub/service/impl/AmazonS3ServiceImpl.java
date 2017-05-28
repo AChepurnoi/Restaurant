@@ -15,6 +15,7 @@ import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
@@ -56,6 +57,12 @@ public class AmazonS3ServiceImpl implements AmazonS3Service{
         String objectName = String.format("%s/%s.%s", PHOTO_FOLDER, UUID.randomUUID(), format);
         amazonClient.putObject(BUCKET_NAME, objectName, image, new ObjectMetadata());
         return AMAZON_S3_URL + BUCKET_NAME + "/" + objectName;
+    }
+
+    @Override
+    @SneakyThrows
+    public String saveImage(MultipartFile image) {
+        return this.saveImage(image.getOriginalFilename(), image.getInputStream());
     }
 
     @Override

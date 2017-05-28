@@ -2,6 +2,7 @@ package com.graniumhub.web;
 
 import com.graniumhub.data.dto.category.CategoryInput;
 import com.graniumhub.data.dto.category.CategoryResponse;
+import com.graniumhub.data.dto.category.CategoryUpdate;
 import com.graniumhub.data.exception.InvalidInputException;
 import com.graniumhub.data.exception.NotFound;
 import com.graniumhub.service.CategoryService;
@@ -29,7 +30,7 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<CategoryResponse>> findAll(){
+    public ResponseEntity<List<CategoryResponse>> findAll() {
         List<CategoryResponse> categories = categoryService.findAll();
         return ResponseEntity.ok(categories);
     }
@@ -37,15 +38,29 @@ public class CategoryController {
     @RequiredAdmin
     @PostMapping("/categories")
     public ResponseEntity<CategoryResponse> create(@Valid CategoryInput input,
-                                                   BindingResult params){
-        if(params.hasErrors()) throw new InvalidInputException(params.getFieldErrors());
+                                                   BindingResult params) {
+        if (params.hasErrors()) throw new InvalidInputException(params.getFieldErrors());
         CategoryResponse response = categoryService.create(input);
         return ResponseEntity.ok(response);
     }
 
 
+    @RequiredAdmin
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<CategoryResponse> update(@PathVariable("id") int id, CategoryUpdate update) {
+        CategoryResponse response = categoryService.update(id, update);
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("/categories/search")
+    public ResponseEntity<List<CategoryResponse>> search(@RequestParam(name = "query") String query) {
+        List<CategoryResponse> response = categoryService.search(query);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/categories/{id}")
-    public ResponseEntity<CategoryResponse> findById(@PathVariable int id){
+    public ResponseEntity<CategoryResponse> findById(@PathVariable int id) {
         CategoryResponse response = categoryService.findById(id).orElseThrow(NotFound::new);
         return ResponseEntity.ok(response);
     }
@@ -53,7 +68,7 @@ public class CategoryController {
 
     @RequiredAdmin
     @DeleteMapping("/categories/{id}")
-    public ResponseEntity delete(@PathVariable int id){
+    public ResponseEntity delete(@PathVariable int id) {
         boolean result = categoryService.deleteById(id);
         return result ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }

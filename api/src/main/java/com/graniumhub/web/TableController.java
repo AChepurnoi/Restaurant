@@ -34,7 +34,7 @@ public class TableController {
         return ResponseEntity.ok(result);
     }
 
-    @RequiredAdmin
+//    @RequiredAdmin
     @PostMapping(value = "/tables")
     public ResponseEntity<TableResponse> place(@RequestBody TableInput table){
         TableResponse response = tableService.place(table);
@@ -57,7 +57,7 @@ public class TableController {
         return ResponseEntity.ok(response);
     }
 
-    @RequiredAdmin
+//    @RequiredAdmin
     @DeleteMapping(value = "/tables/{id}")
     public ResponseEntity delete(@PathVariable int id){
         boolean res = tableService.remove(id);

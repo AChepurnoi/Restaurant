@@ -2,6 +2,7 @@ package com.graniumhub.service;
 
 import com.graniumhub.data.dto.dish.DishInput;
 import com.graniumhub.data.dto.dish.DishResponse;
+import com.graniumhub.data.dto.dish.DishUpdate;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,10 @@ public interface DishService {
     boolean delete(int i);
 
     DishResponse setDiscount(int dishId, int discount);
+
+    DishResponse update(int id, DishUpdate update);
+
+    List<DishResponse> search(String search);
 
     Optional<DishResponse> findById(int i);
 

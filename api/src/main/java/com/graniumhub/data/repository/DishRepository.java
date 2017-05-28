@@ -11,6 +11,7 @@ import java.util.Optional;
  * Created by Sasha on 3/28/17.
  */
 public interface DishRepository extends JpaRepository<Dish,Integer> {
+    List<Dish> findByTitleLike(String search);
     Optional<Dish> findOne(int id);
     List<Dish> findByCategory(Category category);
 }

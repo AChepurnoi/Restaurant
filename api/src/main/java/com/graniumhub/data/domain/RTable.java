@@ -3,6 +3,8 @@ package com.graniumhub.data.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class RTable {
 
     @OneToMany(mappedBy = "table", fetch = FetchType.LAZY,
             orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @Fetch(FetchMode.SUBSELECT)
     private List<Booking> bookings = new ArrayList<>();
 
 

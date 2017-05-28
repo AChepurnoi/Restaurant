@@ -3,6 +3,7 @@ package com.graniumhub.web;
 import com.graniumhub.data.dto.dish.DiscountInput;
 import com.graniumhub.data.dto.dish.DishInput;
 import com.graniumhub.data.dto.dish.DishResponse;
+import com.graniumhub.data.dto.dish.DishUpdate;
 import com.graniumhub.data.exception.InvalidInputException;
 import com.graniumhub.data.filter.OnSaleDishFilter;
 import com.graniumhub.service.DishService;
@@ -62,6 +63,22 @@ public class DishController {
         if(params.hasErrors()) throw new InvalidInputException(params.getFieldErrors());
         DishResponse response = service.setDiscount(id, input.getDiscount());
         return ResponseEntity.ok(response);
+    }
+
+    @RequiredAdmin
+    @PutMapping(value = "/dishes/{id}")
+    public ResponseEntity<DishResponse> update(@PathVariable("id") int id,
+                                               DishUpdate update){
+        DishResponse response = service.update(id, update);
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping(value = "/dishes/search")
+    public ResponseEntity<List<DishResponse>> search(@RequestParam(name = "query") String query){
+        List<DishResponse> result = service.search(query);
+        return ResponseEntity.ok(result);
+
     }
 
     @GetMapping(value = "/categories/{id}/dishes")

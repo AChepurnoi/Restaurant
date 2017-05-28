@@ -1,6 +1,8 @@
 package com.graniumhub.data.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -28,7 +30,8 @@ public class Dish {
     private boolean sale;
     private int discount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 

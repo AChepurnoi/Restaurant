@@ -1,5 +1,7 @@
 package com.graniumhub.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.InputStream;
 
 /**
@@ -7,5 +9,7 @@ import java.io.InputStream;
  */
 public interface AmazonS3Service {
     String saveImage(String filename, InputStream stream);
+    String saveImage(MultipartFile image);
+
     void deleteImage(String url);
 }

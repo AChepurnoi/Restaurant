@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,6 +32,7 @@ public class Category {
 
 
     @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true, mappedBy = "category")
+    @Fetch(FetchMode.SUBSELECT)
     private Set<Dish> dishes;
 
 }
