@@ -18,6 +18,9 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"category"})
 @ToString(exclude = {"category"})
 @Builder
+@NamedEntityGraph(name = "findAll", attributeNodes = {
+        @NamedAttributeNode(value = "category")
+})
 public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
@@ -30,8 +33,7 @@ public class Dish {
     private boolean sale;
     private int discount;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.JOIN)
+    @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 

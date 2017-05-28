@@ -2,6 +2,7 @@ package com.graniumhub.data.repository;
 
 import com.graniumhub.data.domain.Category;
 import com.graniumhub.data.domain.Dish;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -13,5 +14,10 @@ import java.util.Optional;
 public interface DishRepository extends JpaRepository<Dish,Integer> {
     List<Dish> findByTitleLike(String search);
     Optional<Dish> findOne(int id);
+
+    @EntityGraph(value = "findAll")
+    List<Dish> findAll();
+
+    @EntityGraph(attributePaths = {"category"})
     List<Dish> findByCategory(Category category);
 }

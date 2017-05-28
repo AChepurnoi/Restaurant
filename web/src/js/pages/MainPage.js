@@ -39,6 +39,11 @@ export default class MainPage extends React.Component{
         let categorySlides = this.props.category.categories.map(item => ({content: item.title, url: item.image}));
         let salesSlides = this.props.dish.sales.map(item => ({content: item.title, url: item.image}));
 
+        let mapStyle = {
+            margin: "auto",
+            display: "block"
+        };
+
 		return <div class="content">
             <DeliveryModal modalId={DELIVERY_MODAL_ID}/>
             <div class="content-inside">
@@ -71,6 +76,13 @@ export default class MainPage extends React.Component{
                     <div class="row actions">
                         <Link to="/menu"><div class="col-sm-6"><div class="btn btn-primary order-btn">Order</div></div></Link>
                         <Link to="/booking"><div class="col-sm-6"><div class="btn btn-primary book-btn">Book</div></div></Link>
+                    </div>
+
+                    <div class="row">
+                        <iframe width="600" height="450" frameborder="0" style={mapStyle}
+                                src="https://www.google.com/maps/embed/v1/place?q=%D0%9F%D0%B5%D1%80%D0%B5%D1%83%D0%BB%D0%BE%D0%BA%20%D0%9A%D0%BE%D0%B2%D0%B0%D0%BB%D1%8C%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%205&key=AIzaSyDZ5SUisxQiFa-b99R4BkiczAjvrdTa_fo"
+                                allowfullscreen></iframe>
+
                     </div>
                 </div>
             </div>

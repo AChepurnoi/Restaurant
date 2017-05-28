@@ -75,7 +75,12 @@ export default class Navbar extends React.Component{
                         {profileButton}
                         {logoutButton}
                         {cartButton}
-                       
+                        <li className="navbar-text">
+                            <div class="fb-share-button"
+                             data-href="https://google.com"
+                             data-layout="button_count">
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
