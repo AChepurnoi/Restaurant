@@ -58,7 +58,7 @@ public class DishServiceImpl implements DishService {
     public DishResponse update(int id, DishUpdate update) {
         Dish dish = dishRepository.findOne(id).orElseThrow(NotFound::new);
         String url = Optional.ofNullable(update.getImage()).map(amazon::saveImage).orElseGet(dish::getImage);
-        Category cat = categoryRepository.findOne(update.getCategoryId()).orElseThrow(NotFound::new);
+        Category cat = Optional.ofNullable(categoryRepository.findOne(update.getCategoryId())).orElseThrow(NotFound::new);
         dish.setTitle(update.getTitle());
         dish.setDescription(update.getDescription());
         dish.setCategory(cat);
@@ -89,8 +89,22 @@ public class DishServiceImpl implements DishService {
                 .stream()
                 .map(wrapper::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DishResponse> findAll() {
+        return dishRepository.findAll()
+                .stream()
+                .map(wrapper::toResponse)
+                .collect(Collectors.toList());
+    }
 
 
+    @Override
+    public Optional<DishResponse> findOne(int id) {
+        return dishRepository
+                .findOne(id)
+                .map(wrapper::toResponse);
     }
 
     @Override

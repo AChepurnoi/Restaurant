@@ -26,10 +26,10 @@ public class DishUpdate {
     private MultipartFile image;
 
     @NotNull
-    private int categoryId;
+    private Integer categoryId;
 
     @Min(0)
     @NotNull
-    private int price;
+    private Integer price;
 
 }

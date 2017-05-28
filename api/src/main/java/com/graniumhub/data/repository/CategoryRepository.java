@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
     List<Category> findByTitleLike(String search);
     Optional<Category> findOne(int id);
+
 }

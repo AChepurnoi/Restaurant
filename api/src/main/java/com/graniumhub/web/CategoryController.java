@@ -46,8 +46,9 @@ public class CategoryController {
 
 
     @RequiredAdmin
-    @PutMapping("/categories/{id}")
-    public ResponseEntity<CategoryResponse> update(@PathVariable("id") int id, CategoryUpdate update) {
+    @PostMapping("/categories/{id}")
+    public ResponseEntity<CategoryResponse> update(@PathVariable("id") int id,
+                                                   @Valid CategoryUpdate update) {
         CategoryResponse response = categoryService.update(id, update);
         return ResponseEntity.ok(response);
     }

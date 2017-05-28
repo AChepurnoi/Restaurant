@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Created by Sasha on 4/21/17.
  */
-@Data
 public class InvalidInputException extends RuntimeException{
     private List<FieldError> errors;
 
@@ -19,6 +18,13 @@ public class InvalidInputException extends RuntimeException{
         super(message);
     }
 
+    public List<FieldError> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<FieldError> errors) {
+        this.errors = errors;
+    }
 
     public InvalidInputException(List<FieldError> errors){
         this.errors = errors;

@@ -27,4 +27,7 @@ public interface DishService {
 
     List<DishResponse> findSales();
 
+    List<DishResponse> findAll();
+
+    Optional<DishResponse> findOne(int id);
 }
